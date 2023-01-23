@@ -7,27 +7,24 @@ const port = 3004;
 const cors = require("cors");
 
 // Database and Mqtt
-const db = require("./utils/database");
+require("./utils/database");
+require("./utils/mqtt");
 
-// Schema Database
-const Data = require("./models/dataModels");
+// Data Route
+const dataRoutes = require("./route/route");
 
 app.use(cors());
+app.use(express.json());
+
+// Endpoint get all datas from database
+app.use("/datas", dataRoutes);
 
 /// Test endpoint helloworld
 app.get("/helloworld", (req, res) => {
   res.send("Hello World");
 });
 
-// Value from db endpoint API
-app.get("/post", async (req, res) => {
-  const datas = await Data.find();
-  res.send({
-    message: datas,
-  });
-});
-
-// Message ketika connect
+// Url to fetch (url API)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

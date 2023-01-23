@@ -1,9 +1,8 @@
-const mongoose = require("mongoose");
-const uri = "mongodb://127.0.0.1:27017/db_AMHBM";
+const sequelize = require("sequelize");
 
-const db = mongoose.connect(`${uri}`, (err) => {
-  if (err) throw err;
-  console.log("Connected to Database");
+const db = new sequelize("db_project", "root", "", {
+  host: "localhost",
+  dialect: "mysql",
 });
 
 module.exports = db;
