@@ -8,9 +8,10 @@ const port = "1883";
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
 // Mqtt topic
-const topic1 = "/suhuair";
-const topic2 = "/suhulingkungan";
-const topic3 = "/tds";
+const topicId = "APHBM/id";
+const topic1 = "APHBM/suhuair";
+const topic2 = "APHBM/suhulingkungan";
+const topic3 = "APHBM/tds";
 
 // MySQL config
 const con = mysql.createConnection({
@@ -35,6 +36,11 @@ const mqttclient = mqtt.connect(connectUrl, {
 mqttclient.on("connect", () => {
   console.log("Succes Connected to MQTT");
 
+  // Subscribe device id
+  mqttclient.subscribe([topicId], () => {
+    console.log(`Subscribe to topic '${topicId}'`);
+  });
+
   // Subscribe suhu air
   mqttclient.subscribe([topic1], () => {
     console.log(`Subscribe to topic '${topic1}'`);
@@ -51,31 +57,33 @@ mqttclient.on("connect", () => {
   });
 });
 
-// Array from template send data to database
-let datas = [[], [], []];
+// Array template for send data to database
+let datas = [[], [], [], []];
 
 // Message (Value) from MQTT
 mqttclient.on("message", (topic, message) => {
   let msg = message.toString();
-  if (topic === "/suhuair") {
+  if (topic === "APHBM/id") {
     datas[0].push(msg);
-  } else if (topic === "/suhulingkungan") {
+  } else if (topic === "APHBM/suhuair") {
     datas[1].push(msg);
-  } else {
+  } else if (topic === "APHBM/suhulingkungan") {
     datas[2].push(msg);
+  } else {
+    datas[3].push(msg);
   }
 
-  // Value from insert data to database
-  let suhuAir = datas[0].slice(-1)[0];
-  let suhuLingkungan = datas[1].slice(-1)[0];
-  let tds = datas[2].slice(-1)[0];
-
   // Initialize function insert  data to database
-  insertData(suhuAir, suhuLingkungan, tds);
+  insertData(datas);
 });
 
-function insertData(suhuAir, suhuLingkungan, tds) {
-  let sendData = `INSERT INTO datas (suhuAir, suhuLingkungan, tds) VALUES ('${suhuAir}', '${suhuLingkungan}', '${tds}')`;
+function insertData(datas) {
+  let devid = datas[0].slice(-1)[0];
+  let suhuAir = datas[1].slice(-1)[0];
+  let suhuLingkungan = datas[2].slice(-1)[0];
+  let tds = datas[3].slice(-1)[0];
+
+  let sendData = `INSERT INTO datas (devid, suhuAir, suhuLingkungan, tds) VALUES ('${devid}','${suhuAir}', '${suhuLingkungan}', '${tds}')`;
   con.query(sendData, (err, result) => {
     if (err) throw err;
     console.log(`Data succes inserted !`);

@@ -6,6 +6,7 @@ client.on("connect", () => {
   console.log("ok");
 });
 
-client.publish("/suhuair", "20", { qos: 0 });
-client.publish("/suhulingkungan", "35", { qos: 0 });
-client.publish("/tds", "800", { qos: 0 });
+client.publish("APHBM/id", "1", { qos: 0 });
+client.publish("APHBM/suhuair", "20", { qos: 0 });
+client.publish("APHBM/suhulingkungan", "45", { qos: 0 });
+client.publish("APHBM/tds", "900", { qos: 0 });

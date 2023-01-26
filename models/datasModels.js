@@ -3,14 +3,17 @@ const db = require("../utils/database");
 const DataType = sequelize;
 
 const Datas = db.define("datas", {
+  devid: {
+    type: DataType.INTEGER,
+  },
   suhuAir: {
-    type: DataType.STRING,
+    type: DataType.INTEGER,
   },
   suhuLingkungan: {
-    type: DataType.STRING,
+    type: DataType.INTEGER,
   },
   tds: {
-    type: DataType.STRING,
+    type: DataType.INTEGER,
   },
   createdAt: {
     type: DataType.DATE,
