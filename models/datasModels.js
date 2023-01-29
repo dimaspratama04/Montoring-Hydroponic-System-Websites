@@ -19,7 +19,7 @@ const Datas = db.define("datas", {
     type: DataType.DATE,
   },
   updatedAt: {
-    type: DataType.DATE,
+    type: DataType.TIME,
   },
 });
 
