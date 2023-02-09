@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>APHBM</title>
+  </head>
+  <body>
+    <!-- Sidebar Mobile -->
+    <div
+      id="sidebar-mobile"
+      class="hidden absolute mobile-menu overflow-none w-full"
+    >
+      <div class="h-screen w-64 bg-[#1f2937]">
+        <button
+          id="btn-close"
+          class="border float-right m-5 h-8 px-2 ml-4 bg-gray-100 shadow rounded-full hover:bg-gray-200"
+        >
+          <span class="sr-only">Close menu</span>
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <nav class="pt-40 space-y-3">
+          <button
+            id="dashboard-btn-mobile"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Dashboard
+          </button>
+          <button
+            id="table-btn-mobile"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Table
+          </button>
+          <button
+            id="schedule-btn-mobile"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Schedule
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="w-full h-20 bg-blue-300 flex justify-between">
+      <button id="btn-open" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
+        <div class="w-7 h-[1px] bg-black"></div>
+        <div class="w-7 h-[1px] bg-black"></div>
+        <div class="w-7 h-[1px] bg-black"></div>
+      </button>
+      <div
+        class="w-12 h-12 rounded-full bg-white absolute right-16 m-5 flex space-x-3"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
+          alt=""
+        />
+        <button class="font-bold hover:underline" onclick="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Sidebar and Content -->
+    <div class="lg:flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
+        <nav class="pt-20 space-y-3">
+          <button
+            id="dashboard-btn"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Dashboard
+          </button>
+          <button
+            id="table-btn"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Table
+          </button>
+          <button
+            id="schedule-btn"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Schedule
+          </button>
+        </nav>
+      </div>
+
+      <!-- Content -->
+      <div
+        id="content"
+        class="container h-screen overflow-y-auto overflow-x-auto bg-slate-300"
+      ></div>
+    </div>
+  </body>
+
+  <script>
+    const openBtn = document.querySelector("#btn-open");
+    const closeBtn = document.querySelector("#btn-close");
+    const dashboardBtn = document.querySelector("#dashboard-btn");
+    const tableBtn = document.querySelector("#table-btn");
+    const scheduleBtn = document.querySelector("#schedule-btn");
+    const content = document.querySelector("#content");
+    const dashboardBtnMobile = document.querySelector("#dashboard-btn-mobile");
+    const tableBtnMobile = document.querySelector("#table-btn-mobile");
+    const scheduleBtnMobile = document.querySelector("#schedule-btn-mobile");
+    // Dashboard element
+    const dashBody = document.querySelector("#dash-body");
+
+    [openBtn, closeBtn].map((panelbtn) => {
+      panelbtn.addEventListener("click", async () => {
+        const sidebarMobile = document.querySelector("#sidebar-mobile");
+        sidebarMobile.classList.toggle("hidden");
+      });
+    });
+
+    [dashboardBtn, dashboardBtnMobile].map((dash) => {
+      dash.addEventListener("click", async () => {
+        const datas = await getDatas();
+        content.innerHTML = dashboard();
+        updateDashboard(datas);
+        content.remove = table();
+        content.remove = schedule();
+      });
+    });
+
+    [tableBtn, tableBtnMobile].map((tab) => {
+      tab.addEventListener("click", async () => {
+        const datas = await getDatas();
+        content.innerHTML = table();
+        updateTable(datas);
+        content.remove = dashboard();
+        content.remove = schedule();
+      });
+    });
+
+    [scheduleBtn, scheduleBtnMobile].map((sche) => {
+      sche.addEventListener("click", () => {
+        content.innerHTML = schedule();
+        content.remove = dashboard();
+        content.remove = table();
+      });
+    });
+
+    function getDatas() {
+      return fetch("/datas")
+        .then((response) => response.json())
+        .then((json) => json);
+    }
+
+    function dashboard() {
+      return `<div id="dash-body"></div>`;
+    }
+
+    function table() {
+      return ` <div class="mt-5 mr-5 ml-5 mb-96">
+        <h1 class="text-center font-bold text-xl lg:text-2xl">Berikut adalah data dari database</h1>
+        <table class="table-auto  w-full mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-500 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="py-3 px-6 text-center text-white">
+                Device id
+              </th>
+              <th scope="col" class="py-3 px-6 text-center text-white">
+                Suhu air
+              </th>
+              <th scope="col" class="py-3 px-6 text-center text-white">
+                Suhu lingkungan
+              </th>
+              <th scope="col" class="py-3 px-6 text-center text-white">
+                Total dissolved solid
+              </th>
+              <th scope="col" class="py-3 px-6 text-center text-white">
+                Time
+              </th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+ 
+          </tbody>
+        </table>
+      </div>`;
+    }
+
+    function schedule() {
+      return ` <div class="container">
+                <div class="text-header m-5">
+                    <h1 class="text-xl font-bold text-black">Silahkan masukkan pengaturan jadwal penyiraman di kolom dibawah ini</h1>
+                </div>
+                    <div class="flex">
+                        <h1 class="text-xl font-bold ml-5">Dimulai</h1>
+                        <input
+                        id="on"
+                        type="text"
+                        class="ml-20 w-72 h-10 bg-white rounded-lg text-center"
+                        placeholder="1 sd 24"/>
+                    </div>
+                    <div class="flex mt-10">
+                        <h1 class="text-xl font-bold ml-5">Diberhentikan</h1>
+                        <input
+                        id="off"
+                        type="text"
+                        class="ml-5 w-72 h-10 bg-white rounded-lg text-center"
+                        placeholder="1 sd 24"/>
+                        <button onclick="inputSchedule()" class="ml-2 w-20 h-10 border-2 font-bold bg-red-500 rounded-lg hover:bg-red-700">Input</button>
+                    </div>
+                     <div class="mx-auto">
+                         <p class="font-medium mt-5 text-start mx-5">Angka yang di input akan otomatis diterjemahkan dalam bentuk jam 1 sd 24 dan direset tiap satu hari</p>
+                </div>
+            </div>
+
+`;
+    }
+
+    function inputSchedule() {
+      fetch("/schedule", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify({
+          on: on.value,
+          off: off.value,
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.message === "OK") {
+            alert("Schedule succes set !");
+          }
+        })
+        .catch((err) => {
+          console.log("error : ", err);
+        });
+    }
+
+    async function logout() {
+      try {
+        const response = await fetch("/logout");
+        const data = await response.json();
+        if (data.result === "SUCCESS") {
+          alert("User logout operation success.");
+          location.reload();
+        } else {
+          alert("User Logout succes !");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Request error!");
+      }
+    }
+
+    function updateDashboard(datas) {
+      const dashBody = document.querySelector("#dash-body");
+
+      let response = datas.slice(-1);
+      response.map((liveData) => {
+        let devid = "";
+        let suhuAir = "";
+        let suhuLingkungan = "";
+        let tds = "";
+        let date = liveData.updatedAt;
+        // Device id conditional
+        if (liveData.devid === "undefined" || liveData.devid === "") {
+          devid = "Unknown Device";
+        } else {
+          devid = liveData.devid;
+        }
+
+        // Datas conditional
+        if (liveData.suhuAir > 0 && liveData.suhuAir < 50) {
+          suhuAir = liveData.suhuAir;
+        }
+        if (liveData.suhuLingkungan > 0 && liveData.suhuLingkungan < 50) {
+          suhuLingkungan = liveData.suhuLingkungan;
+        }
+        if (liveData.tds > 0 && liveData.tds < 1501) {
+          tds = liveData.tds;
+        }
+
+        dashBody.innerHTML += `  <h1 class="text-center font-bold text-3xl mt-5 lg:text-start lg:ml-16">Dashboard</h1>
+    <div class="container mx-auto lg:ml-5 bg-white rounded-xl shadow-xl mt-5 pb-20">
+      <div class="flex justify-between pt-5">
+        <h1 class="font-bold text-2xl ml-8 lg:ml-12">${devid}</h1>
+        <h1 class="font-bold text-2xl  mr-8 lg:mr-12">${date}</h1>
+      </div>
+      <div class="flex flex-wrap justify-evenly mt-10 gap-5 lg:space-x-5">
+        <div class="w-44 h-44 rounded-full bg-[#0093A7] border-2">
+          <p class="text-center mt-14 text-5xl">${Math.round(suhuAir)}°C</p>
+          <p class="text-center text-white mt-2">(Suhu Air)</p>
+        </div>
+        <div class="w-44 h-44 rounded-full bg-[#0093A7] border-2">
+          <p class="text-center mt-14 text-5xl">${Math.round(
+            suhuLingkungan
+          )}°C</p>
+          <p class="text-center text-white mt-2">(Suhu Lingkungan)</p>
+        </div>
+        <div class="w-96 h-32 rounded-full bg-[#0093A7] border-2 lg:mt-5">
+          <p class="text-center mt-8 text-5xl">${Math.round(tds)} ppm</p>
+          <p class="text-center text-white mt-2">(Total dissolved solid)</p>
+        </div>
+      </div>
+    </div>`;
+      });
+    }
+
+    function updateTable(datas) {
+      datas.forEach((data) => {
+        let date = data.updatedAt;
+        let devid = "";
+        if (data.devid === "undefined" || data.devid === "") {
+          devid = "Unknown Device";
+        } else {
+          devid = data.devid;
+        }
+
+        let suhuAir = "";
+        let suhuLingkungan = "";
+        let tds = "";
+        if (data.suhuAir > 0 && data.suhuAir < 50) {
+          suhuAir = data.suhuAir;
+        }
+        if (data.suhuLingkungan > 0 && data.suhuLingkungan < 50) {
+          suhuLingkungan = data.suhuLingkungan;
+        }
+        if (data.tds > 0 && data.tds < 1501) {
+          tds = data.tds;
+        }
+        const bodyTable = document.querySelector("#table-body");
+        bodyTable.innerHTML += `
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+      ${devid}
+    </th>
+    <td class="py-4 px-6 text-center">${Math.round(suhuAir)}°C</td>
+    <td class="py-4 px-6 text-center">${Math.round(suhuLingkungan)}°C</td>
+    <td class="py-4 px-6 text-center">${Math.round(tds)}ppm</td>
+    <td class="py-4 px-6 text-center">${date}</td>
+  </tr>
+    `;
+      });
+    }
+  </script>
+</html>

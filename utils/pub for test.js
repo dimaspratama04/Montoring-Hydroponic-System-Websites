@@ -8,7 +8,7 @@ client.on("connect", () => {
 
 setInterval(() => {
   client.publish("APHBM/id", "DEV001", { qos: 0 });
-  client.publish("APHBM/suhuair", "20", { qos: 0 });
+  client.publish("APHBM/suhuair", "49", { qos: 0 });
   client.publish("APHBM/suhulingkungan", "45", { qos: 0 });
   client.publish("APHBM/tds", "900", { qos: 0 });
 }, 3000);
