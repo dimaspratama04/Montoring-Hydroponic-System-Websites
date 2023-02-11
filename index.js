@@ -4,8 +4,7 @@ const app = express();
 const port = 3004;
 const path = require("path");
 const session = require("express-session");
-
-// Module situational
+const expressLayouts = require("express-ejs-layouts");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -13,11 +12,11 @@ const bodyParser = require("body-parser");
 require("./utils/database");
 require("./utils/mqtt");
 
-// Route path
-const dataRoutes = require("./route/route");
-const userLogin = require("./controller/userLogin");
-const userLogout = require("./controller/userLogout");
-const postSchedule = require("./controller/postSchedule");
+// Initialize Express layouts
+app.set("view engine", "ejs");
+app.set("extractScripts", true);
+app.set("views", path.join(__dirname, "views"));
+app.use(expressLayouts);
 
 // Use moduls
 app.use(cors());
@@ -36,21 +35,40 @@ app.use(
   })
 );
 
+// Route path
+const dataRoutes = require("./route/route");
+const userLogin = require("./controller/userLogin");
+const userLogout = require("./controller/userLogout");
+const postSchedule = require("./controller/postSchedule");
+const dashboardPage = require("./controller/dashboardPage");
+const schedulePage = require("./controller/schedulePage");
+const userRegister = require("./controller/userRegister");
+const registerPage = require("./controller/registerPage");
+
 // Endpoint
 app.use("/datas", dataRoutes);
 app.use("/schedule", postSchedule);
 app.use("/logout", userLogout);
 app.use("/auth", userLogin);
+app.use("/dashboard", dashboardPage);
+app.use("/schedulling", schedulePage);
+app.use("/register", registerPage);
+app.use("/userRegister", userRegister);
 
 // Login page
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/pages/login.html"));
+  res.render("login", {
+    layout: "layouts/mainAuthPage",
+  });
 });
 
 // Home page
 app.get("/home", (req, res) => {
   if (req.session.loggedin) {
-    return res.sendFile(path.dirname(__dirname + "/pages/home.html"));
+    res.render("dashboard", {
+      layout: "layouts/mainHome",
+      script: "views/script",
+    });
   } else {
     res.send("Please login to view this page !");
   }

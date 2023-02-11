@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-
+const flash = require("connect-flash");
 // Initialize database
 const db = mysql.createConnection({
   host: "localhost",
@@ -15,14 +15,15 @@ const userRegister = (req, res) => {
 
   if (username && password && email) {
     db.query(
-      "INSERT INTO accounts (`username`, `password`, `email`) VALUES ?",
-      [username, password, email],
+      `INSERT INTO accounts (username, password, email) VALUES ('${username}','${password}','${email}')`,
       (err, results) => {
         if (err) throw err;
+
+        res.redirect("/");
       }
     );
   } else {
-    res.redirect("/login");
+    res.redirect("/");
     res.end();
   }
 };
