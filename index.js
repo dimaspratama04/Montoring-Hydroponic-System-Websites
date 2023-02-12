@@ -35,39 +35,57 @@ app.use(
   })
 );
 
-// Route path
+// Route path (POST)
 const dataRoutes = require("./route/route");
-const userLogin = require("./controller/userLogin");
-const userLogout = require("./controller/userLogout");
-const postSchedule = require("./controller/postSchedule");
-const dashboardPage = require("./controller/dashboardPage");
-const schedulePage = require("./controller/schedulePage");
-const userRegister = require("./controller/userRegister");
-const registerPage = require("./controller/registerPage");
+const postSchedule = require("./route/postSchedule");
+const userLogout = require("./route/userLogout");
+const userLogin = require("./route/userLogin");
+const userRegister = require("./route/userRegister");
 
-// Endpoint
+// Route path (Page / GET)
+const {
+  dashboardPage,
+  schedulePage,
+  deviceRegisterPage,
+  userRegisterPage,
+} = require("./controller/userPage");
+
+// Route path Admin Page (GET)
+const {
+  adminPageDashboard,
+  adminPageSchedulling,
+  adminPageDeviceRegister,
+} = require("./controller/adminPage");
+
+// Endpoint (POST)
 app.use("/datas", dataRoutes);
-app.use("/schedule", postSchedule);
 app.use("/logout", userLogout);
 app.use("/auth", userLogin);
-app.use("/dashboard", dashboardPage);
-app.use("/schedulling", schedulePage);
-app.use("/register", registerPage);
+app.use("/schedule", postSchedule);
 app.use("/userRegister", userRegister);
+
+// Endpoint for admin
+app.use("/admin/dashboard", adminPageDashboard);
+app.use("/admin/schedulling", adminPageSchedulling);
+app.use("/admin/deviceRegister", adminPageDeviceRegister);
+
+// Endpoint for User (Page / GET)
+app.use("/register", userRegisterPage);
+app.use("/home/dashboard", dashboardPage);
+app.use("/home/schedulling", schedulePage);
 
 // Login page
 app.get("/", (req, res) => {
-  res.render("login", {
+  res.render("Login", {
     layout: "layouts/mainAuthPage",
   });
 });
 
 // Home page
-app.get("/home", (req, res) => {
+app.get("/home/dashboard", (req, res) => {
   if (req.session.loggedin) {
     res.render("dashboard", {
       layout: "layouts/mainHome",
-      script: "views/script",
     });
   } else {
     res.send("Please login to view this page !");

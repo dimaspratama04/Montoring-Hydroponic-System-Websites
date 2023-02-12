@@ -19,7 +19,11 @@ const userLogin = (req, res) => {
         if (error) throw error;
         if (results.length > 0) {
           req.session.loggedin = true;
-          res.redirect("/home");
+          if (username === "admin" && password === "admin") {
+            res.redirect("/admin/dashboard");
+          } else {
+            res.redirect("/home/dashboard");
+          }
         } else {
           res.send("Incorrect Username and or Password!");
         }

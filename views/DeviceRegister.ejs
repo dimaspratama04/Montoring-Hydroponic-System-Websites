@@ -1,0 +1,78 @@
+<div class="lg:pl-20 bg-white rounded-md m-10">
+  <h1 class="text-4xl text-center lg:text-start font-bold mb-12 pt-5">
+    Device Register
+  </h1>
+  <form action="/deviceRegister" method="post">
+    <!-- Device name input -->
+    <div class="mb-6 mr-4 ml-4">
+      <label for="username" class="text-lg font-bold">Device Name</label>
+      <input
+        id="deviceName"
+        type="text"
+        name="deviceName"
+        class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        required
+      />
+
+      <!-- Ip Address device input -->
+      <label for="username" class="text-lg font-bold">Ip Addres Device</label>
+      <input
+        id="ipAddress"
+        type="text"
+        name="ipAddress"
+        class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        value=""
+        required
+      />
+
+      <!-- Topic for MQTT broker input -->
+      <div class="space-y-3 mt-2">
+        <label for="username" class="text-lg font-bold"
+          >Topic For MQTT broker
+          <span class="text-red-500 text-sm"> *optional</span></label
+        >
+        <input
+          id="topicMQTT-1"
+          type="text"
+          name="topicMQTT-1"
+          class="form-control block w-40 lg:w-72 px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Topic 1"
+          value=""
+          required
+        />
+        <input
+          id="topicMQTT-2"
+          type="text"
+          name="topicMQTT-2"
+          class="form-control block w-40 lg:w-72 px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Topic 2"
+          value=""
+        />
+        <input
+          id="topicMQTT-3"
+          type="text"
+          name="topicMQTT-3"
+          class="form-control block w-40 lg:w-72 px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Topic 3"
+          value=""
+        />
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="mx-auto grid justify-items-center space-y-3 pb-8">
+      <button
+        type="submit"
+        class="orm-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Generate key
+  let r = (Math.random() + 1).toString(36).substring(7);
+  console.log("random", r);
+</script>

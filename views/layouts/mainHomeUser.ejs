@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>APHBM</title>
+  </head>
+  <body>
+    <!-- Sidebar Mobile -->
+    <div
+      id="sidebar-mobile"
+      class="hidden absolute mobile-menu overflow-none w-full"
+    >
+      <div class="h-screen w-64 bg-[#1f2937]">
+        <a
+          id="btn-close"
+          class="border float-right m-5 h-8 px-2 ml-4 bg-gray-100 shadow rounded-full hover:bg-gray-200"
+        >
+          <span class="sr-only">Close menu</span>
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </a>
+        <nav class="pt-40 space-y-3">
+          <a
+            href="/home/dashboard"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/home/table"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Table
+          </a>
+          <a
+            href="/home/schedulling"
+            class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Schedule
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="w-full h-20 bg-blue-300 flex justify-between">
+      <button id="btn-open" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
+        <div class="w-7 h-[1px] bg-black"></div>
+        <div class="w-7 h-[1px] bg-black"></div>
+        <div class="w-7 h-[1px] bg-black"></div>
+      </button>
+      <div
+        class="w-12 h-12 rounded-full bg-white absolute right-16 m-5 flex space-x-3"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
+          alt=""
+        />
+        <button class="font-bold hover:underline" onclick="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Sidebar and Content -->
+    <div class="lg:flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
+        <nav class="pt-20 space-y-3">
+          <a
+            href="/home/dashboard"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/home/table"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Table
+          </a>
+          <a
+            href="/home/schedulling"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Scheduling
+          </a>
+        </nav>
+      </div>
+
+      <!-- Content -->
+      <div
+        id="content"
+        class="container h-screen overflow-y-auto overflow-x-auto bg-slate-300"
+      >
+        <%- body %>
+      </div>
+    </div>
+    <script>
+      const openBtn = document.querySelector("#btn-open");
+      const closeBtn = document.querySelector("#btn-close");
+      [openBtn, closeBtn].map((panelbtn) => {
+        panelbtn.addEventListener("click", async () => {
+          const sidebarMobile = document.querySelector("#sidebar-mobile");
+          sidebarMobile.classList.toggle("hidden");
+        });
+      });
+
+      async function logout() {
+        try {
+          const response = await fetch("/logout");
+          const data = await response.json();
+          if (data.result === "SUCCESS") {
+            alert("User logout operation success.");
+            window.location.href = "/";
+          } else {
+            alert("User Logout succes !");
+            window.location.href = "/";
+          }
+        } catch (e) {
+          console.error(e);
+          alert("Request error!");
+          window.location.href = "/";
+        }
+      }
+    </script>
+  </body>
+</html>

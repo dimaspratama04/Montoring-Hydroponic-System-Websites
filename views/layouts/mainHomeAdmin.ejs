@@ -37,22 +37,28 @@
         </a>
         <nav class="pt-40 space-y-3">
           <a
-            href="/dashboard"
+            href="/admin/dashboard"
             class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
           >
             Dashboard
           </a>
           <a
-            href="/table"
+            href="/admin/table"
             class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
           >
             Table
           </a>
           <a
-            href="/schedulling"
+            href="/admin/schedulling"
             class="w-full text-start hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
           >
             Schedule
+          </a>
+          <a
+            href="/admin/deviceRegister"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Device Register
           </a>
         </nav>
       </div>
@@ -84,22 +90,28 @@
       <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
         <nav class="pt-20 space-y-3">
           <a
-            href="/dashboard"
+            href="/admin/dashboard"
             class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
             Dashboard
           </a>
           <a
-            href="/table"
+            href="/admin/table"
             class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
             Table
           </a>
           <a
-            href="/schedulling"
+            href="/admin/schedulling"
             class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
             Scheduling
+          </a>
+          <a
+            href="/admin/deviceRegister"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Device Register
           </a>
         </nav>
       </div>
@@ -128,7 +140,7 @@
           const data = await response.json();
           if (data.result === "SUCCESS") {
             alert("User logout operation success.");
-            location.reload();
+            window.location.href = "/";
           } else {
             alert("User Logout succes !");
           }

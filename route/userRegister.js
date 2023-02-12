@@ -17,9 +17,11 @@ const userRegister = (req, res) => {
     db.query(
       `INSERT INTO accounts (username, password, email) VALUES ('${username}','${password}','${email}')`,
       (err, results) => {
-        if (err) throw err;
-
-        res.redirect("/");
+        if (err) {
+          throw err;
+        } else {
+          res.redirect("/");
+        }
       }
     );
   } else {
