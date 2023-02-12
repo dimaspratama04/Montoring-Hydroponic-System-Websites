@@ -46,7 +46,6 @@ const userRegister = require("./route/userRegister");
 const {
   dashboardPage,
   schedulePage,
-  deviceRegisterPage,
   userRegisterPage,
 } = require("./controller/userPage");
 
@@ -64,7 +63,7 @@ app.use("/auth", userLogin);
 app.use("/schedule", postSchedule);
 app.use("/userRegister", userRegister);
 
-// Endpoint for admin
+// Endpoint for admin (Page / GET)
 app.use("/admin/dashboard", adminPageDashboard);
 app.use("/admin/schedulling", adminPageSchedulling);
 app.use("/admin/deviceRegister", adminPageDeviceRegister);
@@ -81,7 +80,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// Home page
+// Home page user
 app.get("/home/dashboard", (req, res) => {
   if (req.session.loggedin) {
     res.render("dashboard", {
