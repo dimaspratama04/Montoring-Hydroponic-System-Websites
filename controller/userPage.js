@@ -3,6 +3,13 @@ const dashboardPage = (req, res) => {
     layout: "layouts/mainHomeUser",
   });
 };
+
+const deviceDetailsPage = (req, res) => {
+  res.render("DeviceDetails", {
+    layout: "layouts/mainHomeUser",
+  });
+};
+
 const schedulePage = (req, res) => {
   res.render("Schedule", {
     layout: "layouts/mainHomeUser",
@@ -17,6 +24,7 @@ const userRegisterPage = (req, res) => {
 
 module.exports = {
   dashboardPage: dashboardPage,
+  deviceDetailsPage: deviceDetailsPage,
   schedulePage: schedulePage,
   userRegisterPage: userRegisterPage,
 };

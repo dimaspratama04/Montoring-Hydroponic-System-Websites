@@ -3,6 +3,13 @@ const adminPageDashboard = (req, res) => {
     layout: "layouts/mainHomeAdmin",
   });
 };
+
+const adminDeviceDetails = (req, res) => {
+  res.render("DeviceDetails", {
+    layout: "layouts/mainHomeAdmin",
+  });
+};
+
 const adminPageSchedulling = (req, res) => {
   res.render("Schedule", {
     layout: "layouts/mainHomeAdmin",
@@ -17,6 +24,7 @@ const adminPageDeviceRegister = (req, res) => {
 
 module.exports = {
   adminPageDashboard: adminPageDashboard,
+  adminDeviceDetails: adminDeviceDetails,
   adminPageSchedulling: adminPageSchedulling,
   adminPageDeviceRegister: adminPageDeviceRegister,
 };

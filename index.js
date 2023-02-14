@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 
 // Database and Mqtt
 require("./utils/database");
-require("./utils/mqtt");
+require("./utils/mqttSubs");
 
 // Initialize Express layouts
 app.set("view engine", "ejs");
@@ -41,20 +41,13 @@ const postSchedule = require("./route/postSchedule");
 const userLogout = require("./route/userLogout");
 const userLogin = require("./route/userLogin");
 const userRegister = require("./route/userRegister");
+const deviceRegister = require("./route/deviceRegister");
 
 // Route path (Page / GET)
-const {
-  dashboardPage,
-  schedulePage,
-  userRegisterPage,
-} = require("./controller/userPage");
+const { dashboardPage, schedulePage, userRegisterPage, deviceDetailsPage } = require("./controller/userPage");
 
 // Route path Admin Page (GET)
-const {
-  adminPageDashboard,
-  adminPageSchedulling,
-  adminPageDeviceRegister,
-} = require("./controller/adminPage");
+const { adminPageDashboard, adminPageSchedulling, adminPageDeviceRegister, adminDeviceDetails } = require("./controller/adminPage");
 
 // Endpoint (POST)
 app.use("/datas", dataRoutes);
@@ -62,16 +55,19 @@ app.use("/logout", userLogout);
 app.use("/auth", userLogin);
 app.use("/schedule", postSchedule);
 app.use("/userRegister", userRegister);
+app.use("/deviceRegister", deviceRegister);
 
 // Endpoint for admin (Page / GET)
 app.use("/admin/dashboard", adminPageDashboard);
 app.use("/admin/schedulling", adminPageSchedulling);
 app.use("/admin/deviceRegister", adminPageDeviceRegister);
+app.use("/admin/deviceDetail", adminDeviceDetails);
 
 // Endpoint for User (Page / GET)
 app.use("/register", userRegisterPage);
 app.use("/home/dashboard", dashboardPage);
 app.use("/home/schedulling", schedulePage);
+app.use("/home/deviceDetail", deviceDetailsPage);
 
 // Login page
 app.get("/", (req, res) => {

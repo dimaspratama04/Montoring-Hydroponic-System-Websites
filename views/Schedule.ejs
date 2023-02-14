@@ -1,9 +1,5 @@
 <div class="lg:pl-20 bg-white rounded-md m-10">
-  <h1
-    class="text-2xl lg:text-4xl text-center lg:text-start font-bold mb-12 pt-5"
-  >
-    Set schedulling for Device
-  </h1>
+  <h1 class="text-2xl lg:text-4xl text-center lg:text-start font-bold mb-12 pt-5">Set schedulling for Device</h1>
   <form action="/postSchedule" method="post">
     <div class="mb-6 mr-4 ml-4">
       <!-- Device name input -->
@@ -13,8 +9,7 @@
         type="text"
         name="deviceName"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        required
-      />
+        required />
 
       <!-- Key device input -->
       <label for="username" class="text-lg font-bold">Key Device</label>
@@ -23,9 +18,7 @@
         type="text"
         name="keyDevice"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        value=""
-        required
-      />
+        required />
 
       <!-- Schedule on input -->
       <label for="username" class="text-lg font-bold">ON</label>
@@ -34,9 +27,8 @@
         type="text"
         name="on"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        value="example 7"
-        required
-      />
+        placeholder="example 7"
+        required />
 
       <!-- Schedule off input -->
       <label for="username" class="text-lg font-bold">OFF</label>
@@ -45,15 +37,10 @@
         type="text"
         name="off"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        value="example 15"
-        required
-      />
+        placeholder="example 15"
+        required />
       <div class="mt-5">
-        <h1 class="font-medium">
-          The number that is input will be converted to units of hours, all you
-          have to do is input, in units of numbers, for example 7 for 07:00 and
-          15 for 15:00
-        </h1>
+        <h1 class="font-medium">The number that is input will be converted to units of hours, all you have to do is input, in units of numbers, for example 7 for 07:00 and 15 for 15:00</h1>
       </div>
     </div>
 
@@ -61,9 +48,8 @@
     <div class="mx-auto grid justify-items-center space-y-3 pb-8">
       <button
         type="submit"
-        class="orm-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4"
-      >
-        Register
+        class="orm-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
+        Submit
       </button>
     </div>
   </form>
