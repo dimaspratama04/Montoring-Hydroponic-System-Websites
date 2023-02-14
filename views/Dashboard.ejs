@@ -1,42 +1,11 @@
-<!-- <h1>Hello dashboard</h1>
-
-<div class="w-96">
-  <canvas id="myChart"></canvas>
-</div>
-
-
-
-<script>
-  const ctx = document.getElementById("myChart");
-
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-      datasets: [
-        {
-          label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1,
-          backgroundColor: "#FF6384",
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
-</script> -->
-
+<h1 class="text-center font-bold text-3xl mt-8">Dashboard</h1>
 <div class="m-10">
   <div class="bg-white p-4">
     <h1 class="text-2xl font-extrabold text-center">DEV001</h1>
     <div>
-      <p class="text-2xl font-bold text-center lg:text-start underline">Live Data</p>
+      <p class="text-2xl font-bold text-center lg:text-start underline">
+        Live Data
+      </p>
       <div class="flex flex-wrap justify-evenly gap-3">
         <div class="w-52 h-52 bg-blue-500 rounded-full"></div>
         <div class="w-52 h-52 bg-blue-500 rounded-full"></div>
@@ -45,18 +14,26 @@
     </div>
 
     <!-- Chart -->
-    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
+    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
+      Chart Data
+    </p>
     <div class="flex flex-wrap justify-evenly mt-3">
       <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Air</p>
+        <p class="text-2xl font-bold text-center lg:text-start">
+          Chart Suhu Air
+        </p>
         <canvas id="chartSuhuAir"></canvas>
       </div>
       <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Lingkungan</p>
+        <p class="text-2xl font-bold text-center lg:text-start">
+          Chart Suhu Lingkungan
+        </p>
         <canvas id="chartSuhuLingkungan"></canvas>
       </div>
       <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Total Dissolved Solid</p>
+        <p class="text-2xl font-bold text-center lg:text-start">
+          Chart Total Dissolved Solid
+        </p>
         <canvas id="chartTds"></canvas>
       </div>
     </div>

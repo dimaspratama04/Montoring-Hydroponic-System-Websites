@@ -1,5 +1,17 @@
+// Initialize MQTT
 const mqtt = require("mqtt");
-const client = mqtt.connect("mqtt://broker.emqx.io:1883");
+const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
+const connectUrl = "mqtt://broker.emqx.io:1883";
+const client = mqtt.connect(connectUrl, {
+  clientId,
+  clean: true,
+  connectTimeout: 4000,
+  username: "emqx",
+  password: "public",
+  reconnectPeriod: 1000,
+});
+
+// Initialize database
 const db = require("./databaseConfig");
 db.connect();
 
@@ -7,12 +19,12 @@ client.on("connect", function () {
   console.log("MQTT SUCCES CONNECT !");
 });
 
-db.query("SELECT topic1,topic2,topic3 FROM devices", (err, res) => {
+db.query("SELECT topic1,topic2,topic3 FROM devices", (err, results) => {
   if (err) {
     console.error(err);
     return;
   } else {
-    res.map((topicFromDatabase) => {
+    results.map((topicFromDatabase) => {
       client.subscribe(topicFromDatabase.topic1);
       client.subscribe(topicFromDatabase.topic2);
       client.subscribe(topicFromDatabase.topic3);

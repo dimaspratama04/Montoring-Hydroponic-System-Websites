@@ -1,12 +1,15 @@
+const Devices = require("../models/deviceModels");
 const adminPageDashboard = (req, res) => {
   res.render("Dashboard", {
     layout: "layouts/mainHomeAdmin",
   });
 };
 
-const adminDeviceDetails = (req, res) => {
+const adminDeviceDetails = async (req, res) => {
+  const devices = await Devices.findAll();
   res.render("DeviceDetails", {
     layout: "layouts/mainHomeAdmin",
+    devices: devices,
   });
 };
 

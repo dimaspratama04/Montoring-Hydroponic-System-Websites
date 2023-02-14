@@ -44,10 +44,20 @@ const userRegister = require("./route/userRegister");
 const deviceRegister = require("./route/deviceRegister");
 
 // Route path (Page / GET)
-const { dashboardPage, schedulePage, userRegisterPage, deviceDetailsPage } = require("./controller/userPage");
+const {
+  dashboardPage,
+  schedulePage,
+  userRegisterPage,
+  deviceDetailsPage,
+} = require("./controller/userPage");
 
 // Route path Admin Page (GET)
-const { adminPageDashboard, adminPageSchedulling, adminPageDeviceRegister, adminDeviceDetails } = require("./controller/adminPage");
+const {
+  adminPageDashboard,
+  adminPageSchedulling,
+  adminPageDeviceRegister,
+  adminDeviceDetails,
+} = require("./controller/adminPage");
 
 // Endpoint (POST)
 app.use("/datas", dataRoutes);
