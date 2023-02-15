@@ -7,12 +7,12 @@ client.on("connect", function () {
   console.log("MQTT SUCCES CONNECT !");
 });
 
-db.query("SELECT topic1,topic2,topic3 FROM devices", (err, res) => {
+db.query("SELECT topic1,topic2,topic3 FROM devices", (err, results) => {
   if (err) {
     console.error(err);
     return;
   } else {
-    res.map((topicFromDatabase) => {
+    results.map((topicFromDatabase) => {
       client.subscribe(topicFromDatabase.topic1);
       client.subscribe(topicFromDatabase.topic2);
       client.subscribe(topicFromDatabase.topic3);
