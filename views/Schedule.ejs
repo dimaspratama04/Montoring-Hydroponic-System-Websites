@@ -3,7 +3,7 @@
   <form action="/postSchedule" method="post">
     <div class="mb-6 mr-4 ml-4">
       <!-- Device name input -->
-      <label for="username" class="text-lg font-bold">Device Name</label>
+      <label for="deviceName" class="text-lg font-bold">Device Name</label>
       <input
         id="deviceName"
         type="text"
@@ -11,36 +11,44 @@
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         required />
 
-      <!-- Key device input -->
-      <label for="username" class="text-lg font-bold">Key Device</label>
+      <!-- Topic for schedulling input -->
+      <label for="topicSchedule" class="text-lg font-bold">Topic for schedulling</label>
       <input
-        id="keyDevice"
+        id="topicSchedule"
         type="text"
-        name="keyDevice"
+        name="topicSchedule"
+        class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        required />
+
+      <label for="deviceKey" class="text-lg font-bold">Device key</label>
+      <input
+        id="deviceKey"
+        type="text"
+        name="deviceKey"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         required />
 
       <!-- Schedule on input -->
-      <label for="username" class="text-lg font-bold">ON</label>
+      <label for="on" class="text-lg font-bold">ON</label>
       <input
         id="on"
         type="text"
         name="on"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        placeholder="example 7"
+        placeholder="example 7:15"
         required />
 
       <!-- Schedule off input -->
-      <label for="username" class="text-lg font-bold">OFF</label>
+      <label for="off" class="text-lg font-bold">OFF</label>
       <input
         id="off"
         type="text"
         name="off"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        placeholder="example 15"
+        placeholder="example 15:30"
         required />
       <div class="mt-5">
-        <h1 class="font-medium">The number that is input will be converted to units of hours, all you have to do is input, in units of numbers, for example 7 for 07:00 and 15 for 15:00</h1>
+        <h1 class="font-medium">The number that is input will be converted to units of hours and minute, all you have to do is input, in units of numbers, for example 7:15 and 15:30</h1>
       </div>
     </div>
 

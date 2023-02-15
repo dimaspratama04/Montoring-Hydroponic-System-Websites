@@ -1,0 +1,29 @@
+<h1 class="text-center font-bold text-3xl mt-8">Device list</h1>
+<div class="bg-white rounded-md m-10">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Device name</th>
+          <th scope="col" class="px-6 py-3">Device Key</th>
+          <th scope="col" class="px-6 py-3">Device Ip</th>
+          <th scope="col" class="px-6 py-3">Topic 1</th>
+          <th scope="col" class="px-6 py-3">Topic 2</th>
+          <th scope="col" class="px-6 py-3">Topic 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% devices.forEach(device => { %>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= device.deviceName %></th>
+          <td class="px-6 py-4"><%= device.deviceKey %></td>
+          <td class="px-6 py-4"><%= device.deviceIp %></td>
+          <td class="px-6 py-4"><%= device.topic1 %></td>
+          <td class="px-6 py-4"><%= device.topic2 %></td>
+          <td class="px-6 py-4"><%= device.topic3 %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -37,6 +37,7 @@ app.use(
 
 // Route path (POST)
 const dataRoutes = require("./route/route");
+const getAllDevices = require("./route/getAllDevices");
 const postSchedule = require("./route/postSchedule");
 const userLogout = require("./route/userLogout");
 const userLogin = require("./route/userLogin");
@@ -57,19 +58,24 @@ const {
   adminPageSchedulling,
   adminPageDeviceRegister,
   adminDeviceDetails,
+  adminPageDeviceList,
 } = require("./controller/adminPage");
 
-// Endpoint (POST)
+// Endpoint fetch data
 app.use("/datas", dataRoutes);
+app.use("/getAllDevices", getAllDevices);
+
+// Endpoint (POST)
 app.use("/logout", userLogout);
 app.use("/auth", userLogin);
-app.use("/schedule", postSchedule);
+app.use("/postSchedule", postSchedule);
 app.use("/userRegister", userRegister);
 app.use("/deviceRegister", deviceRegister);
 
 // Endpoint for admin (Page / GET)
 app.use("/admin/dashboard", adminPageDashboard);
 app.use("/admin/schedulling", adminPageSchedulling);
+app.use("/admin/deviceList", adminPageDeviceList);
 app.use("/admin/deviceRegister", adminPageDeviceRegister);
 app.use("/admin/deviceDetail", adminDeviceDetails);
 
@@ -82,6 +88,7 @@ app.use("/home/deviceDetail", deviceDetailsPage);
 // Login page
 app.get("/", (req, res) => {
   res.render("Login", {
+    title: "Login",
     layout: "layouts/mainAuthPage",
   });
 });

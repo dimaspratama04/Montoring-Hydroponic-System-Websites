@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>APHBM</title>
+    <title><%= title %></title>
   </head>
   <body>
     <!-- Sidebar Mobile -->
@@ -43,23 +43,67 @@
             Dashboard
           </a>
           <a
-            href="/admin/table"
-            class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
-          >
-            Device detail
-          </a>
-          <a
             href="/admin/schedulling"
             class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
           >
             Schedule
           </a>
-          <a
-            href="/admin/deviceRegister"
-            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          <button
+            id="btn-dropdown-mobile"
+            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
-            Device Register
-          </a>
+            Device
+            <span class="mr-8">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id="dropdown-mobile"
+            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
+          >
+            <ul
+              class="list-disc py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownDefaultButton"
+            >
+              <li>
+                <a
+                  href="/admin/deviceList"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  >Device list</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/admin/deviceDetail"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device details</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/admin/deviceRegister"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device register</a
+                >
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
     </div>
@@ -85,7 +129,7 @@
     </div>
 
     <!-- Sidebar and Content -->
-    <div class="lg:flex h-screen overflow-hidden">
+    <div class="lg:flex h-screen">
       <!-- Sidebar -->
       <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
         <nav class="pt-20 space-y-3">
@@ -96,37 +140,86 @@
             Dashboard
           </a>
           <a
-            href="/admin/deviceDetail"
-            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
-          >
-            Device detail
-          </a>
-          <a
             href="/admin/schedulling"
             class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
             Scheduling
           </a>
-          <a
-            href="/admin/deviceRegister"
-            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          <button
+            id="btn-dropdown"
+            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
           >
-            Device Register
-          </a>
+            Device
+            <span class="mr-8">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id="dropdown"
+            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
+          >
+            <ul
+              class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownDefaultButton"
+            >
+              <li>
+                <a
+                  href="/admin/deviceList"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  >Device list</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/admin/deviceDetail"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  >Device details</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/admin/deviceRegister"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  >Device register</a
+                >
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
 
       <!-- Content -->
       <div
         id="content"
-        class="container h-screen overflow-y-auto overflow-x-auto bg-slate-300"
+        class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300"
       >
         <%- body %>
       </div>
     </div>
+
     <script>
       const openBtn = document.querySelector("#btn-open");
       const closeBtn = document.querySelector("#btn-close");
+      const dropdownBtn = document.querySelector("#btn-dropdown");
+      const dropdownBtnMobile = document.querySelector("#btn-dropdown-mobile");
+
+      // Sidebar btn
       [openBtn, closeBtn].map((panelbtn) => {
         panelbtn.addEventListener("click", async () => {
           const sidebarMobile = document.querySelector("#sidebar-mobile");
@@ -134,6 +227,19 @@
         });
       });
 
+      // Dropdown button
+      dropdownBtnMobile.addEventListener("click", () => {
+        const dropdownDivMobile = document.querySelector("#dropdown-mobile");
+        dropdownDivMobile.classList.toggle("hidden");
+      });
+
+      // Dropdown button
+      dropdownBtn.addEventListener("click", () => {
+        const dropdownDiv = document.querySelector("#dropdown");
+        dropdownDiv.classList.toggle("hidden");
+      });
+
+      // logout button
       async function logout() {
         try {
           const response = await fetch("/logout");
@@ -143,10 +249,12 @@
             window.location.href = "/";
           } else {
             alert("User Logout succes !");
+            window.location.href = "/";
           }
         } catch (e) {
           console.error(e);
           alert("Request error!");
+          window.location.href = "/";
         }
       }
     </script>
