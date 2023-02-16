@@ -20,23 +20,7 @@
         <nav class="pt-40 space-y-3">
           <a href="/home/dashboard" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Dashboard </a>
           <a href="/home/schedulling" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Schedule </a>
-          <button id="btn-dropdown-mobile" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
-            Device
-            <span class="mr-8">
-              <svg class="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M8.46997 10.74L12 14.26L15.53 10.74" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
-          </button>
-
-          <div id="dropdown-mobile" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="list-disc py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-              <li>
-                <a href="/home/deviceDetail" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device details</a>
-              </li>
-            </ul>
-          </div>
+          <a href="/home/deviceInfo" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Device info </a>
         </nav>
       </div>
     </div>
@@ -61,23 +45,7 @@
         <nav class="pt-20 space-y-3">
           <a href="/home/dashboard" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Dashboard </a>
           <a href="/home/schedulling" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Scheduling </a>
-          <button id="btn-dropdown" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
-            Device
-            <span class="mr-8">
-              <svg class="" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M8.46997 10.74L12 14.26L15.53 10.74" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
-          </button>
-
-          <div id="dropdown" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="list-disc py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-              <li>
-                <a href="/home/deviceDetail" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device details</a>
-              </li>
-            </ul>
-          </div>
+          <a href="/home/deviceInfo" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Device info </a>
         </nav>
       </div>
 
@@ -88,8 +56,6 @@
     <script>
       const openBtn = document.querySelector("#btn-open");
       const closeBtn = document.querySelector("#btn-close");
-      const dropdownBtn = document.querySelector("#btn-dropdown");
-      const dropdownBtnMobile = document.querySelector("#btn-dropdown-mobile");
 
       // Sidebar btn
       [openBtn, closeBtn].map((panelbtn) => {
@@ -97,18 +63,6 @@
           const sidebarMobile = document.querySelector("#sidebar-mobile");
           sidebarMobile.classList.toggle("hidden");
         });
-      });
-
-      // Dropdown button
-      dropdownBtnMobile.addEventListener("click", () => {
-        const dropdownDivMobile = document.querySelector("#dropdown-mobile");
-        dropdownDivMobile.classList.toggle("hidden");
-      });
-
-      // Dropdown button
-      dropdownBtn.addEventListener("click", () => {
-        const dropdownDiv = document.querySelector("#dropdown");
-        dropdownDiv.classList.toggle("hidden");
       });
 
       // logout button

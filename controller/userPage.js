@@ -5,9 +5,9 @@ const dashboardPage = (req, res) => {
   });
 };
 
-const deviceDetailsPage = (req, res) => {
-  res.render("DeviceDetails", {
-    title: "Device Details",
+const deviceInfoPage = (req, res) => {
+  res.render("DeviceInfo", {
+    title: "Device Info",
     layout: "layouts/mainHomeUser",
   });
 };
@@ -28,7 +28,7 @@ const userRegisterPage = (req, res) => {
 
 module.exports = {
   dashboardPage: dashboardPage,
-  deviceDetailsPage: deviceDetailsPage,
+  deviceInfoPage: deviceInfoPage,
   schedulePage: schedulePage,
   userRegisterPage: userRegisterPage,
 };

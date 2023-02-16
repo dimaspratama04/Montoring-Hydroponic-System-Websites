@@ -1,4 +1,4 @@
-const db = require("../utils/databaseConfig");
+const db = require("../../utils/databaseConfig");
 const userLogin = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
