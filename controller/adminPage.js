@@ -1,4 +1,5 @@
 const Devices = require("../models/devicesModels");
+
 const adminPageDashboard = (req, res) => {
   res.render("Dashboard", {
     title: "Dashboard",
@@ -6,12 +7,10 @@ const adminPageDashboard = (req, res) => {
   });
 };
 
-const adminDeviceDetails = async (req, res) => {
-  const devices = await Devices.findAll();
-  res.render("DeviceDetails", {
-    title: "Device Details",
+const adminPageDeviceInfo = (req, res) => {
+  res.render("DeviceInfo", {
+    title: "Device info",
     layout: "layouts/mainHomeAdmin",
-    devices: devices,
   });
 };
 
@@ -40,7 +39,7 @@ const adminPageDeviceRegister = (req, res) => {
 module.exports = {
   adminPageDashboard: adminPageDashboard,
   adminPageDeviceList: adminPageDeviceList,
-  adminDeviceDetails: adminDeviceDetails,
+  adminPageDeviceInfo: adminPageDeviceInfo,
   adminPageSchedulling: adminPageSchedulling,
   adminPageDeviceRegister: adminPageDeviceRegister,
 };

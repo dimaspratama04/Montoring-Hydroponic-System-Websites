@@ -1,4 +1,4 @@
-const Datas = require("../models/datasModels");
+const Datas = require("../../models/datasModels");
 
 const getAllDatas = async (req, res) => {
   try {

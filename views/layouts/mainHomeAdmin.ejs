@@ -55,17 +55,24 @@
             Device
             <span class="mr-8">
               <svg
+                class=""
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
+                  d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
                   stroke="white"
                   stroke-width="1.5"
                   stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.46997 10.74L12 14.26L15.53 10.74"
+                  stroke="white"
+                  stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
@@ -78,21 +85,21 @@
             class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
           >
             <ul
-              class="list-disc py-2 text-sm text-gray-700 dark:text-gray-200"
+              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownDefaultButton"
             >
               <li>
                 <a
                   href="/admin/deviceList"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
                   >Device list</a
                 >
               </li>
               <li>
                 <a
-                  href="/admin/deviceDetail"
+                  href="/admin/deviceInfo"
                   class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device details</a
+                  >Device info</a
                 >
               </li>
               <li>
@@ -175,27 +182,27 @@
             class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
           >
             <ul
-              class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownDefaultButton"
             >
               <li>
                 <a
                   href="/admin/deviceList"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
                   >Device list</a
                 >
               </li>
               <li>
                 <a
-                  href="/admin/deviceDetail"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
-                  >Device details</a
+                  href="/admin/deviceInfo"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device info</a
                 >
               </li>
               <li>
                 <a
                   href="/admin/deviceRegister"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:text-white"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
                   >Device register</a
                 >
               </li>

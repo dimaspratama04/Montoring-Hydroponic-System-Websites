@@ -35,21 +35,27 @@ app.use(
   })
 );
 
-// Route path (POST)
-const dataRoutes = require("./route/route");
-const getAllDevices = require("./route/getAllDevices");
-const postSchedule = require("./route/postSchedule");
-const userLogout = require("./route/userLogout");
-const userLogin = require("./route/userLogin");
-const userRegister = require("./route/userRegister");
-const deviceRegister = require("./route/deviceRegister");
+// Auth
+const userLogin = require("./route/auth/userLogin");
+const userLogout = require("./route/auth/userLogout");
 
-// Route path (Page / GET)
+// Get data
+const getAllDatas = require("./route/data/getAllDatas");
+const getAllDevices = require("./route/data/getAllDevices");
+
+// Post data
+const postSchedule = require("./route/postData/postSchedule");
+
+// Registration
+const userRegister = require("./route/register/userRegister");
+const deviceRegister = require("./route/register/deviceRegister");
+
+// Route path user page (GET)
 const {
   dashboardPage,
   schedulePage,
   userRegisterPage,
-  deviceDetailsPage,
+  deviceInfoPage,
 } = require("./controller/userPage");
 
 // Route path Admin Page (GET)
@@ -57,33 +63,37 @@ const {
   adminPageDashboard,
   adminPageSchedulling,
   adminPageDeviceRegister,
-  adminDeviceDetails,
+  adminPageDeviceInfo,
   adminPageDeviceList,
 } = require("./controller/adminPage");
 
-// Endpoint fetch data
-app.use("/datas", dataRoutes);
-app.use("/getAllDevices", getAllDevices);
-
-// Endpoint (POST)
+// Endpoint auth
 app.use("/logout", userLogout);
 app.use("/auth", userLogin);
+
+// Endpoint get data
+app.use("/datas", getAllDatas);
+app.use("/devices", getAllDevices);
+
+// Endpoint post data
 app.use("/postSchedule", postSchedule);
+
+// Endpoint registration
 app.use("/userRegister", userRegister);
 app.use("/deviceRegister", deviceRegister);
 
-// Endpoint for admin (Page / GET)
+// Endpoint for admin page (GET)
 app.use("/admin/dashboard", adminPageDashboard);
 app.use("/admin/schedulling", adminPageSchedulling);
 app.use("/admin/deviceList", adminPageDeviceList);
 app.use("/admin/deviceRegister", adminPageDeviceRegister);
-app.use("/admin/deviceDetail", adminDeviceDetails);
+app.use("/admin/deviceInfo", adminPageDeviceInfo);
 
-// Endpoint for User (Page / GET)
+// Endpoint for user page (GET)
 app.use("/register", userRegisterPage);
 app.use("/home/dashboard", dashboardPage);
 app.use("/home/schedulling", schedulePage);
-app.use("/home/deviceDetail", deviceDetailsPage);
+app.use("/home/deviceInfo", deviceInfoPage);
 
 // Login page
 app.get("/", (req, res) => {

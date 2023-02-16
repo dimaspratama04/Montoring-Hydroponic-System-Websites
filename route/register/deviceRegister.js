@@ -1,4 +1,4 @@
-const db = require("../utils/databaseConfig");
+const db = require("../../utils/databaseConfig");
 
 const deviceRegister = (req, res) => {
   let deviceKey = (Math.random() + 1).toString(36).substring(7);

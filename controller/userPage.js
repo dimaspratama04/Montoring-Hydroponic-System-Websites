@@ -1,5 +1,3 @@
-const Devices = require("../models/devicesModels");
-
 const dashboardPage = (req, res) => {
   res.render("Dashboard", {
     title: "Dashboard",
@@ -7,12 +5,10 @@ const dashboardPage = (req, res) => {
   });
 };
 
-const deviceDetailsPage = async (req, res) => {
-  const devices = await Devices.findAll();
-  res.render("DeviceDetails", {
-    title: "Device Details",
+const deviceInfoPage = (req, res) => {
+  res.render("DeviceInfo", {
+    title: "Device Info",
     layout: "layouts/mainHomeUser",
-    devices: devices,
   });
 };
 
@@ -32,7 +28,7 @@ const userRegisterPage = (req, res) => {
 
 module.exports = {
   dashboardPage: dashboardPage,
-  deviceDetailsPage: deviceDetailsPage,
+  deviceInfoPage: deviceInfoPage,
   schedulePage: schedulePage,
   userRegisterPage: userRegisterPage,
 };
