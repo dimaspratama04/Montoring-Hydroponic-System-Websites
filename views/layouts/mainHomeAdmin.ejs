@@ -9,129 +9,34 @@
   </head>
   <body>
     <!-- Sidebar Mobile -->
-    <div
-      id="sidebar-mobile"
-      class="hidden absolute mobile-menu overflow-none w-full"
-    >
+    <div id="sidebar-mobile" class="absolute mobile-menu overflow-none w-full -translate-x-96 duration-500 lg:hidden">
       <div class="h-screen w-64 bg-[#1f2937]">
-        <a
-          id="btn-close"
-          class="border float-right m-5 h-8 px-2 ml-4 bg-gray-100 shadow rounded-full hover:bg-gray-200"
-        >
-          <span class="sr-only">Close menu</span>
-          <svg
-            class="h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </a>
         <nav class="pt-40 space-y-3">
-          <a
-            href="/admin/dashboard"
-            class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
-          >
-            Dashboard
-          </a>
-          <a
-            href="/admin/schedulling"
-            class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
-          >
-            Schedule
-          </a>
-          <button
-            id="btn-dropdown-mobile"
-            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
-          >
+          <a href="/admin/dashboard" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Dashboard </a>
+          <a href="/admin/schedulling" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Schedule </a>
+          <button id="btn-dropdown-mobile" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
             Device
             <span class="mr-8">
-              <svg
-                class=""
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22Z"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M8.46997 10.74L12 14.26L15.53 10.74"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
           </button>
 
-          <div
-            id="dropdown-mobile"
-            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
-          >
-            <ul
-              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownDefaultButton"
-            >
+          <div id="dropdown-mobile" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44">
+            <ul class="list-none py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
-                <a
-                  href="/admin/deviceList"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device list</a
-                >
+                <a href="/admin/deviceList" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device list</a>
               </li>
               <li>
-                <a
-                  href="/admin/deviceInfo"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device info</a
-                >
+                <a href="/admin/deviceInfo" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device info</a>
               </li>
               <li>
-                <a
-                  href="/admin/deviceRegister"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device register</a
-                >
+                <a href="/admin/deviceRegister" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device register</a>
               </li>
             </ul>
           </div>
         </nav>
-      </div>
-    </div>
-
-    <!-- Header -->
-    <div class="w-full h-20 bg-blue-300 flex justify-between">
-      <button id="btn-open" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
-        <div class="w-7 h-[1px] bg-black"></div>
-        <div class="w-7 h-[1px] bg-black"></div>
-        <div class="w-7 h-[1px] bg-black"></div>
-      </button>
-      <div
-        class="w-12 h-12 rounded-full bg-white absolute right-16 m-5 flex space-x-3"
-      >
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
-          alt=""
-        />
-        <button class="font-bold hover:underline" onclick="logout()">
-          Logout
-        </button>
       </div>
     </div>
 
@@ -139,99 +44,77 @@
     <div class="lg:flex h-screen">
       <!-- Sidebar -->
       <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
-        <nav class="pt-20 space-y-3">
-          <a
-            href="/admin/dashboard"
-            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
-          >
-            Dashboard
-          </a>
-          <a
-            href="/admin/schedulling"
-            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
-          >
-            Scheduling
-          </a>
-          <button
-            id="btn-dropdown"
-            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
-          >
+        <a href="/admin/dashboard" class="block text-4xl italic m-7 font-extrabold text-[#b3b3b3] hover:text-white">AMHBM</a>
+        <nav class="pt-32 space-y-3">
+          <a href="/admin/dashboard" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Dashboard </a>
+          <a href="/admin/schedulling" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Scheduling </a>
+          <button id="btn-dropdown" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
             Device
             <span class="mr-8">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </span>
           </button>
-
-          <div
-            id="dropdown"
-            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
-          >
-            <ul
-              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownDefaultButton"
-            >
+          <div id="dropdown" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44">
+            <ul class="list-none py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
-                <a
-                  href="/admin/deviceList"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device list</a
-                >
+                <a href="/admin/deviceList" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device list</a>
               </li>
               <li>
-                <a
-                  href="/admin/deviceInfo"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device info</a
-                >
+                <a href="/admin/deviceInfo" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device info</a>
               </li>
               <li>
-                <a
-                  href="/admin/deviceRegister"
-                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Device register</a
-                >
+                <a href="/admin/deviceRegister" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device register</a>
               </li>
             </ul>
           </div>
         </nav>
       </div>
 
-      <!-- Content -->
-      <div
-        id="content"
-        class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300"
-      >
+      <!-- Header and Content -->
+      <div id="content" class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300">
+        <!-- Header -->
+        <div class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end">
+          <button id="sidebarBtn" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
+            <div id="hamburger-1" class="w-7 h-[1px] bg-black duration-500"></div>
+            <div id="hamburger-2" class="w-7 h-[1px] bg-black duration-500"></div>
+            <div id="hamburger-3" class="w-7 h-[1px] bg-black duration-500"></div>
+          </button>
+          <div class="w-12 h-12 rounded-full bg-white flex space-x-3 m-5 mr-20">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" alt="" />
+            <button class="font-bold hover:underline" onclick="logout()">Logout</button>
+          </div>
+        </div>
+        <!-- Content -->
         <%- body %>
+        <!-- Footer -->
+        <%- include('footer') %>
       </div>
     </div>
 
     <script>
-      const openBtn = document.querySelector("#btn-open");
-      const closeBtn = document.querySelector("#btn-close");
+      const sidebarBtn = document.querySelector("#sidebarBtn");
       const dropdownBtn = document.querySelector("#btn-dropdown");
       const dropdownBtnMobile = document.querySelector("#btn-dropdown-mobile");
 
+      const hamburger1 = document.getElementById("hamburger-1");
+      const hamburger2 = document.getElementById("hamburger-2");
+      const hamburger3 = document.getElementById("hamburger-3");
+
       // Sidebar btn
-      [openBtn, closeBtn].map((panelbtn) => {
-        panelbtn.addEventListener("click", async () => {
-          const sidebarMobile = document.querySelector("#sidebar-mobile");
-          sidebarMobile.classList.toggle("hidden");
-        });
+      sidebarBtn.addEventListener("click", () => {
+        const sidebarMobile = document.querySelector("#sidebar-mobile");
+        sidebarMobile.classList.toggle("-translate-x-96");
+
+        // Hamburger menu
+        hamburger1.classList.toggle("-translate-x-96");
+        hamburger2.classList.toggle("absolute");
+        hamburger2.classList.toggle("rotate-45");
+        hamburger2.classList.toggle("top-9");
+        hamburger3.classList.toggle("absolute");
+        hamburger3.classList.toggle("-rotate-45");
+        hamburger3.classList.toggle("bottom-8");
       });
 
       // Dropdown button

@@ -7,9 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Register</title>
   </head>
-  <body
-    class="bg-gradient-to-tr from-blue-500 to-cyan-500 grid grid place-items-center h-screen"
-  >
+  <body class="bg-gradient-to-tr from-[#00B4DB] to-[#0083B0] grid grid place-items-center h-screen">
     <div class="bg-white lg:w-[700px] rounded-md">
       <h1 class="text-4xl font-bold mb-12 text-center pt-5">Register</h1>
       <form action="/userRegister" method="post">
@@ -21,8 +19,7 @@
             type="text"
             name="username"
             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            required
-          />
+            required />
         </div>
 
         <!-- Password input -->
@@ -34,8 +31,7 @@
             name="password"
             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             value=""
-            required
-          />
+            required />
           <div class="mt-3 text-end">
             <input type="checkbox" onclick="showPass()" />
             <label for="checkbox">Show password</label>
@@ -49,16 +45,14 @@
             name="email"
             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             value=""
-            required
-          />
+            required />
         </div>
 
         <!-- Submit button -->
         <div class="mx-auto grid justify-items-center space-y-3 mb-8">
           <button
             type="submit"
-            class="form-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4"
-          >
+            class="form-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
             Register
           </button>
         </div>

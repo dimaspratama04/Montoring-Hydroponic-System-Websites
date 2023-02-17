@@ -1,53 +1,76 @@
 <h1 class="text-center font-bold text-3xl mt-8">Dashboard</h1>
 <div class="m-10">
-  <div class="bg-white p-4">
-    <h1 class="text-2xl font-extrabold text-center">DEV001</h1>
-
-    <!-- Live Data -->
-    <div>
-      <p class="text-2xl font-bold text-center lg:text-start underline">
-        Live Data
-      </p>
-      <div class="flex flex-wrap justify-evenly gap-3">
-        <div class="w-52 h-52 bg-blue-500 rounded-full"></div>
-        <div class="w-52 h-52 bg-blue-500 rounded-full"></div>
-        <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5"></div>
-      </div>
-    </div>
-
-    <!-- Chart -->
-    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
-      Chart Data
-    </p>
-    <div class="flex flex-wrap justify-evenly mt-3">
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">
-          Chart Suhu Air
-        </p>
-        <canvas id="chartSuhuAir"></canvas>
-      </div>
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">
-          Chart Suhu Lingkungan
-        </p>
-        <canvas id="chartSuhuLingkungan"></canvas>
-      </div>
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">
-          Chart Total Dissolved Solid
-        </p>
-        <canvas id="chartTds"></canvas>
-      </div>
-    </div>
+  <!-- Search input -->
+  <div class="grid grid-cols-2 justify-between mr-10">
+    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3" placeholder="Search Devices key..." />
+    <button
+      id="submitSearch"
+      type="button"
+      onclick="getAllDevices()"
+      class="justify-self-end rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
+      Search
+    </button>
   </div>
+
+  <!-- Dashboard -->
+  <div id="div"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
   const suhuAir = document.getElementById("chartSuhuAir");
   const suhulingkungan = document.getElementById("chartSuhuLingkungan");
   const tds = document.getElementById("chartTds");
 
+  // Get all devices
+  async function getAllDevices() {
+    try {
+      const searchElement = document.getElementById("searchDevices").value;
+      const response = await fetch("/devices?state=dashboard&key=" + searchElement);
+      const data = await response.json();
+      data.map((livedata) => {
+        const liveDataDiv = document.getElementById("div");
+        liveDataDiv.innerHTML += `<div class="bg-white p-4 mt-10">
+                                <h1 class="text-2xl font-extrabold text-center">${livedata.deviceName}</h1>
+                                <!-- Live Data -->
+                                <div>
+                                  <p class="text-2xl font-bold text-center lg:text-start underline">Live Data</p>
+                                  <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
+                                    <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center"><span class="text-7xl font-bold text-white">${livedata.topic1_VALUE}°</span></div>
+                                    <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center"><span class="text-7xl font-bold text-white">${livedata.topic2_VALUE}°</span></div>
+                                    <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center"><span class="text-7xl font-bold text-white">${livedata.topic3_VALUE}ppm</span></div>
+                                  </div>
+                                </div>
+
+                                <!-- Chart -->
+                                <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
+                                <div class="flex flex-wrap justify-evenly mt-3">
+                                  <div class="">
+                                    <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Air</p>
+                                    <canvas id="chartSuhuAir"></canvas>
+                                  </div>
+                                  <div class="">
+                                    <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Lingkungan</p>
+                                    <canvas id="chartSuhuLingkungan"></canvas>
+                                  </div>
+                                  <div class="">
+                                    <p class="text-2xl font-bold text-center lg:text-start">Chart Total Dissolved Solid</p>
+                                    <canvas id="chartTds"></canvas>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`;
+      });
+
+      length = data.length;
+      console.log(length);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Chart configruation
   new Chart(suhuAir, {
     type: "bar",
     data: {
