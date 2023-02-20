@@ -1,3 +1,4 @@
+const Devices = require("../models/devicesModels");
 const dashboardPage = (req, res) => {
   res.render("Dashboard", {
     title: "Dashboard",
@@ -5,10 +6,12 @@ const dashboardPage = (req, res) => {
   });
 };
 
-const deviceInfoPage = (req, res) => {
+const deviceInfoPage = async (req, res) => {
+  const devices = await Devices.findAll();
   res.render("DeviceInfo", {
     title: "Device Info",
     layout: "layouts/mainHomeUser",
+    devices: devices,
   });
 };
 

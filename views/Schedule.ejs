@@ -36,7 +36,10 @@
         name="on"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         placeholder="example 7:15"
-        required />
+        required
+        pattern="[0-9:]+"
+        title="example 7:15"
+        maxlength="5" />
 
       <!-- Schedule off input -->
       <label for="off" class="text-lg font-bold">OFF</label>
@@ -46,7 +49,11 @@
         name="off"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         placeholder="example 15:30"
-        required />
+        required
+        pattern="[0-9:]+"
+        title="example 15:30"
+        maxlength="5" />
+
       <div class="mt-5">
         <h1 class="font-medium">The number that is input will be converted to units of hours and minute, all you have to do is input, in units of numbers, for example 7:15 and 15:30</h1>
       </div>
@@ -56,7 +63,7 @@
     <div class="mx-auto grid justify-items-center space-y-3 pb-8">
       <button
         type="submit"
-        class="orm-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
+        class="form-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
         Submit
       </button>
     </div>

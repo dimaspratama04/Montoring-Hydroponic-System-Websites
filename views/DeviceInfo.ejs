@@ -13,7 +13,19 @@
   </div>
 
   <div id="deviceInfoDiv" class="space-y-5">
-    <!-- Device info here -->
+    <% devices.forEach(device=> { %>
+    <div class="bg-white p-8 space-y-2">
+      <h1 class="text-2xl font-bold"><%= device.deviceName %></h1>
+      <p class="text-2xl font-medium">Device Name : <span><%= device.deviceName %></span></p>
+      <p class="text-2xl font-medium">Ip address Device : <span><%= device.deviceIp%></span></p>
+      <p class="text-2xl font-medium">Topic Name :</p>
+      <ul class="ml-3 text-2xl font-medium italic">
+        <li><%= device.topic1 %></li>
+        <li><%= device.topic2 %></li>
+        <li><%= device.topic3 %></li>
+      </ul>
+    </div>
+    <% }) %>
   </div>
 </div>
 
@@ -39,6 +51,7 @@
                           <li>${deviceInfo.topic1}</li>
                           <li>${deviceInfo.topic2}</li>
                           <li>${deviceInfo.topic3}</li>
+                 
                         </ul>
                     </div>`;
         });

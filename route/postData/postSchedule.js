@@ -1,17 +1,25 @@
-// Initialize mqtt
+// Modules
 const mqtt = require("mqtt");
+const db = require("../../utils/databaseConfig");
 
 const postSchedule = (req, res) => {
-  let deviceName = req.body.deviceName;
-  let deviceKey = req.body.devieKey;
+  let deviceKey = req.body.deviceKey;
   let topicSchedule = req.body.topicSchedule;
   let on = req.body.on;
   let off = req.body.off;
 
-  let sendSchedule = [on, off];
-  const client = mqtt.connect("mqtt://broker.emqx.io:1883");
-  client.on("connect", () => {
-    client.publish(`${topicSchedule}`, JSON.stringify(sendSchedule));
+  const queryCheckDeviceKey = `SELECT * FROM devices WHERE deviceKey = '${deviceKey}'`;
+  db.query(queryCheckDeviceKey, (err, results) => {
+    if (results.length > 0) {
+      let sendSchedule = [on, off];
+      const client = mqtt.connect("mqtt://broker.emqx.io:1883");
+      client.on("connect", () => {
+        client.publish(`${topicSchedule}`, sendSchedule);
+        res.send("SUCCES !");
+      });
+    } else {
+      res.send("DEVICE KEY IS NOT VALID !");
+    }
   });
 };
 
