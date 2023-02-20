@@ -7,9 +7,11 @@ const adminPageDashboard = (req, res) => {
   });
 };
 
-const adminPageDeviceInfo = (req, res) => {
+const adminPageDeviceInfo = async (req, res) => {
+  const devices = await Devices.findAll();
   res.render("DeviceInfo", {
     title: "Device info",
+    devices: devices,
     layout: "layouts/mainHomeAdmin",
   });
 };

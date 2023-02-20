@@ -1,13 +1,10 @@
 const db = require("../../utils/databaseConfig");
 
 const deleteDevices = (req, res) => {
-  let deviceKey = req.body.deviceKey;
-  console.log(deviceKey);
-  const queryDeleteDevices = `SELECT * FROM devices WHERE deviceKey = '${deviceKey}'`;
+  const queryDeleteDevices = `DELETE FROM devices WHERE id = '${req.query.id}'`;
 
   db.query(queryDeleteDevices, (err, results) => {
     if (err) throw err;
-    console.log(results);
   });
 };
 

@@ -2,7 +2,9 @@
 <div class="bg-white rounded-md m-10">
   <div class="overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
         <tr>
           <th scope="col" class="px-6 py-3">Device name</th>
           <th scope="col" class="px-6 py-3">Device Key</th>
@@ -14,16 +16,30 @@
         </tr>
       </thead>
       <tbody>
-        <% devices.forEach(device => { %>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= device.deviceName %></th>
+        <% devices.forEach((device, index) => { %>
+
+        <tr
+          id="device-row-<% index %>"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            <%= device.deviceName %>
+          </th>
           <td id="deviceKey" class="px-6 py-4"><%= device.deviceKey %></td>
           <td class="px-6 py-4"><%= device.deviceIp %></td>
           <td class="px-6 py-4"><%= device.topic1 %></td>
           <td class="px-6 py-4"><%= device.topic2 %></td>
           <td class="px-6 py-4"><%= device.topic3 %></td>
           <td class="px-6 py-4">
-            <button class="font-medium text-red-500 hover:underline" onclick="deleteDevices()">Delete</button>
+            <button
+              class="font-medium text-red-500 hover:underline"
+              onclick="deleteDevices('<%= device.id %>', '<%= index %>')"
+            >
+              Delete
+            </button>
           </td>
         </tr>
         <% }) %>
@@ -33,16 +49,22 @@
 </div>
 
 <script>
-  async function deleteDevices() {
-    const deviceKey = document.getElementById("deviceKey").value;
-    const response = await fetch("/deleteDevices", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(deviceKey),
-      method: "POST",
-    });
-    const data = await response.json();
-    console.log(data);
+  async function deleteDevices(deviceId, rowIndex) {
+    try {
+      const response = await fetch("/deleteDevices?id=" + deviceId, {
+        method: "DELETE",
+      });
+      const deviceRow = document
+        .getElementById("device-row-" + rowIndex)
+        .remove();
+      const data = await response.json();
+      if (data.success) {
+        location.reload();
+      } else {
+        console.log("err");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 </script>
