@@ -14,7 +14,7 @@ const postSchedule = (req, res) => {
       let sendSchedule = [on, off];
       const client = mqtt.connect("mqtt://broker.emqx.io:1883");
       client.on("connect", () => {
-        client.publish(`${topicSchedule}`, sendSchedule);
+        client.publish(`${topicSchedule}`, JSON.stringify(sendSchedule));
         res.send("SUCCES !");
       });
     } else {

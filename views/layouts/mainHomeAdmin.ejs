@@ -81,7 +81,7 @@
             <div id="hamburger-2" class="w-7 h-[1px] bg-black duration-500"></div>
             <div id="hamburger-3" class="w-7 h-[1px] bg-black duration-500"></div>
           </button>
-          <div class="w-12 h-12 rounded-full bg-white flex space-x-3 m-5 mr-20">
+          <div id="profile" class="w-12 h-12 rounded-full bg-white flex space-x-3 m-5 mr-20" onclick="window.location.href = '/admin/dashboard'">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" alt="" />
             <button class="font-bold hover:underline" onclick="logout()">Logout</button>
           </div>
@@ -94,13 +94,15 @@
     </div>
 
     <script>
-      const sidebarBtn = document.querySelector("#sidebarBtn");
-      const dropdownBtn = document.querySelector("#btn-dropdown");
-      const dropdownBtnMobile = document.querySelector("#btn-dropdown-mobile");
+      const sidebarBtn = document.getElementById("sidebarBtn");
+      const dropdownBtn = document.getElementById("btn-dropdown");
+      const dropdownBtnMobile = document.getElementById("btn-dropdown-mobile");
 
       const hamburger1 = document.getElementById("hamburger-1");
       const hamburger2 = document.getElementById("hamburger-2");
       const hamburger3 = document.getElementById("hamburger-3");
+
+      // Refresh
 
       // Sidebar btn
       sidebarBtn.addEventListener("click", () => {

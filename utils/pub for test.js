@@ -4,11 +4,13 @@ const client = mqtt.connect("mqtt://broker.emqx.io:1883");
 
 client.on("connect", () => {
   console.log("ok");
+
+  client.publish("/deviceKey", "36ig6", { qos: 0 });
+  client.publish("suhuair", "19", { qos: 0 });
+  client.publish("suhulingkungan", "15", { qos: 0 });
+  client.publish("tds", "500", { qos: 0 });
 });
 
-setInterval(() => {
-  client.publish("APHBM/id", "DEV001", { qos: 0 });
-  client.publish("APHBM/suhuair", "49", { qos: 0 });
-  client.publish("APHBM/suhulingkungan", "45", { qos: 0 });
-  client.publish("APHBM/tds", "900", { qos: 0 });
-}, 3000);
+// setInterval(() => {
+
+// }, 3000);

@@ -1,8 +1,8 @@
 <h1 class="text-center font-bold text-3xl mt-8">Device info</h1>
 
 <div class="m-10 grid space-y-3">
-  <div class="grid grid-cols-2 justify-between mr-10">
-    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3" placeholder="Search Devices key..." />
+  <div class="grid grid-cols-2 justify-between">
+    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3 text-sm lg:text:lg" placeholder="Search Devices key..." />
     <button
       id="submitSearch"
       type="button"
@@ -15,11 +15,11 @@
   <div id="deviceInfoDiv" class="space-y-5">
     <% devices.forEach(device=> { %>
     <div class="bg-white p-8 space-y-2">
-      <h1 class="text-2xl font-bold"><%= device.deviceName %></h1>
-      <p class="text-2xl font-medium">Device Name : <span><%= device.deviceName %></span></p>
-      <p class="text-2xl font-medium">Ip address Device : <span><%= device.deviceIp%></span></p>
-      <p class="text-2xl font-medium">Topic Name :</p>
-      <ul class="ml-3 text-2xl font-medium italic">
+      <h1 class="text-xl lg:text-2xl font-bold"><%= device.deviceName %></h1>
+      <p class="text-xl lg:text-2xl font-medium">Device name : <span><%= device.deviceName %></span></p>
+      <p class="text-xl lg:text-2xl font-medium">Ip address device : <span class="font-extrabold"><%= device.deviceIp%></span></p>
+      <p class="text-xl lg:text-2xl font-medium">Topic name :</p>
+      <ul class="ml-3 text-xl lg:text-2xl font-medium italic">
         <li><%= device.topic1 %></li>
         <li><%= device.topic2 %></li>
         <li><%= device.topic3 %></li>
@@ -34,12 +34,12 @@
     try {
       const searchElement = document.getElementById("searchDevices").value;
       const response = await fetch("/devices?state=info&key=" + searchElement);
-      const data = await response.json();
+      const datas = await response.json();
       const deviceInfoDiv = document.getElementById("deviceInfoDiv");
-      if (data.statusText === "ERROR") {
+      if (datas.statusText === "ERROR") {
         alert("Device not found !");
       } else {
-        data.map((deviceInfo) => {
+        datas.map((deviceInfo) => {
           deviceInfoDiv.innerHTML += ` <div class="bg-white p-8 space-y-2">
                         <h1 class="text-2xl font-bold">${deviceInfo.deviceName}</h1>
                         <p class="text-2xl font-medium">Device Name : <span>${deviceInfo.deviceName}</span></p>

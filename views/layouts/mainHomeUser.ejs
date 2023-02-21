@@ -14,7 +14,7 @@
         <nav class="pt-40 space-y-3">
           <a href="/home/dashboard" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Dashboard </a>
           <a href="/home/schedulling" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Schedule </a>
-          <a href="/home/schedulling" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Device info </a>
+          <a href="/home/deviceInfo" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Device info </a>
         </nav>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <!-- Header and Content -->
       <div id="content" class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300">
         <!-- Header -->
-        <div class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end">
+        <div id="profile" class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end" onclick="window.location.href = '/home/dashboard'">
           <button id="sidebarBtn" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
             <div id="hamburger-1" class="w-7 h-[1px] bg-black duration-500"></div>
             <div id="hamburger-2" class="w-7 h-[1px] bg-black duration-500"></div>
