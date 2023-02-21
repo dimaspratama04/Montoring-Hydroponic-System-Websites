@@ -21,106 +21,161 @@
     </div>
   </div>
 
-  <div class="bg-white p-4 mt-10">
-    <h1 class="text-2xl font-extrabold text-center"></h1>
-    <!-- Last Data -->
-    <div>
-      <p class="text-2xl font-bold text-center lg:text-start underline">Last Data</p>
-      <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3"></div>
-    </div>
+  <div id="dashboardContainer" class=""></div>
 
-    <!-- Chart -->
-    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
-    <div class="flex flex-wrap justify-evenly mt-3">
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Air</p>
-        <canvas id="chartSuhuAir"></canvas>
-      </div>
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Lingkungan</p>
-        <canvas id="chartSuhuLingkungan"></canvas>
-      </div>
-      <div class="">
-        <p class="text-2xl font-bold text-center lg:text-start">Chart Total Dissolved Solid</p>
-        <canvas id="chartTds"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  // Get all devices
-  async function getAllDevices() {
-    try {
-      const searchElement = document.getElementById("searchDevices").value;
-      const response = await fetch("/devices?state=dashboard&key=" + searchElement);
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const response = await fetch("/tes");
       const datas = await response.json();
 
-      if (datas.statusText === "ERROR") {
-        alert("Data not found !");
-      } else {
-        let arr = datas.lastData;
-        let arrLastData = arr.slice(-1);
-        arrLastData.map((lastData) => {
-          document.getElementById("liveData").innerHTML = `
-      <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-        <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
-      </div>
-      <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-        <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
-      </div>
-      <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-        <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
-      </div>
-    `;
-        });
+      let arr = datas.lastData;
+      arr.map((lastData) => {
+        const div = document.getElementById("dashboardContainer");
 
+        div.innerHTML += `
+      <div class="bg-white p-4 mt-10 space-y-5">
+      <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
+      <!-- Last Data -->
+      <div>
+        <p class="text-2xl font-bold text-center lg:text-start underline">Last Data</p>
+        <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
+          <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+              <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
+             </div>
+             <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+               <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
+             </div>
+             <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+               <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
+             </div>
+          </div>
+      </div>
+
+      <!-- Chart -->
+      <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
+      <div class="flex flex-wrap justify-evenly mt-3">
+        <div class="">
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Air</p>
+          <canvas id="chartSuhuAir"></canvas>
+        </div>
+        <div class="">
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Lingkungan</p>
+          <canvas id="chartSuhuLingkungan"></canvas>
+        </div>
+        <div class="">
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Total Dissolved Solid</p>
+          <canvas id="chartTds"></canvas>
+        </div>
+        </div>
+      </div>
+    </div>`;
         // Canvas container
-        const suhuAir = document.getElementById("chartSuhuAir").getContext("2d");
-        const suhuLingkungan = document.getElementById("chartSuhuLingkungan").getContext("2d");
-        const tds = document.getElementById("chartTds").getContext("2d");
+        setTimeout(() => {
+          const suhuAir = document.getElementById("chartSuhuAir").getContext("2d");
+          const suhuLingkungan = document.getElementById("chartSuhuLingkungan").getContext("2d");
+          const tds = document.getElementById("chartTds").getContext("2d");
+          // Chart Suhu air
+          if (window.chartSuhuAir1) {
+            window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
+            window.chartSuhuAir1.update();
+          } else {
+            window.chartSuhuAir1 = new Chart(suhuAir, {
+              type: "bar",
+              data: datas.dataChartSuhuAir,
+            });
+          }
+          // Chart Suhu Lingkungan
+          if (window.chartSuhuLingkungan2) {
+            window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
+            window.chartSuhuLingkungan2.update();
+          } else {
+            window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
+              type: "bar",
+              data: datas.dataChartSuhuLingkungan,
+            });
+          }
+          // Chart TDS
+          if (window.chartTds3) {
+            window.chartTds3.data = datas.dataChartTds;
+            window.chartTds3.update();
+          } else {
+            window.chartTds3 = new Chart(tds, {
+              type: "bar",
+              data: datas.dataChartTds,
+            });
+          }
+        });
+      }, 1000);
+    });
 
-        // Chart Suhu air
-        if (window.chartSuhuAir1) {
-          window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
-          window.chartSuhuAir1.update();
-        } else {
-          window.chartSuhuAir1 = new Chart(suhuAir, {
-            type: "bar",
-            data: datas.dataChartSuhuAir,
-          });
-        }
-
-        // Chart Suhu Lingkungan
-        if (window.chartSuhuLingkungan2) {
-          window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
-          window.chartSuhuLingkungan2.update();
-        } else {
-          window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
-            type: "bar",
-            data: datas.dataChartSuhuLingkungan,
-          });
-        }
-
-        // Chart TDS
-        if (window.chartTds3) {
-          window.chartTds3.data = datas.dataChartTds;
-          window.chartTds3.update();
-        } else {
-          window.chartTds3 = new Chart(tds, {
-            type: "bar",
-            data: datas.dataChartTds,
-          });
-        }
+    // Get all devices
+    async function getAllDevices() {
+      try {
+        // const searchElement = document.getElementById("searchDevices").value;
+        // const response = await fetch("/devices?state=dashboard&key=" + searchElement);
+        // const datas = await response.json();
+        //   if (datas.statusText === "ERROR") {
+        //     alert("Data not found !");
+        //   } else {
+        //     let arr = datas.lastData;
+        //     let arrLastData = arr.slice(-1);
+        //     arrLastData.map((lastData) => {
+        //       document.getElementById("liveData").innerHTML = `
+        //   <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+        //     <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
+        //   </div>
+        //   <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+        //     <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
+        //   </div>
+        //   <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+        //     <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
+        //   </div>
+        // `;
+        //     });
+        //     // Canvas container
+        //     const suhuAir = document.getElementById("chartSuhuAir").getContext("2d");
+        //     const suhuLingkungan = document.getElementById("chartSuhuLingkungan").getContext("2d");
+        //     const tds = document.getElementById("chartTds").getContext("2d");
+        //     // Chart Suhu air
+        //     if (window.chartSuhuAir1) {
+        //       window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
+        //       window.chartSuhuAir1.update();
+        //     } else {
+        //       window.chartSuhuAir1 = new Chart(suhuAir, {
+        //         type: "bar",
+        //         data: datas.dataChartSuhuAir,
+        //       });
+        //     }
+        //     // Chart Suhu Lingkungan
+        //     if (window.chartSuhuLingkungan2) {
+        //       window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
+        //       window.chartSuhuLingkungan2.update();
+        //     } else {
+        //       window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
+        //         type: "bar",
+        //         data: datas.dataChartSuhuLingkungan,
+        //       });
+        //     }
+        //     // Chart TDS
+        //     if (window.chartTds3) {
+        //       window.chartTds3.data = datas.dataChartTds;
+        //       window.chartTds3.update();
+        //     } else {
+        //       window.chartTds3 = new Chart(tds, {
+        //         type: "bar",
+        //         data: datas.dataChartTds,
+        //       });
+        //     }
+        //   }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
-  }
 
-  function refresh() {
-    window.location.reload();
-  }
-</script>
+    function refresh() {
+      window.location.reload();
+    }
+  </script>
+</div>
