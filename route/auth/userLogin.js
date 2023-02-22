@@ -1,9 +1,11 @@
 const db = require("../../utils/databaseConfig");
+
 const userLogin = (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  let { username, password } = req.body;
+
+  const queryAuth = `SELECT * FROM accounts WHERE username = ? AND password = ?`;
   if (username && password) {
-    db.query("SELECT * FROM accounts WHERE username = ? AND password = ?", [username, password], (error, results) => {
+    db.query(queryAuth, [username, password], (error, results) => {
       if (error) throw error;
       if (results.length > 0) {
         req.session.loggedin = true;

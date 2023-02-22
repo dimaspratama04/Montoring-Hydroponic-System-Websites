@@ -1,9 +1,7 @@
 const db = require("../../utils/databaseConfig");
 
 const userRegister = (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  let email = req.body.email;
+  let { username, password, email } = req.body;
 
   const queryUserRegister = "INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)";
   if (username && password && email) {

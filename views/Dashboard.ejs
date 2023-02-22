@@ -2,30 +2,20 @@
 <div class="m-10">
   <!-- Search input -->
   <div class="grid grid-cols-2 justify-between">
-    <input
-      id="searchDevices"
-      name="searchDevices"
-      type="text"
-      minlength="2"
-      maxlength="5"
-      class="rounded-lg pl-3 text-sm lg:text-lg"
-      placeholder="Search Devices key..."
-    />
+    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3 text-sm lg:text-lg" placeholder="Search Devices key..." />
     <div class="justify-self-end lg:space-x-3">
       <button
         id="submitSearch"
         type="button"
         onclick="getAllDevices()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
+        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
         Search
       </button>
       <button
         id="refresh"
         type="button"
         onclick="refresh()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
+        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
         Refresh
       </button>
     </div>
@@ -35,124 +25,106 @@
     <!-- Last Data -->
     <h1 class="text-2xl font-extrabold text-center"></h1>
     <div>
-      <p class="text-2xl font-bold text-center lg:text-start underline">
-        Last Data
-      </p>
+      <p class="text-2xl font-bold text-center lg:text-start underline">Last Data</p>
       <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
         <!-- <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-              <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
-             </div>
-             <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-               <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
-             </div>
-             <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-               <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
-             </div>
-          </div> -->
+          <span class="text-7xl font-bold text-white">${suhuAir}°C</span>
+        </div>
+        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+          <span class="text-7xl font-bold text-white">${suhuLingkungan}°C</span>
+        </div>
+        <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+          <span class="text-7xl font-bold text-white">${tds}ppm</span>
+        </div>
+      </div> -->
       </div>
 
       <!-- Chart -->
-      <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
-        Chart Data
-      </p>
+      <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
       <div class="flex flex-wrap justify-evenly mt-3">
         <div>
-          <p class="text-2xl font-bold text-center lg:text-start">
-            Chart Suhu Air
-          </p>
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Air</p>
           <canvas id="chartSuhuAir"></canvas>
         </div>
         <div>
-          <p class="text-2xl font-bold text-center lg:text-start">
-            Chart Suhu Lingkungan
-          </p>
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Suhu Lingkungan</p>
           <canvas id="chartSuhuLingkungan"></canvas>
         </div>
         <div>
-          <p class="text-2xl font-bold text-center lg:text-start">
-            Chart Total Dissolved Solid
-          </p>
+          <p class="text-2xl font-bold text-center lg:text-start">Chart Total Dissolved Solid</p>
           <canvas id="chartTds"></canvas>
         </div>
       </div>
-    </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script>
-    // Get all devices
-    async function getAllDevices() {
-      try {
-        const searchElement = document.getElementById("searchDevices").value;
-        const response = await fetch(
-          "/devices?state=dashboard&key=" + searchElement
-        );
-        const datas = await response.json();
-        if (datas.statusText === "ERROR") {
-          alert("Data not found !");
-        } else {
-          let arr = datas.lastData;
-          let arrLastData = arr.slice(-1);
-          arrLastData.map((lastData) => {
-            document.getElementById("liveData").innerHTML = `
-          <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-            <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
-          </div>
-          <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-            <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
-          </div>
-          <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-            <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
-          </div>
-        `;
-          });
-          // Canvas container
-          const suhuAir = document
-            .getElementById("chartSuhuAir")
-            .getContext("2d");
-          const suhuLingkungan = document
-            .getElementById("chartSuhuLingkungan")
-            .getContext("2d");
-          const tds = document.getElementById("chartTds").getContext("2d");
-          // Chart Suhu air
-          if (window.chartSuhuAir1) {
-            window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
-            window.chartSuhuAir1.update();
-          } else {
-            window.chartSuhuAir1 = new Chart(suhuAir, {
-              type: "bar",
-              data: datas.dataChartSuhuAir,
-            });
-          }
-          // Chart Suhu Lingkungan
-          if (window.chartSuhuLingkungan2) {
-            window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
-            window.chartSuhuLingkungan2.update();
-          } else {
-            window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
-              type: "bar",
-              data: datas.dataChartSuhuLingkungan,
-            });
-          }
-          // Chart TDS
-          if (window.chartTds3) {
-            window.chartTds3.data = datas.dataChartTds;
-            window.chartTds3.update();
-          } else {
-            window.chartTds3 = new Chart(tds, {
-              type: "bar",
-              data: datas.dataChartTds,
-            });
+      <script>
+        // Get all devices
+        async function getAllDevices() {
+          try {
+            const searchElement = document.getElementById("searchDevices").value;
+            const response = await fetch("/devices?state=dashboard&key=" + searchElement);
+            const datas = await response.json();
+            if (datas.statusText === "ERROR") {
+              alert("Data not found !");
+            } else {
+              let arr = datas.lastData;
+              let arrLastData = arr.slice(-1);
+              arrLastData.map((lastData) => {
+                document.getElementById("liveData").innerHTML = `
+              <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+                <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
+              </div>
+              <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+                <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
+              </div>
+              <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+                <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
+              </div>
+            `;
+              });
+              // Canvas container
+              const suhuAir = document.getElementById("chartSuhuAir").getContext("2d");
+              const suhuLingkungan = document.getElementById("chartSuhuLingkungan").getContext("2d");
+              const tds = document.getElementById("chartTds").getContext("2d");
+              // Chart Suhu air
+              if (window.chartSuhuAir1) {
+                window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
+                window.chartSuhuAir1.update();
+              } else {
+                window.chartSuhuAir1 = new Chart(suhuAir, {
+                  type: "bar",
+                  data: datas.dataChartSuhuAir,
+                });
+              }
+              // Chart Suhu Lingkungan
+              if (window.chartSuhuLingkungan2) {
+                window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
+                window.chartSuhuLingkungan2.update();
+              } else {
+                window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
+                  type: "bar",
+                  data: datas.dataChartSuhuLingkungan,
+                });
+              }
+              // Chart TDS
+              if (window.chartTds3) {
+                window.chartTds3.data = datas.dataChartTds;
+                window.chartTds3.update();
+              } else {
+                window.chartTds3 = new Chart(tds, {
+                  type: "bar",
+                  data: datas.dataChartTds,
+                });
+              }
+            }
+          } catch (e) {
+            console.log(e);
           }
         }
-      } catch (e) {
-        console.log(e);
-      }
-    }
 
-    function refresh() {
-      window.location.reload();
-    }
-  </script>
+        function refresh() {
+          window.location.reload();
+        }
+      </script>
+    </div>
+  </div>
 </div>

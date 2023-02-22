@@ -1,9 +1,14 @@
 const Devices = require("../models/devicesModels");
+const Datas = require("../models/datasModels");
 
-const adminPageDashboard = (req, res) => {
+const adminPageDashboard = async (req, res) => {
+  const devices = await Devices.findAll();
+  const datas = await Datas.findAll();
   res.render("Dashboard", {
     title: "Dashboard",
     layout: "layouts/mainHomeAdmin",
+    devices: devices,
+    datas: datas,
   });
 };
 

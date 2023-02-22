@@ -2,14 +2,13 @@ const db = require("../../utils/databaseConfig");
 
 const deviceRegister = (req, res) => {
   let deviceKey = (Math.random() + 1).toString(36).substring(7);
-  let deviceName = req.body.deviceName;
-  let deviceIp = req.body.deviceIp;
+  let { deviceName, deviceIp } = req.body;
   [topic1, topic2, topic3] = req.body.topicMQTT;
 
-  const queryTopicName = `SELECT topic1,topic2,topic3 FROM devices WHERE topic1 = '${topic1}' OR topic2 = '${topic2}' OR topic3 = '${topic3}'`;
+  const queryTopicName = `SELECT topic1,topic2,topic3 FROM devices WHERE topic1 = ? OR topic2 = ? OR topic3 = ?`;
 
   // Check topic name
-  db.query(queryTopicName, (err, results) => {
+  db.query(queryTopicName, [topic1, topic2, topic3], (err, results) => {
     // If topic has already declared
     if (results.length > 0) {
       res.send("Some topic or topic already declared, please use another topic !");

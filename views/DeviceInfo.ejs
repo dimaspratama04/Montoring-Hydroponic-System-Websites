@@ -2,21 +2,12 @@
 
 <div class="m-10 grid space-y-3">
   <div class="grid grid-cols-2 justify-between">
-    <input
-      id="searchDevices"
-      name="searchDevices"
-      type="text"
-      minlength="2"
-      maxlength="5"
-      class="rounded-lg pl-3 text-sm lg:text:lg"
-      placeholder="Search Devices key..."
-    />
+    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3 text-sm lg:text:lg" placeholder="Search Devices key..." />
     <button
       id="submitSearch"
       type="button"
       onclick="getAllDevices()"
-      class="justify-self-end rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-    >
+      class="justify-self-end rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
       Search
     </button>
   </div>
@@ -28,25 +19,21 @@
         <h1 class="text-xl lg:text-2xl font-bold"><%= device.deviceName %></h1>
         <h1 class="text-xl lg:text-2xl font-medium">
           Key :
-          <span class="font-bold opacity-50"><%= device.deviceKey %></span>
+          <span class="font-bold"><%= device.deviceKey %></span>
         </h1>
       </div>
       <p class="text-xl lg:text-2xl font-medium">
         Ip address device :
         <span class="font-extrabold"><%= device.deviceIp%></span>
       </p>
-      <p class="text-xl lg:text-2xl font-bold text-red-500">
-        Subscribe topic MQTT {
-      </p>
+      <p class="text-xl lg:text-2xl font-bold text-red-500">Subscribe topic MQTT {</p>
       <ul class="ml-3 text-xl lg:text-2xl font-medium italic text-red-500">
         <li><span>Topic 1 = </span><%= device.topic1 %></li>
         <li><span>Topic 2 = </span><%= device.topic2 %></li>
         <li><span>Topic 3 = </span><%= device.topic3 %></li>
       </ul>
       <span class="text-xl lg:text-2xl font-bold text-red-500">}</span>
-      <h1 class="text-xl lg:text-2xl font-bold">
-        <span>Created at </span><%= device.updatedAt %>
-      </h1>
+      <h1 class="text-xl lg:text-2xl font-bold"><span>Created at </span><%= device.createdAt %></h1>
     </div>
     <% }) %>
   </div>
