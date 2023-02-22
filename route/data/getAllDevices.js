@@ -3,6 +3,7 @@ const db = require("../../utils/databaseConfig");
 const getAllDevices = (req, res) => {
   try {
     const deviceKey = req.query.key;
+
     // Dashboard
     if (req.query.state === "dashboard") {
       const queryGetDevicesDashboard = `SELECT * FROM devices INNER JOIN datas ON devices.deviceKey = datas.deviceKey WHERE devices.deviceKey = '${deviceKey}'`;

@@ -2,13 +2,13 @@ const db = require("../../utils/databaseConfig");
 
 const tes = (req, res) => {
   let state = req.query.state;
-  if (state === "dashboard") {
-    const queryGetDevicesDashboard = `SELECT * FROM devices INNER JOIN datas`;
-    db.query(queryGetDevicesDashboard, (err, results) => {
-      if (err) throw err;
-      res.json(results);
-    });
-  }
+
+  const queryGetDevicesDashboard = `SELECT * FROM devices INNER JOIN datas`;
+  db.query(queryGetDevicesDashboard, (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+
   // // db.query(queryGetDevicesDashboard, (err, results) => {
   // //   if (err) throw err;
   // //   if (results.length > 0) {
