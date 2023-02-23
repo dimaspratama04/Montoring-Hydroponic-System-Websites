@@ -43,6 +43,7 @@ const userLogout = require("./route/auth/userLogout");
 const getAllDatas = require("./route/data/getAllDatas");
 const getAllDevices = require("./route/data/getAllDevices");
 const deleteDevices = require("./route/data/deleteDevices");
+const getDeviceKeys = require("./route/data/getDeviceKeys");
 
 // Post data
 const postSchedule = require("./route/postData/postSchedule");
@@ -56,18 +57,16 @@ const { dashboardPage, schedulePage, userRegisterPage, deviceInfoPage } = requir
 
 // Route path Admin Page (GET)
 const { adminPageDashboard, adminPageSchedulling, adminPageDeviceRegister, adminPageDeviceInfo, adminPageDeviceList } = require("./controller/adminPage");
-const tes = require("./route/data/tes");
 
 // Endpoint auth
 app.use("/logout", userLogout);
 app.use("/auth", userLogin);
 
-app.use("/tes", tes);
-
 // Endpoint get data
 app.use("/datas", getAllDatas);
 app.use("/devices", getAllDevices);
 app.use("/deleteDevices", deleteDevices);
+app.use("/keys", getDeviceKeys);
 
 // Endpoint post data
 app.use("/postSchedule", postSchedule);

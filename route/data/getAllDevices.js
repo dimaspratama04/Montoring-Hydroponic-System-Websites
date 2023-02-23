@@ -16,7 +16,7 @@ const getAllDevices = (req, res) => {
               {
                 label: "by °Celcius",
                 data: [],
-                backgroundColor: "#FF6384",
+                backgroundColor: "#0265ff",
               },
             ],
           };
@@ -26,7 +26,7 @@ const getAllDevices = (req, res) => {
               {
                 label: "by °Celcius",
                 data: [],
-                backgroundColor: "#FF6384",
+                backgroundColor: "#ffa500",
               },
             ],
           };
@@ -36,7 +36,7 @@ const getAllDevices = (req, res) => {
               {
                 label: "by PPM",
                 data: [],
-                backgroundColor: "#FF6384",
+                backgroundColor: "#009b97",
               },
             ],
           };

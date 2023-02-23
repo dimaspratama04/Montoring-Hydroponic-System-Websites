@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="https://img.lovepik.com/free-png/20220108/lovepik-strawberry-png-image_401278447_wh860.png" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title><%= title %></title>
@@ -95,10 +96,10 @@
           const response = await fetch("/logout");
           const data = await response.json();
           if (data.result === "SUCCESS") {
-            alert("User logout operation success.");
+            alert("Logout success !");
             window.location.href = "/";
           } else {
-            alert("User Logout succes !");
+            alert("Logout success !");
             window.location.href = "/";
           }
         } catch (e) {

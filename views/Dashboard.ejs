@@ -1,31 +1,21 @@
 <h1 class="text-center font-bold text-3xl mt-8">Dashboard</h1>
-<div class="m-10">
+<div class="m-5 lg:m-10">
   <!-- Search input -->
   <div class="grid grid-cols-2 justify-between">
-    <input
-      id="searchDevices"
-      name="searchDevices"
-      type="text"
-      minlength="2"
-      maxlength="5"
-      class="rounded-lg pl-3 text-sm lg:text-lg"
-      placeholder="Search Devices key..."
-    />
+    <input id="searchDevices" name="searchDevices" type="text" minlength="2" maxlength="5" class="rounded-lg pl-3 text-sm lg:text-lg" placeholder="Search Devices key..." />
     <div class="justify-self-end lg:space-x-3">
       <button
         id="submitSearch"
         type="button"
         onclick="getAllDevices()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
+        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
         Search
       </button>
       <button
         id="refresh"
         type="button"
         onclick="refresh()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
+        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white">
         Refresh
       </button>
     </div>
@@ -36,11 +26,12 @@
     document.addEventListener("DOMContentLoaded", async () => {
       try {
         let deviceKey = [];
-        const tes = await fetch("/tes");
-        const res = await tes.json();
-        res.map((cek) => {
-          deviceKey.push(cek.deviceKey);
+        const responseKeys = await fetch("/keys");
+        const datasKeys = await responseKeys.json();
+        datasKeys.map((dataKeys) => {
+          deviceKey.push(dataKeys.deviceKey);
         });
+
         deviceKey.map(async (keys, key) => {
           // const searchElement = document.getElementById("searchDevices").value;
           const response = await fetch("/devices?state=dashboard&key=" + keys);
@@ -52,9 +43,7 @@
             let arr = datas.lastData;
             let arrLastData = arr.slice(-1);
             arrLastData.map((lastData) => {
-              document.getElementById(
-                "container"
-              ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
+              document.getElementById("container").innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
         <!-- Last Data -->
         <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
         <div>
@@ -85,24 +74,48 @@
             <p class="text-2xl font-bold text-center lg:text-start">
               Chart Suhu Air
             </p>
-            <canvas id="chartSuhuAir"></canvas>
+            <canvas id="chartSuhuAir${key}"></canvas>
           </div>
           <div id="chartContainer">
             <p class="text-2xl font-bold text-center lg:text-start">
               Chart Suhu Lingkungan
             </p>
-            <canvas id="chartSuhuLingkungan"></canvas>
+            <canvas id="chartSuhuLingkungan${key}"></canvas>
           </div>
           <div id="chartContainer">
             <p class="text-2xl font-bold text-center lg:text-start">
               Chart Total Dissolved Solid
             </p>
-            <canvas id="chartTds"></canvas>
+            <canvas id="chartTds${key}"></canvas>
           </div>
         </div>
       </div>`;
             });
           }
+
+          setTimeout(() => {
+            // Canvas container
+            document.getElementById(`chartSuhuAir${key}`);
+            document.getElementById(`chartSuhuLingkungan${key}`);
+            document.getElementById(`chartTds${key}`);
+
+            // Chart Suhu air
+            new Chart(`chartSuhuAir${key}`, {
+              type: "bar",
+              data: datas.dataChartSuhuAir,
+            });
+            // Chart Suhu Lingkungan
+            new Chart(`chartSuhuLingkungan${key}`, {
+              type: "bar",
+              data: datas.dataChartSuhuLingkungan,
+            });
+
+            // Chart TDS
+            new Chart(`chartTds${key}`, {
+              type: "bar",
+              data: datas.dataChartTds,
+            });
+          }, 1000);
         });
       } catch (e) {
         console.log(e);
@@ -174,7 +187,7 @@
     //           type: "bar",
     //           data: datas.dataChartTds,
     //         });
-    //       }
+    // //       }
     //     }
     //   } catch (e) {
     //     console.log(e);

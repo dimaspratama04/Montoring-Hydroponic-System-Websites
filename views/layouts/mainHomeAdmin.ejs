@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="https://img.lovepik.com/free-png/20220108/lovepik-strawberry-png-image_401278447_wh860.png" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title><%= title %></title>
@@ -74,6 +75,7 @@
       </div>
 
       <!-- Header and Content -->
+
       <div id="content" class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300">
         <!-- Header -->
         <div class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end">
@@ -138,10 +140,10 @@
           const response = await fetch("/logout");
           const data = await response.json();
           if (data.result === "SUCCESS") {
-            alert("User logout operation success.");
+            alert("Admin logout success !");
             window.location.href = "/";
           } else {
-            alert("User Logout succes !");
+            alert("Admin Logout succes !");
             window.location.href = "/";
           }
         } catch (e) {
