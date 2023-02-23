@@ -1,50 +1,149 @@
-<div id="container" class="m-5 lg:m-10">
-  <div class="bg-white p-4 mt-10 space-y-5">
-    <!-- Last Data -->
-    <h1 class="text-2xl font-extrabold text-center"></h1>
-    <div>
-      <p class="text-2xl font-bold text-center lg:text-start underline">Last Data</p>
-      <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
-        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-          <span class="text-7xl font-bold text-white">°C</span>
-          <span class="text-xl mb-5 text-white">Suhu Air</span>
-        </div>
-        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-          <span class="text-7xl font-bold text-white">%</span>
-          <h1 class="text-xl mb-5 text-white">Suhu Lingkungan</h1>
-        </div>
-        <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-          <span class="text-7xl font-bold text-white">ppm</span>
-          <h1 class="text-xl text-white">Total dissolved solid</h1>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chart -->
-    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
-    <div class="flex flex-wrap justify-evenly mt-3">
-      <div id="chartContainer">
-        <p class="text-2xl font-bold text-center lg:text-start">Suhu Air</p>
-        <canvas id="chartSuhuAir${key}"></canvas>
-      </div>
-      <div id="chartContainer">
-        <p class="text-2xl font-bold text-center lg:text-start">Suhu Lingkungan</p>
-        <canvas id="chartSuhuLingkungan${key}"></canvas>
-      </div>
-      <div id="chartContainer">
-        <p class="text-2xl font-bold text-center lg:text-start">Total Dissolved Solid</p>
-        <canvas id="chartTds${key}"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
+<div id="container" class="m-5 lg:m-10"></div>
 
 <script>
   window.addEventListener("DOMContentLoaded", async () => {
     try {
-      const response = await fetch("/detail?state=getKey");
+      const response = await fetch(
+        `/devices?state=devices&key=<%= deviceKey %>`
+      );
       const datas = await response.json();
-      console.log(datas);
+      if (datas.statusText === "ERROR" || datas.length < 1) {
+        document.getElementById(
+          "container"
+        ).innerHTML += `<div class="bg-white text-red-500 p-4 mt-10 text-xl">
+          Device is not have data !
+        </div>`;
+      } else {
+        let arr = datas.lastData;
+        let arrLastData = arr.slice(-1);
+        arrLastData.map((lastData) => {
+          console.log(lastData);
+          document.getElementById(
+            "container"
+          ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
+        <!-- Last Data -->
+        <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
+        <div>
+          <div class="flex justify-between">
+            <h1 class="text-2xl font-bold text-center lg:text-start underline">
+            Last Data
+            </h1>
+            <div class="flex space-x-3">
+               <img src="https://cdn-icons-png.flaticon.com/512/3917/3917267.png" alt="" class="w-10">
+               <h1 class="text-2xl font-bold text-center lg:text-start justify-self-end">${lastData.updatedAt}</h1>
+              </div>
+            </div>
+          <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
+            <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+              <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
+              <span class="text-xl mb-5 text-white">Suhu Air</span>
+            </div>
+            <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+              <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}%</span>
+              <h1 class="text-xl mb-5 text-white">Suhu Lingkungan</h1>
+              </div>
+            <div
+              class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+              <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
+              <h1 class="text-xl text-white">Total dissolved solid</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
+          Overall data by Chart
+        </p>
+        <div class="flex flex-wrap justify-evenly mt-3">
+          <div id="chartContainer">
+            <p class="text-2xl font-bold text-center lg:text-start">
+              Suhu Air
+            </p>
+            <canvas id="chartSuhuAir"></canvas>
+          </div>
+          <div id="chartContainer">
+            <p class="text-2xl font-bold text-center lg:text-start">
+              Suhu Lingkungan
+            </p>
+            <canvas id="chartSuhuLingkungan"></canvas>
+          </div>
+          <div id="chartContainer">
+            <p class="text-2xl font-bold text-center lg:text-start">
+              Total Dissolved Solid
+            </p>
+            <canvas id="chartTds"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 mt-10 space-y-2 text-xl">
+        <h1 class="text-2xl underline">Device specification</h1>
+    <div class="flex justify-between pt-5">
+      <div class="flex space-x-2">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png"
+          alt="deviceName"
+          class="w-8"
+        />
+        <h1>Name ${lastData.deviceName}</h1>
+      </div>
+      <h1>Key <span class="font-bold">${lastData.deviceKey}</span></h1>
+    </div>
+    <div class="flex space-x-2">
+      <img
+        src="https://media.istockphoto.com/id/1320976645/id/vektor/isp-internet-protocol-address-vector-icon-concept-design-data-center-dan-web-hosting-symbol.jpg?s=612x612&w=0&k=20&c=GJXAALxCjvPN5-yJiuDQd1M4S_zxeX1KBD-_hw1INy0="
+        alt="deviceName"
+        class="w-8"
+      />
+      <h1>Ip address ${lastData.deviceIp}</h1>
+    </div>
+    <div class="flex space-x-2">
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAADFCAMAAACM/tznAAAAqFBMVEX///9JAUxHAEpEAEdCAEV1Unc8AEA3ADs5AD01ADn8+vy+rL89AEGLaYxUE1ft5u2CZYT49PjGtsfd0d7g2uDOwM8xADVMAE/z7vNZJVuMbY5mMmjVydaYfZnh2OKAXYK1orZxSXNsQm+tl66kjaXIuclYH1ucg52QcpJmOGjp4Ol9WX+xnLLRxNFpPWtXD1pOFFFqRGy1prZ4V3peL2AjACi6orwpAC46FrUlAAAN8ElEQVR4nO1djXbiNhPFkrFlo+AASzAJGPMTCOSnuy1f+/5v9pkQbEkzks0mS2SOb0/3tMeyV7pIM6OZ0ajVatCgQYMGDRp8HcJylH+k96m3vxMv824p1puk7DODv0ba19v9Swzk9xA/MErK4bJ9p2f+Uu8m0L1N/efLjOY3sHCdaiDMme7M3+p4VPc221xmOGdjElQc/4EC129PjF+L9lz3Mo8vNKIzsak6AY6g/nxo/N7TnW4KPF5oRGfi5jwCDhQ8GCnou/gy8DqXGtJ5OJuAAwUL00JIfqKfvCICMgqCuUErhs/s2gnIKOBPBqW48etDwIy5LqWZJXAuBa6b6r+aMvA9WwnobKZPN+3t+Kfjeoy79Awi2Fa/DiZc/ZCtBOSId8lwOW2PAsarskCDjdbKT0aKMrCegBPi4XL+k3tuJRJ4d6D9TldmoDYEHBDu0nsn4Fq7tgBhU91H4rEkX2tFwDuS5cLV2/bFJBjrJEFvLzJQPwIyROkiANJMBfVSzevSHKglARmilz0rMxXYTGMT9MbFDKorARkG937JNHDXmn1yVOiCGhOQ/ZLLMbRspGXANC6fKLewak1Aphf6Y2YUiP4Kf3HAroOADMOFb5oFTOP0emTXQkBGgXEh8DdcFC7Z1RDQavW7np4BtxuhLz1510NAK1xyvVKkI9wmmrvXQ0Am128C7TogHN0a9EbkigjIRMFa6/ol/BV7I3HtJeDHZDBIdtFZwatwqtUHxEMZ6ATWEjC7Yx7nLnUeZqvOJK5IxKSrkwSEoQw8cVsJOPkECaGux9h6tnqtEsHo3egCKho5sA0sJ+DUfcqZt169loQBM3SoxjIkHqYL4poQcByC649m/TIOdjpZSEaYPdBJ/0DvvwAatzihXvD8WCIRbjH/v3OwB7BVZGls0BAXoKxbEg5eagSBu7U8JUKAMTBC3DtzLPRR4zvl80v1/9MoiwxRtjdJr0QTCrU2HQCgPDRGWNdAQTTGP+CnFxvC51AlNkjYXh/cl32/AgOlSUV2oFpwlPj6cHC4QNUh6ZbbEjaganSYelPdgEI8zcithyCsHh7nI9060MwBtrzoSH4TZ+QHEDbTGDPhG/oVZs6osgNnJUi4I3SrJ0dABMa6NbCHzssQIb4mFhqvMQb4/WUH8zuY/XcXBD7zquZGeAt8GezQ4JFvzqmzBGGUvD6ubn6N/CpZARTf77cGmCAkTj104RG9XWf6l++VzQSiiQZ3sJ2Re3PZMXweUX82MgfBHCfABcEUixkEGrFpM3rDGTdnRjD8d51jzpV1DTQBRJxuAxMFXhsbVs9BVo+niZpaj0nblBjB5xgDE2wRMDxgVgMkM8Ms4G8YA0vESebae1aiFMlcHw7G58ACoawWFrEOw7U2HMzbSPsIIYDuL97tr8RK4/TKxBtm6HaQPGlmaUigIpKtxvuNO/4QXUjGF+/012LlaSRBkMLG2CJgSLtaYeBoNCK2L0A0AXEu3+evBX4I5BAJRfaGD3AOaJNJ64MpItwyUMTxN0GmQN2lQIYObhJggnAGF4wukfL7MX37NZ9N/34sOROa4REXhT40cyJoO5CHP9H5r8ANp5S6nAVssSlJjZig7hLM/7+BzhFrzcHCJ0hdRuapiYMBygCHe+MYrgF39ufG8CnITlHqsZnBjQePQr0vAvgGMgU8SzeFwCtM2TrV+jCGmDZEvN8xJMr2JClxQKyb6ppjpr7DoYsMToEaEXDwe651YbAVeiwWRE5j0KxWBGQUBLow2DPi/qZwZ3yvfrdmBGRiW9PjcI/sdqDv94dqC9SOgIPvFxWGO6REAt2CZvOanBw1xQY5fhaqg4gBaOqqCqOOBDiUoPbbcyWfxxXMgIMsxDYxiKHn+EBtrGRpWU8CNP48ZBHQN7XRThaDdSXAucM6rko4B9vtyC7y2hKAbuUTGAmmYLeTSlOgvgQ4PuL4e4KvBarlFEss1ZgALP0d8f1yEAWV1kCNCXAo4s6ZAouYjFW76UVcA3UmwPHgdi+u4PTZiW1qTYCDnISaghfdJ7XNXnAL1JsA4oBtwQ6ZAmobkaR6E4D5PNpADoJ5Iu4Hak6Aw4DP4xU4h8Aa6AlN6k4AEgJaq44/qAe29tcQqZwqC+XgCkgB/4fSRCjXWHsC4BRIQACIp0qTfiEEak+AE4DdDlgDwDcoqIr6E0BBthdcA67SIvyZc1R/AhyubgkGQA8AXfFmfR2hcwhQdzthFxQNVLfOhSl0BQRAv99MtYWAJdDJBeUVEOAE6gRPVSEApOBrrgaugQCuHgMbqL5B8pdiChVOkWsgAIQ/QmAJ+IpbKLwmIZj9wKoeAFIQ+ATGthdTO4sAYA6Xh0D/obonluAsAoAiXKpSkL8oLXLv6VUQQG+Vt/uqEAB6cHpVBJCu8nai2oJgy5TPkasgADi9QCIIyAfMLSFbCYC+TRMCRQ2AZCgwR071FK29YGGI5wDrZoCi5XpAD6p54XniMLO0jE4LPfetJUD5GcM9mAKKKXgyFj3gM7cFUbe0dLJAgLrbe1PoI1RJnD0SQJjFlYV603FlAoAkewNOIWWmD/zD7QVjy4tJRHEcR1F0+CN+/yf6+Bf8t5oYHR/fiU7vx6qxHEYHXGogDRo0aNCgQYMGDRo0aNCgQYMvQS9Khv1Opz+Jqtbe/zas2jme1QANhvS5eAGvdxUOn351PZ95nseYT/ezFGQLhrN2NcyPf8VNxebtX+dXYbvxaA5NwTcRm6BoztWQz2Foj+2ASWUWCeXBaCmfJAvXLq0E73jI/KFic4qeViohQLrdrqyucSTGNEDMq9VartGqeoTzG5GCcFzRpeoeqw49VPXA/kbNCYmA0gpeUmAXENAZ6UrnZJ++eyo8n9YS4ATmohhysrdCQNw2363Gnbx39hJQUrJBjuzLBLzSsngZCU5xDnsJQPK7BezkiJhEAHJpMIS36NlOAMzsNLQVCFhWixa6+57lBDhMeyVuK1EyOwQC0qrRUndrOwHwKKO+aU4AKANFPT9wHeJnNoHSd374fujcBQIkYpn45O7Ym67UnGmbB/87P58A5Dpo7zgABz9zAmJllJ4z6w/eTeBouNorlsF7+fhIgpg66Q6kR0fVKTd/FFJs2Kv87HzDGxaEwWo+HnALWp4IkE/Gu/xFinVO3uT54QNVK44IJFdDiJmW4LTF2YDZLpryTQk4/H0ioC8JAOQ63VSaIXShPu/bRYBGETwDG/dEgJTw4WMFIxMpmwDkvVhGgBNgiiCBRUA+CEjFqeHhN+X8ENkDKUG2EYCV+0MmwIkAMeEFTu8P9EUJ6iubVtsIwKQASPHOCZiIEsDVdl8UlOois4WA/JdEpkBR/aH4vY8EiPsDV39V1E7adcopMZYQQLb52MBZr0E+g8mDQoCY9wrKIQi4FdaQkjVkCQH837wfYCkXR375v8VEuVV6Y9xIvIoNZXPTEgJYUgxTSXEvTF3aLuq8vBPwIlhx5sRWcapQ6YktBAyKE21KfZuirEWQJDIB4hEoc+dFPeJJ1qAtBAwFUScVOhMnQGsgEyDk/JG18XIU8cSkrGfsIaD4tDQFCl68RGTj9uN+6NP/m+8JE4cpLxZ7CBCmKStqfhaa/iDlZALEqiCGnfQB4mZCPkViEQG7XN0JRWCK8/wHh5lCgGAGueawglglS25qEQFCfee87Guhv97v/5EJiEQCzDdmii5l+ZCMTQQUvczP+wlHmQ+y20CA+WoY0Ra0lwDBsv3YtRZVP44XQClLQNjknLME7CWgWNRk/d6gqHt/7JteCJbckPWjDkKwJZ4Hep8CRVGbj19NVYNFZ7TOtCOk8jip+MQuAuL8F3+3BQQJcNzpyASIx1/I3uiSFM9Lyqa2XQQI9Z39SWuSr/FTVSSZAMkUpsbOi/tmOQxtGQG9onR8W7CMTsdaFAIkA9d4U6J4pxiXnlhGgDAmPiwk4EnJKwSIMRFYGE3stqAwFaPZNgKK+99IUc+FnTY6CgGh6BHzDH+RVCMtlR7ZRkBrCW+7KO6/UwiQhIDhXhjpuKhybYB1BIQjNRhJRvlOVyVAPEVquDJXLCapOpysI0Ap7Xr4yYojfCoBoVgaiuukgBRWUMsO20cAmAJCsSeVAHnB+Hh8uicV0OLKU/sIUKtAi2sbEBBKN86iEfreWHSKg0vELCSgJWUwkJ/C0gYEyLEx7Pb0RBo/vFHVRgL64qCknwwSoJTDZls5qhBvfGlBwQJzNhIgVr0jI/EBQsBOXjDU276cTN3e8IbImTWInLSSAEG7yUIbIQAUjqfc5w/t2T+LUaDeQkuRI/FWElBsA5VyaBgBrQ1yV9whdxckN9EREj2zk4Dk7th7cqeNEglpck+6GzaV8RMsFdVOAlrD7nvG+0jRazgBrWkVBtwumoprKQGtcJKm6asa7dEQ0EqN124fX5jj0WNbCcChI6A1GGtvG/6ApymKcyUEtMKNX5Iv7eEJaNdCQGbzPLnG6jIEP5HxrQTcuuQDyA2AGCbs9IKLHJmJV6OAy9pPMqqReycOZifJUeGGwYFfNA8+TcD9qPsBUpEAcnphhN2inenPZbvLmMcP8Jg/WovCEbUDHvNPdrtOBQKE5vTTBIS9HBXzbIsXtOkAvXjSeVlmSIdRryeVnaIP8K8R+qD/Jt6DKs2/HXFXZMCFV6xdPRJJKPCyk1lXCDnN0jPHEK8SfdlnYk4kuEqk0mkL35xJcJWQN8x++t39uTzu5WMVltbK/JPYcNFEtPZa8T+I3Wo+Cu5O+E9/Pq9Bg6/H/wGA7PX2Vm4BqwAAAABJRU5ErkJggg=="
+        alt="deviceName"
+        class="w-8"
+      />
+      <h1>Subscribe topic</h1>
+    </div>
+    <ul class="ml-10">
+      <li>TOPIC 1 = <span class="text-red-500">${lastData.topic1}</span></li>
+      <li>TOPIC 2 = <span class="text-red-500">${lastData.topic2}</span></li>
+      <li>TOPIC 3 = <span class="text-red-500">${lastData.topic3}</span></li>
+    </ul>
+    <div class="flex space-x-2">
+      <img
+        src="data:image/png;base64,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"
+        alt="deviceName"
+        class="w-8"
+      />
+      <h1>Created at ${lastData.createdAt}</h1>
+    </div>
+  </div>`;
+        });
+        setTimeout(() => {
+          // Canvas container
+          document.getElementById(`chartSuhuAir`);
+          document.getElementById(`chartSuhuLingkungan`);
+          document.getElementById(`chartTds`);
+
+          // Chart Suhu air
+          new Chart(`chartSuhuAir`, {
+            type: "bar",
+            data: datas.dataChartSuhuAir,
+          });
+          // Chart Suhu Lingkungan
+          new Chart(`chartSuhuLingkungan`, {
+            type: "bar",
+            data: datas.dataChartSuhuLingkungan,
+          });
+
+          // Chart TDS
+          new Chart(`chartTds`, {
+            type: "bar",
+            data: datas.dataChartTds,
+          });
+        }, 1000);
+      }
     } catch (e) {
       console.log(e);
     }

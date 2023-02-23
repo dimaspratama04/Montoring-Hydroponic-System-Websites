@@ -46,15 +46,12 @@ const adminPageDeviceRegister = (req, res) => {
 
 const adminPageDeviceDetails = async (req, res) => {
   const deviceKey = req.query.key;
-  if (req.query.state === "getKey") {
-    res.json(deviceKey);
-  } else {
-    res.render("DeviceDetail", {
-      title: "Device Detail",
-      layout: "layouts/mainHomeAdmin",
-      deviceKey: deviceKey,
-    });
-  }
+
+  res.render("DeviceDetail", {
+    title: "Device Detail",
+    layout: "layouts/mainHomeAdmin",
+    deviceKey: deviceKey,
+  });
 };
 
 module.exports = {

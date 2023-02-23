@@ -5,7 +5,7 @@ const getAllDevices = (req, res) => {
     const deviceKey = req.query.key;
 
     // Dashboard
-    if (req.query.state === "dashboard") {
+    if (req.query.state === "devices") {
       const queryGetDevicesDashboard = `SELECT * FROM devices INNER JOIN datas ON devices.deviceKey = datas.deviceKey WHERE devices.deviceKey = '${deviceKey}'`;
       db.query(queryGetDevicesDashboard, (err, results) => {
         if (err) throw err;

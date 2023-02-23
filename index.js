@@ -45,6 +45,9 @@ const getAllDevices = require("./route/data/getAllDevices");
 const deleteDevices = require("./route/data/deleteDevices");
 const getDeviceKeys = require("./route/data/getDeviceKeys");
 
+// Device details data
+const deviceDetails = require("./route/details/devicesDetails");
+
 // Post data
 const postSchedule = require("./route/postData/postSchedule");
 
@@ -53,10 +56,21 @@ const userRegister = require("./route/register/userRegister");
 const deviceRegister = require("./route/register/deviceRegister");
 
 // Route path user page (GET)
-const { dashboardPage, schedulePage, userRegisterPage, deviceInfoPage } = require("./controller/userPage");
+const {
+  dashboardPage,
+  schedulePage,
+  userRegisterPage,
+  deviceInfoPage,
+} = require("./controller/userPage");
 
 // Route path Admin Page (GET)
-const { adminPageDashboard, adminPageSchedulling, adminPageDeviceRegister, adminPageDeviceInfo, adminPageDeviceList, adminPageDeviceDetails } = require("./controller/adminPage");
+const {
+  adminPageDashboard,
+  adminPageSchedulling,
+  adminPageDeviceRegister,
+  adminPageDeviceInfo,
+  adminPageDeviceList,
+} = require("./controller/adminPage");
 
 // Endpoint auth
 app.use("/logout", userLogout);
@@ -72,7 +86,7 @@ app.use("/keys", getDeviceKeys);
 app.use("/postSchedule", postSchedule);
 
 // Endpoint device detail
-app.use("/detail", adminPageDeviceDetails);
+app.use("/detail", deviceDetails);
 
 // Endpoint registration
 app.use("/userRegister", userRegister);
