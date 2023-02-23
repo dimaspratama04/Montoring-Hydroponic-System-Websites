@@ -1,5 +1,6 @@
 const Devices = require("../models/devicesModels");
 const Datas = require("../models/datasModels");
+const db = require("../utils/databaseConfig");
 
 const adminPageDashboard = async (req, res) => {
   const devices = await Devices.findAll();
@@ -43,10 +44,24 @@ const adminPageDeviceRegister = (req, res) => {
   });
 };
 
+const adminPageDeviceDetails = async (req, res) => {
+  const deviceKey = req.query.key;
+  if (req.query.state === "getKey") {
+    res.json(deviceKey);
+  } else {
+    res.render("DeviceDetail", {
+      title: "Device Detail",
+      layout: "layouts/mainHomeAdmin",
+      deviceKey: deviceKey,
+    });
+  }
+};
+
 module.exports = {
   adminPageDashboard: adminPageDashboard,
   adminPageDeviceList: adminPageDeviceList,
   adminPageDeviceInfo: adminPageDeviceInfo,
   adminPageSchedulling: adminPageSchedulling,
   adminPageDeviceRegister: adminPageDeviceRegister,
+  adminPageDeviceDetails: adminPageDeviceDetails,
 };

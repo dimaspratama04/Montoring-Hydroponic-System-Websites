@@ -53,14 +53,16 @@
           <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
             <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
               <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
+              <span class="text-xl mb-5 text-white">Suhu Air</span>
             </div>
             <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-              <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
-            </div>
+              <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}%</span>
+              <h1 class="text-xl mb-5 text-white">Suhu Lingkungan</h1>
+              </div>
             <div
-              class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center"
-            >
+              class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
               <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
+              <h1 class="text-xl text-white">Total dissolved solid</h1>
             </div>
           </div>
         </div>
@@ -72,19 +74,19 @@
         <div class="flex flex-wrap justify-evenly mt-3">
           <div id="chartContainer">
             <p class="text-2xl font-bold text-center lg:text-start">
-              Chart Suhu Air
+              Suhu Air
             </p>
             <canvas id="chartSuhuAir${key}"></canvas>
           </div>
           <div id="chartContainer">
             <p class="text-2xl font-bold text-center lg:text-start">
-              Chart Suhu Lingkungan
+              Suhu Lingkungan
             </p>
             <canvas id="chartSuhuLingkungan${key}"></canvas>
           </div>
           <div id="chartContainer">
             <p class="text-2xl font-bold text-center lg:text-start">
-              Chart Total Dissolved Solid
+              Total Dissolved Solid
             </p>
             <canvas id="chartTds${key}"></canvas>
           </div>

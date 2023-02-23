@@ -1,0 +1,52 @@
+<div id="container" class="m-5 lg:m-10">
+  <div class="bg-white p-4 mt-10 space-y-5">
+    <!-- Last Data -->
+    <h1 class="text-2xl font-extrabold text-center"></h1>
+    <div>
+      <p class="text-2xl font-bold text-center lg:text-start underline">Last Data</p>
+      <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
+        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+          <span class="text-7xl font-bold text-white">°C</span>
+          <span class="text-xl mb-5 text-white">Suhu Air</span>
+        </div>
+        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+          <span class="text-7xl font-bold text-white">%</span>
+          <h1 class="text-xl mb-5 text-white">Suhu Lingkungan</h1>
+        </div>
+        <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+          <span class="text-7xl font-bold text-white">ppm</span>
+          <h1 class="text-xl text-white">Total dissolved solid</h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">Chart Data</p>
+    <div class="flex flex-wrap justify-evenly mt-3">
+      <div id="chartContainer">
+        <p class="text-2xl font-bold text-center lg:text-start">Suhu Air</p>
+        <canvas id="chartSuhuAir${key}"></canvas>
+      </div>
+      <div id="chartContainer">
+        <p class="text-2xl font-bold text-center lg:text-start">Suhu Lingkungan</p>
+        <canvas id="chartSuhuLingkungan${key}"></canvas>
+      </div>
+      <div id="chartContainer">
+        <p class="text-2xl font-bold text-center lg:text-start">Total Dissolved Solid</p>
+        <canvas id="chartTds${key}"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const response = await fetch("/detail?state=getKey");
+      const datas = await response.json();
+      console.log(datas);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+</script>

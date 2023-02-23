@@ -11,46 +11,34 @@
       Search
     </button>
   </div>
-
-  <div id="deviceInfoDiv" class="space-y-5">
-    <% devices.forEach(device=> { %>
-    <div class="bg-white p-5 md:p-7 lg:p-8 space-y-2">
-      <div class="flex justify-between">
-        <h1 class="text-xl lg:text-2xl font-bold"><%= device.deviceName %></h1>
-        <h1 class="text-xl lg:text-2xl font-medium">
-          Key :
-          <span class="font-bold"><%= device.deviceKey %></span>
-        </h1>
-      </div>
-      <p class="text-xl lg:text-2xl font-medium">
-        Ip address device :
-        <span class="font-extrabold"><%= device.deviceIp%></span>
-      </p>
-      <p class="text-xl lg:text-2xl font-bold text-red-500">Subscribe topic MQTT {</p>
-      <ul class="ml-3 text-xl lg:text-2xl font-medium italic text-red-500">
-        <li><span>Topic 1 = </span><%= device.topic1 %></li>
-        <li><span>Topic 2 = </span><%= device.topic2 %></li>
-        <li><span>Topic 3 = </span><%= device.topic3 %></li>
-      </ul>
-      <span class="text-xl lg:text-2xl font-bold text-red-500">}</span>
-      <h1 class="text-xl lg:text-2xl font-bold"><span>Created at </span><%= device.createdAt %></h1>
-    </div>
-    <% }) %>
+  <% devices.forEach(device => { %>
+  <div class="bg-white flex justify-between p-5">
+    <h1 class="text-xl lg:text-3xl font-bold"><%= device.deviceName %> %></h1>
+    <button id="btnDetail" class="text-lg lg:text-xl hover:underline hover:text-blue-500" data-device-key="<%= device.deviceKey %>">Detail</button>
   </div>
-</div>
+  <% }) %>
 
-<script>
-  async function getAllDevices() {
-    try {
-      const searchElement = document.getElementById("searchDevices").value;
-      const response = await fetch("/devices?state=info&key=" + searchElement);
-      const datas = await response.json();
-      const deviceInfoDiv = document.getElementById("deviceInfoDiv");
-      if (datas.statusText === "ERROR") {
-        alert("Device not found !");
-      } else {
-        datas.map((deviceInfo) => {
-          deviceInfoDiv.innerHTML += ` <div class="bg-white p-8 space-y-2">
+  <script>
+    const btnDetail = document.querySelectorAll("#btnDetail");
+    btnDetail.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const deviceKey = btn.dataset.deviceKey;
+        window.location.href = `/detail?key=${deviceKey}`;
+      });
+    });
+  </script>
+  <script>
+    async function getAllDevices() {
+      try {
+        const searchElement = document.getElementById("searchDevices").value;
+        const response = await fetch("/devices?state=info&key=" + searchElement);
+        const datas = await response.json();
+        const deviceInfoDiv = document.getElementById("deviceInfoDiv");
+        if (datas.statusText === "ERROR") {
+          alert("Device not found !");
+        } else {
+          datas.map((deviceInfo) => {
+            deviceInfoDiv.innerHTML += ` <div class="bg-white p-8 space-y-2">
                         <h1 class="text-2xl font-bold">${deviceInfo.deviceName}</h1>
                         <p class="text-2xl font-medium">Device Name : <span>${deviceInfo.deviceName}</span></p>
                         <p class="text-2xl font-medium">
@@ -64,10 +52,11 @@
                  
                         </ul>
                     </div>`;
-        });
+          });
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
-  }
-</script>
+  </script>
+</div>
