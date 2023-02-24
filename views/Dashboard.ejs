@@ -1,214 +1,97 @@
-<h1 class="text-center font-bold text-3xl mt-8">Dashboard</h1>
-<div class="m-5 lg:m-10">
-  <!-- Search input -->
-  <div class="grid grid-cols-2 justify-between">
-    <input
-      id="searchDevices"
-      name="searchDevices"
-      type="text"
-      minlength="2"
-      maxlength="5"
-      class="rounded-lg pl-3 text-sm lg:text-lg"
-      placeholder="Search Devices key..."
-    />
-    <div class="justify-self-end lg:space-x-3">
-      <button
-        id="submitSearch"
-        type="button"
-        onclick="getAllDevices()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
-        Search
-      </button>
-      <button
-        id="refresh"
-        type="button"
-        onclick="refresh()"
-        class="rounded-lg p-2 bg-white hover:bg-slate-700 hover:shadow-lg focus:bg-slate-700 focus:text-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-800 active:shadow-lg transition duration-150 ease-in-out hover:text-white"
-      >
-        Refresh
-      </button>
-    </div>
-  </div>
+<div id="containerData" class="bg-white p-5 m-5 lg:m-10"></div>
+<div id="containerDevices" class="bg-white p-5 m-5 lg:m-10"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      // Accumulative data
+      const response = await fetch("/devices?state=dashboard");
+      const datas = await response.json();
+      let arrSuhuAir = [];
+      let arrSuhuLingkungan = [];
+      let arrTds = [];
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
 
-  <div id="container"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      try {
-        let deviceKey = [];
-        const responseKeys = await fetch("/keys");
-        const datasKeys = await responseKeys.json();
-        datasKeys.map((dataKeys) => {
-          deviceKey.push(dataKeys.deviceKey);
-        });
+      const currentDate = dd + "/" + mm + "/" + yyyy;
+      datas.map((data) => {
+        if (data.topic1_VALUE === null) {
+          arrSuhuAir.push(0);
+        } else {
+          arrSuhuAir.push(data.topic1_VALUE);
+        }
 
-        deviceKey.map(async (keys, key) => {
-          const response = await fetch("/devices?state=devices&key=" + keys);
-          const datas = await response.json();
+        if (data.topic2_VALUE === null) {
+          arrSuhuLingkungan.push(0);
+        } else {
+          arrSuhuLingkungan.push(data.topic2_VALUE);
+        }
 
-          if (datas.statusText === "ERROR") {
-            // alert("Data not found !");
-          } else {
-            let arr = datas.lastData;
-            let arrLastData = arr.slice(-1);
-            arrLastData.map((lastData) => {
-              document.getElementById(
-                "container"
-              ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
-        <!-- Last Data -->
-        <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
-        <div>
-          <p class="text-2xl font-bold text-center lg:text-start underline">
-            Last Data
-          </p>
-          <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
-            <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-              <span class="text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
-              <span class="text-xl mb-5 text-white">Suhu Air</span>
-            </div>
-            <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-              <span class="text-7xl font-bold text-white">${lastData.topic2_VALUE}%</span>
-              <h1 class="text-xl mb-5 text-white">Suhu Lingkungan</h1>
-              </div>
-            <div
-              class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-              <span class="text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
-              <h1 class="text-xl text-white">Total dissolved solid</h1>
-            </div>
-          </div>
+        if (data.topic3_VALUE === null) {
+          arrTds.push(0);
+        } else {
+          arrTds.push(data.topic3_VALUE);
+        }
+      });
+
+      const sum1 = arrSuhuAir.reduce((acc, cur) => {
+        return acc + Math.round(cur);
+      }, 0);
+      const sum2 = arrSuhuLingkungan.reduce((acc, cur) => {
+        return acc + Math.round(cur);
+      }, 0);
+      const sum3 = arrTds.reduce((acc, cur) => {
+        return acc + Math.round(cur);
+      }, 0);
+
+      const suhuAir = Math.round(sum1 / arrSuhuAir.length);
+      const suhuLingkungan = Math.round(sum2 / arrSuhuLingkungan.length);
+      const tds = Math.round(sum3 / arrTds.length);
+
+      document.getElementById("containerData").innerHTML += `<div class="flex justify-between">
+        <h1 class="text-center text-xl lg:text-3xl font-bold">Accumulative data</h1>
+        <h1 class="text-center text-xl lg:text-3xl">${currentDate}</h1>
+      </div>
+      <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-5">
+        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+          <span class="text-7xl font-bold text-white">${suhuAir}°C</span>
+          <span class="text-xl mb-5 text-white">Water temp</span>
         </div>
-
-        <!-- Chart -->
-        <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
-          Chart Data
-        </p>
-        <div class="flex flex-wrap justify-evenly mt-3">
-          <div id="chartContainer">
-            <p class="text-2xl font-bold text-center lg:text-start">
-              Suhu Air
-            </p>
-            <canvas id="chartSuhuAir${key}"></canvas>
-          </div>
-          <div id="chartContainer">
-            <p class="text-2xl font-bold text-center lg:text-start">
-              Suhu Lingkungan
-            </p>
-            <canvas id="chartSuhuLingkungan${key}"></canvas>
-          </div>
-          <div id="chartContainer">
-            <p class="text-2xl font-bold text-center lg:text-start">
-              Total Dissolved Solid
-            </p>
-            <canvas id="chartTds${key}"></canvas>
-          </div>
+        <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
+          <span class="text-7xl font-bold text-white">${suhuLingkungan}%</span>
+          <h1 class="text-xl mb-5 text-white">Humidity</h1>
         </div>
-      </div>`;
-            });
-          }
+        <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
+          <span class="text-7xl font-bold text-white">${tds}ppm</span>
+          <h1 class="text-xl text-white">Total dissolved solid</h1>
+        </div>
+      </div>
+    `;
 
-          setTimeout(() => {
-            // Canvas container
-            document.getElementById(`chartSuhuAir${key}`);
-            document.getElementById(`chartSuhuLingkungan${key}`);
-            document.getElementById(`chartTds${key}`);
-
-            // Chart Suhu air
-            new Chart(`chartSuhuAir${key}`, {
-              type: "bar",
-              data: datas.dataChartSuhuAir,
-            });
-            // Chart Suhu Lingkungan
-            new Chart(`chartSuhuLingkungan${key}`, {
-              type: "bar",
-              data: datas.dataChartSuhuLingkungan,
-            });
-
-            // Chart TDS
-            new Chart(`chartTds${key}`, {
-              type: "bar",
-              data: datas.dataChartTds,
-            });
-          }, 1000);
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    });
-  </script>
-
-  <script>
-    // // Get all devices
-    // async function getAllDevices() {
-    //   try {
-    //     const searchElement = document.getElementById("searchDevices").value;
-    //     const response = await fetch(
-    //       "/devices?state=dashboard&key=" + searchElement
-    //     );
-    //     const datas = await response.json();
-    //     if (datas.statusText === "ERROR") {
-    //       alert("Data not found !");
-    //     } else {
-    //       let arr = datas.lastData;
-    //       let arrLastData = arr.slice(-1);
-    //       arrLastData.map((lastData) => {
-    //         document.getElementById("liveData").innerHTML = `
-    //       <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-    //         <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
-    //       </div>
-    //       <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
-    //         <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic2_VALUE}°C</span>
-    //       </div>
-    //       <div class="w-96 h-32 bg-blue-500 rounded-full lg:mt-5 grid place-items-center">
-    //         <span class="text-4xl lg:text-7xl font-bold text-white">${lastData.topic3_VALUE}ppm</span>
-    //       </div>
-    //     `;
-    //       });
-    //       // Canvas container
-    //       const suhuAir = document
-    //         .getElementById("chartSuhuAir")
-    //         .getContext("2d");
-    //       const suhuLingkungan = document
-    //         .getElementById("chartSuhuLingkungan")
-    //         .getContext("2d");
-    //       const tds = document.getElementById("chartTds").getContext("2d");
-    //       // Chart Suhu air
-    //       if (window.chartSuhuAir1) {
-    //         window.chartSuhuAir1.data = datas.dataChartSuhuLingkungan;
-    //         window.chartSuhuAir1.update();
-    //       } else {
-    //         window.chartSuhuAir1 = new Chart(suhuAir, {
-    //           type: "bar",
-    //           data: datas.dataChartSuhuAir,
-    //         });
-    //       }
-    //       // Chart Suhu Lingkungan
-    //       if (window.chartSuhuLingkungan2) {
-    //         window.chartSuhuLingkungan2.data = datas.dataChartSuhuLingkungan;
-    //         window.chartSuhuLingkungan2.update();
-    //       } else {
-    //         window.chartSuhuLingkungan2 = new Chart(suhuLingkungan, {
-    //           type: "bar",
-    //           data: datas.dataChartSuhuLingkungan,
-    //         });
-    //       }
-    //       // Chart TDS
-    //       if (window.chartTds3) {
-    //         window.chartTds3.data = datas.dataChartTds;
-    //         window.chartTds3.update();
-    //       } else {
-    //         window.chartTds3 = new Chart(tds, {
-    //           type: "bar",
-    //           data: datas.dataChartTds,
-    //         });
-    // //       }
-    //     }
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // }
-
-    function refresh() {
-      window.location.reload();
+      // Device information
+      const responseDevInfo = await fetch("/devices?state=devInfoDashboard");
+      const datasDevInfo = await responseDevInfo.json();
+      let total = [];
+      datasDevInfo.map((dataDev) => {
+        total.push(dataDev);
+      });
+      document.getElementById("containerDevices").innerHTML += ` <div class="space-y-4">
+    <h1 class="text-start text-xl lg:text-3xl font-bold">Device information</h1>
+    <div class="lg:ml-5 space-y-2">
+      <h1 class="text-xl lg:text-2xl font-extrabold">Total device ${total.length}</h1>
+      <h1 class="text-xl lg:text-2xl font-extrabold">List device</h1>
+      <ul id="deviceList" class="ml-2 text-xl lg:text-2xl font-bold space-y-3">
+      </ul>
+    </div>`;
+      total.map((deviceName) => {
+        document.getElementById("deviceList").innerHTML += `<li class="flex space-x-3">
+          <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="" class="w-8" />
+          <h1>${deviceName.deviceName}</h1>
+        </li>`;
+      });
+    } catch (e) {
+      console.log(e);
     }
-  </script>
-</div>
+  });
+</script>

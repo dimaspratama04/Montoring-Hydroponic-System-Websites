@@ -45,9 +45,6 @@ const getAllDevices = require("./route/data/getAllDevices");
 const deleteDevices = require("./route/data/deleteDevices");
 const getDeviceKeys = require("./route/data/getDeviceKeys");
 
-// Device details data
-const deviceDetails = require("./route/details/devicesDetails");
-
 // Post data
 const postSchedule = require("./route/postData/postSchedule");
 
@@ -56,21 +53,10 @@ const userRegister = require("./route/register/userRegister");
 const deviceRegister = require("./route/register/deviceRegister");
 
 // Route path user page (GET)
-const {
-  dashboardPage,
-  schedulePage,
-  userRegisterPage,
-  deviceInfoPage,
-} = require("./controller/userPage");
+const { dashboardPage, schedulePage, userRegisterPage, deviceInfoPage, deviceDetailsPage } = require("./controller/userPage");
 
 // Route path Admin Page (GET)
-const {
-  adminPageDashboard,
-  adminPageSchedulling,
-  adminPageDeviceRegister,
-  adminPageDeviceInfo,
-  adminPageDeviceList,
-} = require("./controller/adminPage");
+const { adminPageDashboard, adminPageSchedulling, adminPageDeviceRegister, adminPageDeviceInfo, adminPageDeviceList, adminPageDeviceDetails } = require("./controller/adminPage");
 
 // Endpoint auth
 app.use("/logout", userLogout);
@@ -85,9 +71,6 @@ app.use("/keys", getDeviceKeys);
 // Endpoint post data
 app.use("/postSchedule", postSchedule);
 
-// Endpoint device detail
-app.use("/detail", deviceDetails);
-
 // Endpoint registration
 app.use("/userRegister", userRegister);
 app.use("/deviceRegister", deviceRegister);
@@ -98,12 +81,14 @@ app.use("/admin/schedulling", adminPageSchedulling);
 app.use("/admin/deviceList", adminPageDeviceList);
 app.use("/admin/deviceRegister", adminPageDeviceRegister);
 app.use("/admin/deviceInfo", adminPageDeviceInfo);
+app.use("/admin/detail", adminPageDeviceDetails);
 
 // Endpoint for user page (GET)
 app.use("/register", userRegisterPage);
 app.use("/home/dashboard", dashboardPage);
 app.use("/home/schedulling", schedulePage);
 app.use("/home/deviceInfo", deviceInfoPage);
+app.use("/home/detail", deviceDetailsPage);
 
 // Login page
 app.get("/", (req, res) => {

@@ -63,5 +63,16 @@
         myPass.type = "password";
       }
     }
+
+    // Store session login
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = document.getElementById("username");
+      const password = document.getElementById("password");
+      localStorage.setItem("username", username.value);
+      localStorage.setItem("password", password.value);
+      form.submit();
+    });
   </script>
 </html>

@@ -1,15 +1,11 @@
 const Devices = require("../models/devicesModels");
-const Datas = require("../models/datasModels");
-const db = require("../utils/databaseConfig");
 
 const adminPageDashboard = async (req, res) => {
   const devices = await Devices.findAll();
-  const datas = await Datas.findAll();
   res.render("Dashboard", {
     title: "Dashboard",
     layout: "layouts/mainHomeAdmin",
     devices: devices,
-    datas: datas,
   });
 };
 
@@ -46,7 +42,6 @@ const adminPageDeviceRegister = (req, res) => {
 
 const adminPageDeviceDetails = async (req, res) => {
   const deviceKey = req.query.key;
-
   res.render("DeviceDetail", {
     title: "Device Detail",
     layout: "layouts/mainHomeAdmin",

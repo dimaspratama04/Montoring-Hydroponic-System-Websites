@@ -15,6 +15,16 @@ const deviceInfoPage = async (req, res) => {
   });
 };
 
+const deviceDetailsPage = async (req, res) => {
+  const deviceKey = req.query.key;
+
+  res.render("DeviceDetail", {
+    title: "Device Detail",
+    layout: "layouts/mainHomeUser",
+    deviceKey: deviceKey,
+  });
+};
+
 const schedulePage = (req, res) => {
   res.render("Schedule", {
     title: "Schedule",
@@ -33,5 +43,6 @@ module.exports = {
   dashboardPage: dashboardPage,
   deviceInfoPage: deviceInfoPage,
   schedulePage: schedulePage,
+  deviceDetailsPage: deviceDetailsPage,
   userRegisterPage: userRegisterPage,
 };

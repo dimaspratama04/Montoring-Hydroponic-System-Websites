@@ -4,10 +4,10 @@ const getAllDevices = (req, res) => {
   try {
     const deviceKey = req.query.key;
 
-    // Dashboard
-    if (req.query.state === "devices") {
-      const queryGetDevicesDashboard = `SELECT * FROM devices INNER JOIN datas ON devices.deviceKey = datas.deviceKey WHERE devices.deviceKey = '${deviceKey}'`;
-      db.query(queryGetDevicesDashboard, (err, results) => {
+    // Device Detail
+    if (req.query.state === "detail") {
+      const queryGetDevicesDetail = `SELECT * FROM devices INNER JOIN datas ON devices.deviceKey = datas.deviceKey WHERE devices.deviceKey = '${deviceKey}'`;
+      db.query(queryGetDevicesDetail, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
           const chartSuhuAir = {
@@ -67,8 +67,30 @@ const getAllDevices = (req, res) => {
 
       // Device info
     } else if (req.query.state === "info") {
-      const queryGetDevices = `SELECT * FROM devices WHERE deviceKey = '${deviceKey}'`;
-      db.query(queryGetDevices, (err, results) => {
+      const queryGetDevicesInfo = `SELECT * FROM devices WHERE deviceKey = '${deviceKey}'`;
+      db.query(queryGetDevicesInfo, (err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+          res.json(results);
+        } else {
+          res.json({ statusText: "ERROR", message: "Devices not found !" });
+        }
+      });
+
+      // Dashboard
+    } else if (req.query.state === "dashboard") {
+      const queryGetDeviceDashboardInfo = `SELECT DISTINCT d.deviceName, ds.topic1_VALUE, ds.topic2_VALUE, ds.topic3_VALUE FROM devices d INNER JOIN datas ds ON d.deviceKey = ds.deviceKey`;
+      db.query(queryGetDeviceDashboardInfo, (err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+          res.json(results);
+        } else {
+          res.json({ statusText: "ERROR", message: "Devices not found !" });
+        }
+      });
+    } else if (req.query.state === "devInfoDashboard") {
+      const queryGetDevicesDashboardInfo = `SELECT deviceName FROM devices LIMIT 10 `;
+      db.query(queryGetDevicesDashboardInfo, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
           res.json(results);
