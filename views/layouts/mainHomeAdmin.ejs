@@ -4,37 +4,99 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="https://img.lovepik.com/free-png/20220108/lovepik-strawberry-png-image_401278447_wh860.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="https://img.lovepik.com/free-png/20220108/lovepik-strawberry-png-image_401278447_wh860.png"
+      type="image/x-icon"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title><%= title %></title>
   </head>
   <body>
     <!-- Sidebar Mobile -->
-    <div id="sidebar-mobile" class="absolute mobile-menu overflow-none w-full -translate-x-96 duration-500 lg:hidden">
+    <div
+      id="sidebar-mobile"
+      class="absolute mobile-menu overflow-none w-full -translate-x-96 duration-500 lg:hidden"
+    >
       <div class="h-screen w-64 bg-[#1f2937]">
-        <nav class="pt-40 space-y-3">
-          <a href="/admin/dashboard" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Dashboard </a>
-          <a href="/admin/schedulling" class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"> Schedule </a>
-          <button id="btn-dropdown-mobile" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
+        <nav class="pt-32 space-y-3">
+          <div
+            id="profile"
+            class="w-20 h-20 rounded-full mb-10 bg-white space-x-3 mx-auto justify-self-center"
+            onclick="window.location.href = '/admin/dashboard'"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
+              alt=""
+            />
+            <h1 id="userM" class="text-white text-xl"></h1>
+          </div>
+          <a
+            href="/admin/dashboard"
+            class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/admin/schedulling"
+            class="w-full text-start hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5"
+          >
+            Schedule
+          </a>
+          <button
+            id="btn-dropdown-mobile"
+            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
             Device
             <span class="mr-8">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </span>
           </button>
 
-          <div id="dropdown-mobile" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44">
-            <ul class="list-none py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <div
+            id="dropdown-mobile"
+            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
+          >
+            <ul
+              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownDefaultButton"
+            >
               <li>
-                <a href="/admin/deviceList" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device list</a>
+                <a
+                  href="/admin/deviceList"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device list</a
+                >
               </li>
               <li>
-                <a href="/admin/deviceInfo" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device info</a>
+                <a
+                  href="/admin/deviceInfo"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device info</a
+                >
               </li>
               <li>
-                <a href="/admin/deviceRegister" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device register</a>
+                <a
+                  href="/admin/deviceRegister"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device register</a
+                >
               </li>
             </ul>
           </div>
@@ -46,28 +108,88 @@
     <div class="lg:flex h-screen">
       <!-- Sidebar -->
       <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
-        <a href="/admin/dashboard" class="block text-4xl italic m-7 font-extrabold text-[#b3b3b3] hover:text-white">AMHBM</a>
-        <nav class="pt-32 space-y-3">
-          <a href="/admin/dashboard" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Dashboard </a>
-          <a href="/admin/schedulling" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Scheduling </a>
-          <button id="btn-dropdown" class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start">
+        <a
+          href="/admin/dashboard"
+          class="block text-4xl italic m-7 font-extrabold text-[#b3b3b3] hover:text-white"
+          >AMHBM</a
+        >
+
+        <nav class="pt-7 pl-3 space-y-3">
+          <div
+            id="profile"
+            class="w-20 h-20 mb-12 rounded-full bg-white space-x-3 mx-auto justify-self-center"
+            onclick="window.location.href = '/admin/dashboard'"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
+              alt=""
+            />
+            <h1 id="userL" class="text-white text-xl"></h1>
+          </div>
+          <a
+            href="/admin/dashboard"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/admin/schedulling"
+            class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
+            Scheduling
+          </a>
+          <button
+            id="btn-dropdown"
+            class="flex hover:fill-slate-300 hover:stroke-black justify-between w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"
+          >
             Device
             <span class="mr-8">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19.9201 8.95001L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.95001"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </span>
           </button>
-          <div id="dropdown" class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44">
-            <ul class="list-none py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <div
+            id="dropdown"
+            class="transition duration-500 z-10 hidden ml-5 divide-y divide-gray-100 rounded-lg shadow w-44"
+          >
+            <ul
+              class="list-none py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownDefaultButton"
+            >
               <li>
-                <a href="/admin/deviceList" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device list</a>
+                <a
+                  href="/admin/deviceList"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device list</a
+                >
               </li>
               <li>
-                <a href="/admin/deviceInfo" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device info</a>
+                <a
+                  href="/admin/deviceInfo"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device info</a
+                >
               </li>
               <li>
-                <a href="/admin/deviceRegister" class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white">Device register</a>
+                <a
+                  href="/admin/deviceRegister"
+                  class="block text-xl text-[#b3b3b3] hover:text-white font-medium px-4 py-2 hover:bg-[#0093A7] rounded-xl dark:hover:bg-gray-600 dark:hover:text-white"
+                  >Device register</a
+                >
               </li>
             </ul>
           </div>
@@ -75,19 +197,40 @@
       </div>
 
       <!-- Header and Content -->
-
-      <div id="content" class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300">
+      <div
+        id="content"
+        class="container h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300"
+      >
         <!-- Header -->
-        <div class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end">
-          <button id="sidebarBtn" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
-            <div id="hamburger-1" class="w-7 h-[1px] bg-black duration-500"></div>
-            <div id="hamburger-2" class="w-7 h-[1px] bg-black duration-500"></div>
-            <div id="hamburger-3" class="w-7 h-[1px] bg-black duration-500"></div>
+        <div
+          class="w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between lg:justify-end"
+        >
+          <button
+            id="sidebarBtn"
+            class="space-y-3 mt-2 ml-10 lg:hidden md:hidden"
+          >
+            <div
+              id="hamburger-1"
+              class="w-7 h-[1px] bg-black duration-500"
+            ></div>
+            <div
+              id="hamburger-2"
+              class="w-7 h-[1px] bg-black duration-500"
+            ></div>
+            <div
+              id="hamburger-3"
+              class="w-7 h-[1px] bg-black duration-500"
+            ></div>
           </button>
-          <div id="profile" class="w-12 h-12 rounded-full bg-white flex space-x-3 m-5 mr-20" onclick="window.location.href = '/admin/dashboard'">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" alt="" />
-            <button class="font-bold hover:underline" onclick="logout()">Logout</button>
-          </div>
+          <button
+            class="font-bold hover:underline w-12 mr-8"
+            onclick="logout()"
+          >
+            <img
+              src="https://o.remove.bg/downloads/a6c11bc5-4a27-432d-9ed0-c404af8ef4bc/images-removebg-preview.png"
+              alt="Logout"
+            />
+          </button>
         </div>
         <!-- Content -->
         <%- body %>
@@ -105,7 +248,11 @@
       const hamburger2 = document.getElementById("hamburger-2");
       const hamburger3 = document.getElementById("hamburger-3");
 
-      // Refresh
+      // User
+      document.getElementById("userM").innerHTML = localStorage.username;
+      document.getElementById("userL").innerHTML = localStorage.username;
+
+      // console.log(localStorage);
 
       // Sidebar btn
       sidebarBtn.addEventListener("click", () => {
