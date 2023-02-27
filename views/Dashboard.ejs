@@ -1,36 +1,17 @@
-<h1 class="text-center font-bold text-3xl mt-8">Dashboard</h1>
-
 <div class="m-5 grid">
-  <div id="containerData" class="grid"></div>
-  <div id="containerDevInformation" class="bg-white p-5 m-5 lg:m-10"></div>
-  <!-- <div
-    id="sectionDeviceInfo"
-    class="lg:flex Lg:flex-wrap m-5 lg:m-10 bg-white mt-10 p-10"
-  >
-    <div class="lg:w-1/2">
-      <img
-        src="https://img.freepik.com/premium-vector/lazy-people-sitting-floor-working-with-laptop_11197-16.jpg"
-        alt=""
-        class="w-96 mx-auto"
-      />
-    </div>
-    <div class="lg:w-1/2">
-      <div class="mt-5">
-        <h1 class="text-2xl font-bold uppercase">Total device</h1>
-      </div>
-      <h1 class="text-2xl font-bold uppercase">List Device</h1>
-      <ul class="space-y-2">
-        <li class="text-xl">1</li>
-      </ul>
-    </div>
-  </div> -->
+  <div id="containerData" class="grid">
+    <h1 class="text-3xl text-center font-medium">Average all devices data</h1>
+  </div>
+  <div id="containerDevInformation" class="bg-white p-5 m-5 lg:m-10">
+    <h1 class="text-3xl text-center font-medium">Device information</h1>
+  </div>
 </div>
 <script>
   window.addEventListener("DOMContentLoaded", async () => {
     try {
       const responseData = await fetch("/devices?state=dashboard");
       const datas = await responseData.json();
-      console.log(datas);
+
       let arrSuhuAir = [];
       let arrSuhuLingkungan = [];
       let arrTds = [];
@@ -88,7 +69,7 @@
         />
         <h1 class="text-2xl lg:text-xl text-center">Water temperature</h1>
       </div>
-      <h1 class="text-5xl font-bold text-center">${suhuAir}</h1>
+      <h1 class="text-5xl font-bold text-center">${suhuAir}°C</h1>
     </div>
     <div class="mt-5 p-3 bg-white w-full lg:w-[269px] h-[138px] rounded-[30px]">
       <div class="flex space-x-3 justify-center">
@@ -99,7 +80,7 @@
         />
         <h1 class="text-2xl">Humidity</h1>
       </div>
-      <h1 class="text-5xl font-bold text-center">${suhuLingkungan}</h1>
+      <h1 class="text-5xl font-bold text-center">${suhuLingkungan}%</h1>
     </div>
     <div class="mt-5 p-3 bg-white w-full lg:w-[269px] h-[138px] rounded-[30px]">
       <div class="flex space-x-3 justify-center">
@@ -116,8 +97,10 @@
 
       // Device information
       let total = [];
-      datas.map((data) => {
-        total.push(data.deviceName);
+      const responseDevice = await fetch("/devices?state=devInfoDashboard");
+      const datasDevice = await responseDevice.json();
+      datasDevice.map((devices) => {
+        total.push(devices.deviceName);
       });
       document.getElementById("containerDevInformation").innerHTML += ` <div
     id="sectionDeviceInfo"
@@ -131,23 +114,22 @@
       />
     </div>
     <div class="lg:w-1/2">
-      <div class="mt-5">
+      <div class="mt-2">
         <h1 class="text-2xl uppercase">Total device <span class="font-bold">${total.length}</span></h1>
       </div>
       <h1 class="text-2xl  uppercase">List Device</h1>
       <ul id="deviceList" class="space-y-2">
-      
       </ul>
     </div>
   </div>`;
       total.map((dev) => {
-        document.getElementById(
-          "deviceList"
-        ).innerHTML += `<li class="flex space-y-2 space-x-3">
+        document.getElementById("deviceList").innerHTML += `<li class="flex mt-3 space-y-2 space-x-3">
            <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="" class="w-8" />
            <h1 class="text-xl font-bold">${dev}</h1>
           </li>`;
       });
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   });
 </script>
