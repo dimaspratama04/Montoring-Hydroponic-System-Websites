@@ -17,7 +17,7 @@ const postSchedule = (req, res) => {
 
         // Insert to log db
         sendSchedule.map((log) => {
-          db.query("INSERT INTO logschedule(`deviceKey`,`log`) VALUE ( ?,? )", [deviceKey, log], (err, results) => {
+          db.query("INSERT INTO logschedule(`deviceKey`,`deviceName`,`log`) VALUE ( ?,?,? )", [deviceKey, deviceName, log], (err, results) => {
             if (err) throw err;
             console.log(results);
           });

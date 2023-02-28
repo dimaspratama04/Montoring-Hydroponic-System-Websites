@@ -35,7 +35,6 @@ let datas = [[], [], [], []];
 client.on("message", (topic, message) => {
   let msg = message.toString();
 
-  // console.log(`Recieve message from ${topic} message ${msg}`);
   const queryGetTopic = `SELECT topic1,topic2,topic3 FROM devices`;
   db.query(queryGetTopic, (err, results) => {
     if (err) {
@@ -43,18 +42,29 @@ client.on("message", (topic, message) => {
       return;
     } else {
       results.map((result) => {
-        if (topic === "/deviceKey") {
-          datas[0].push(msg);
-        } else if (topic === result.topic1) {
-          datas[1].push(msg);
-        } else if (topic === result.topic2) {
-          datas[2].push(msg);
-        } else {
-          datas[3].push(msg);
+        switch (topic) {
+          case "/deviceKey":
+            datas[0].push(msg);
+            break;
+
+          case result.topic1:
+            datas[1].push(msg);
+            break;
+
+          case result.topic2:
+            datas[2].push(msg);
+            break;
+
+          case result.topic3:
+            datas[3].push(msg);
+            break;
+
+          default:
+            break;
         }
       });
-      insertDatas(datas);
     }
+    insertDatas(datas);
   });
 });
 
