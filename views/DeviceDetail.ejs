@@ -5,17 +5,23 @@
   window.addEventListener("DOMContentLoaded", async () => {
     try {
       // Get datas
-      const response = await fetch(`/devices?state=detail&key=<%= deviceKey %>`);
+      const response = await fetch(
+        `/devices?state=detail&key=<%= deviceKey %>`
+      );
       const datas = await response.json();
       if (datas.statusText === "ERROR" || datas.length < 1) {
-        document.getElementById("container").innerHTML += `<div class="bg-white text-red-500 p-4 mt-10 text-xl">
+        document.getElementById(
+          "container"
+        ).innerHTML += `<div class="bg-white text-red-500 p-4 mt-10 text-xl">
           Device is not have data !
         </div>`;
       } else {
         let arr = datas.lastData;
         let arrLastData = arr.slice(-1);
         arrLastData.map((lastData) => {
-          document.getElementById("container").innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
+          document.getElementById(
+            "container"
+          ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
         <!-- Last Data -->
         <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
         <div>
@@ -100,10 +106,14 @@
       }
 
       // Device information
-      const responseDeviceInfo = await fetch(`/devices?state=info&key=<%= deviceKey %>`);
+      const responseDeviceInfo = await fetch(
+        `/devices?state=info&key=<%= deviceKey %>`
+      );
       const datasDeviceInfo = await responseDeviceInfo.json();
       datasDeviceInfo.map((devInfo) => {
-        document.getElementById("containerDeviceInfo").innerHTML += ` <div class="bg-white p-4 mt-10 space-y-2 text-xl">
+        document.getElementById(
+          "containerDeviceInfo"
+        ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-2 text-xl">
         <h1 class="text-2xl underline">Device specification</h1>
     <div class="flex justify-between pt-5">
       <div class="flex space-x-2">
@@ -143,7 +153,7 @@
         alt="deviceName"
         class="w-8"
       />
-      <h1>Created at ${devInfo.createdAt}</h1>
+      <h1>Created at ${devInfo.updatedAt}</h1>
     </div>
   </div>`;
       });
