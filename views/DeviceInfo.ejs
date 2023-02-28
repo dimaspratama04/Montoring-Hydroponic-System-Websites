@@ -12,7 +12,7 @@
     </button>
   </div>
   <% devices.forEach(device => { %>
-  <div class="bg-white flex justify-between p-5">
+  <div id="containerDevListInfo" class="bg-white flex justify-between p-5">
     <div class="flex space-x-2">
       <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="deviceNameList" class="w-10" />
       <h1 class="text-xl lg:text-3xl font-medium"><%= device.deviceName %> %></h1>
@@ -20,29 +20,43 @@
     <button id="btnDetail" class="text-lg lg:text-xl hover:underline hover:text-blue-500" data-device-key="<%= device.deviceKey %>">Detail</button>
   </div>
   <% }) %>
-
-  <script>
-    const btnDetail = document.querySelectorAll("#btnDetail");
-    btnDetail.forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const deviceKey = btn.dataset.deviceKey;
-        if (localStorage.username === "admin") {
-          window.location.href = `/admin/detail?key=${deviceKey}`;
-        } else {
-          window.location.href = `/home/detail?key=${deviceKey}`;
-        }
-      });
-    });
-  </script>
-  <script>
-    async function getAllDevices() {
-      try {
-        const searchElement = document.getElementById("searchDevices").value;
-        const response = await fetch("/devices?state=info&key=" + searchElement);
-        const datas = await response.json();
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  </script>
 </div>
+
+<script>
+  const btnDetail = document.querySelectorAll("#btnDetail");
+  btnDetail.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const deviceKey = btn.dataset.deviceKey;
+      if (localStorage.username === "admin") {
+        window.location.href = `/admin/detail?key=${deviceKey}`;
+      } else {
+        window.location.href = `/home/detail?key=${deviceKey}`;
+      }
+    });
+  });
+</script>
+<script>
+  async function getAllDevices() {
+    try {
+      const searchElement = document.getElementById("searchDevices").value;
+      const response = await fetch("/devices?state=info&key=" + searchElement);
+      const datas = await response.json();
+      const container = document.querySelectorAll("#containerDevListInfo");
+      container.forEach((div) => {
+        div.remove();
+      });
+
+      datas.map((data) => {
+        container[0].innerHTML += `<div id="containerDevListInfo" class="bg-white flex justify-between p-5">
+    <div class="flex space-x-2">
+      <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="deviceNameList" class="w-10" />
+      <h1 class="text-xl lg:text-3xl font-medium">${data.deviceName}</h1>
+    </div>
+    <button id="btnDetail" class="text-lg lg:text-xl hover:underline hover:text-blue-500" data-device-key="${data.deviceKey}">Detail</button>
+  </div>`;
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+</script>
