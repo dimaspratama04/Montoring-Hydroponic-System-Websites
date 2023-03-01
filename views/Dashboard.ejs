@@ -52,7 +52,9 @@
       const suhuLingkungan = Math.round(sum2 / arrSuhuLingkungan.length);
       const tds = Math.round(sum3 / arrTds.length);
 
-      document.getElementById("containerData").innerHTML += ` <div class="flex justify-between">
+      document.getElementById(
+        "containerData"
+      ).innerHTML += ` <div class="flex justify-between">
       <h1 class="text-2xl text-center font-medium">Average all data</h1>
       <h1 class="text-2xl text-center font-medium">${currentDate}</h1>
     </div>
@@ -65,7 +67,7 @@
             class="w-10" />
           <h1 class="text-2xl lg:text-xl text-center">Water temperature</h1>
         </div>
-        <h1 class="text-5xl font-bold text-center">${suhuAir}°C</h1>
+        <h1 class="text-5xl font-bold mt-4 text-center">${suhuAir}°C</h1>
       </div>
       <div class="bg-white w-full rounded-[30px] lg:w-[269px] h-[138px] mb-5">
         <div class="flex space-x-3 justify-center">
@@ -75,14 +77,14 @@
             class="w-8 h-8" />
           <h1 class="text-2xl">Humidity</h1>
         </div>
-        <h1 class="text-5xl font-bold text-center">${suhuLingkungan}%</h1>
+        <h1 class="text-5xl font-bold mt-4 text-center">${suhuLingkungan}%</h1>
       </div>
       <div class="bg-white w-full rounded-[30px] lg:w-[269px] h-[138px] mb-5">
         <div class="flex space-x-3 justify-center">
           <img src="https://www.mesaplumbingcompany.com/images/icons/salmon/water-filtration.png" alt="TDS" class="w-9 h-9" />
           <h1 class="text-2xl lg:text-xl text-center">Total dissolved solid</h1>
         </div>
-        <h1 class="text-5xl font-bold text-center">${tds}ppm</h1>
+        <h1 class="text-5xl font-bold mt-4 text-center">${tds}ppm</h1>
       </div>
     </div>`;
 
@@ -94,12 +96,12 @@
         total.push(devices.deviceName);
       });
       document.getElementById("containerDevInformation").innerHTML += ` 
-      <h1 class="text-2xl text-center lg:text-start mt-5 ml-5 font-medium">Devce information</h1>
+      <h1 class="text-2xl text-center mt-5 ml-5 font-medium">Devce information</h1>
       <div class="lg:flex">
       <div id="imgWrapper" class="bg-white">
         <img src="https://img.freepik.com/premium-vector/lazy-people-sitting-floor-working-with-laptop_11197-16.jpg" alt="imgDevInfo" class="w-72 mx-auto" />
       </div>
-      <div class="p-5 grid place-items-center lg:place-items-start md:place-items-center">
+      <div class="lg:ml-5 lg:pt-8 text-center lg:text-start">
         <h1 class="text-2xl uppercase">Total device <span class="font-bold">${total.length}</span></h1>
         <h1 class="text-2xl uppercase">List Device</h1>
         <ul id="deviceList" class="space-y-2"></ul>
@@ -107,7 +109,9 @@
     </div>`;
 
       total.map((dev) => {
-        document.getElementById("deviceList").innerHTML += `<li class="flex space-y-2 space-x-3">
+        document.getElementById(
+          "deviceList"
+        ).innerHTML += `<li class="flex justify-center lg:justify-start space-x-3">
            <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="" class="w-8" />
            <h1 class="text-xl font-bold">${dev}</h1>
           </li>`;

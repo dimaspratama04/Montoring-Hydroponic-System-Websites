@@ -42,15 +42,15 @@ const getAllDevices = (req, res) => {
           };
           results.forEach((result) => {
             // Suhu air
-            chartSuhuAir.labels.push(result.topic1);
+            chartSuhuAir.labels.push(result.updatedAt);
             chartSuhuAir.datasets[0].data.push(result.topic1_VALUE);
 
             // Suhu lingkungan
-            chartSuhuLingkungan.labels.push(result.topic2);
+            chartSuhuLingkungan.labels.push(result.updatedAt);
             chartSuhuLingkungan.datasets[0].data.push(result.topic2_VALUE);
 
             // TDS
-            chartTds.labels.push(result.topic3);
+            chartTds.labels.push(result.updatedAt);
             chartTds.datasets[0].data.push(result.topic3_VALUE);
           });
 

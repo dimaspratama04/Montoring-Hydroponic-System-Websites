@@ -12,15 +12,6 @@ const Devices = db.define("devices", {
   deviceIp: {
     type: DataType.STRING,
   },
-  topic1: {
-    type: DataType.STRING,
-  },
-  topic2: {
-    type: DataType.STRING,
-  },
-  topic3: {
-    type: DataType.STRING,
-  },
   createdAt: {
     type: DataType.DATE,
   },

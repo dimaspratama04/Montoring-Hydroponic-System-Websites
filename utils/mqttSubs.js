@@ -13,59 +13,39 @@ const client = mqtt.connect(connectUrl, {
 });
 
 client.on("connect", function () {
-  console.log("MQTT SUCCES CONNECT !");
+  client.subscribe("/deviceKey");
+  client.subscribe("/suhuAir");
+  client.subscribe("/suhuLingkungan");
+  client.subscribe("/tds");
 
-  const queryGetTopic = `SELECT topic1,topic2,topic3 FROM devices`;
-  db.query(queryGetTopic, (err, results) => {
-    if (err) {
-      console.error(err);
-      return;
-    } else {
-      results.map((result) => {
-        client.subscribe("/deviceKey");
-        client.subscribe(result.topic1);
-        client.subscribe(result.topic2);
-        client.subscribe(result.topic3);
-      });
-    }
-  });
+  console.log("MQTT SUCCES CONNECT !");
 });
 
 let datas = [[], [], [], []];
 client.on("message", (topic, message) => {
   let msg = message.toString();
 
-  const queryGetTopic = `SELECT topic1,topic2,topic3 FROM devices`;
-  db.query(queryGetTopic, (err, results) => {
-    if (err) {
-      console.log(err);
-      return;
-    } else {
-      results.map((result) => {
-        switch (topic) {
-          case "/deviceKey":
-            datas[0].push(msg);
-            break;
+  switch (topic) {
+    case "/deviceKey":
+      datas[0].push(msg);
+      break;
 
-          case result.topic1:
-            datas[1].push(msg);
-            break;
+    case "/suhuAir":
+      datas[1].push(msg);
+      break;
 
-          case result.topic2:
-            datas[2].push(msg);
-            break;
+    case "/suhuLingkungan":
+      datas[2].push(msg);
+      break;
 
-          case result.topic3:
-            datas[3].push(msg);
-            break;
+    case "/tds":
+      datas[3].push(msg);
+      break;
 
-          default:
-            break;
-        }
-      });
-    }
-    insertDatas(datas);
-  });
+    default:
+      break;
+  }
+  insertDatas(datas);
 });
 
 function insertDatas(datas) {
@@ -75,8 +55,12 @@ function insertDatas(datas) {
   let tds = datas[3].slice(-1)[0];
 
   const queryInsertData = `INSERT INTO datas (deviceKey, topic1_VALUE, topic2_VALUE, topic3_VALUE) VALUES (?, ?, ?, ?)`;
-  db.query(queryInsertData, [deviceKey, suhuAir, suhuLingkungan, tds], (err, results) => {
-    if (err) throw err;
-    console.log(results);
-  });
+  db.query(
+    queryInsertData,
+    [deviceKey, suhuAir, suhuLingkungan, tds],
+    (err, results) => {
+      if (err) throw err;
+      console.log(results);
+    }
+  );
 }
