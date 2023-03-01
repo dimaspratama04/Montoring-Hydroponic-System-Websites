@@ -6,18 +6,10 @@
   window.addEventListener("DOMContentLoaded", async () => {
     try {
       // Get datas
-      const response = await fetch(
-        `/devices?state=detail&key=<%= deviceKey %>`
-      );
+      const response = await fetch(`/devices?state=detail&key=<%= deviceKey %>`);
       const datas = await response.json();
       if (datas.statusText === "ERROR" || datas.length < 1) {
-<<<<<<< HEAD
-        document.getElementById(
-          "container"
-        ).innerHTML += `<div class="bg-white text-red-500 p-4 mt-10 text-xl">
-=======
-        document.getElementById("containerLastData").innerHTML += `<h1 class="bg-white text-red-500 text-xl">
->>>>>>> 05ed9701e5b7c88be10a2b7471f40e4453d3cba5
+        document.getElementById("containerLastData").innerHTML += `<div class="bg-white text-red-500 p-4 mt-10 text-xl">
           Device is not have data !
         </h1>`;
         document.getElementById("containerChart").remove();
@@ -25,20 +17,14 @@
         let arr = datas.lastData;
         let arrLastData = arr.slice(-1);
         arrLastData.map((lastData) => {
-<<<<<<< HEAD
-          document.getElementById(
-            "container"
-          ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-5">
-=======
           const dateString = lastData.createdAt;
-          const dateArray = dateString.split("T")[0].split("-");
-          const year = dateArray[0];
-          const month = dateArray[1];
-          const day = dateArray[2];
-          const formattedDate = `${day}/${month}/${year}`;
+          const arrDateString = dateString.split("T")[0].split("-");
+          const dd = arrDateString[2];
+          const mm = arrDateString[1];
+          const yyyy = arrDateString[0];
+          const formatedDate = `${dd}/${mm}/${yyyy}`;
 
           document.getElementById("containerLastData").innerHTML += ` 
->>>>>>> 05ed9701e5b7c88be10a2b7471f40e4453d3cba5
         <!-- Last Data -->
         <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
         <div class="mt-5">
@@ -49,12 +35,12 @@
             <div class="flex space-x-2">
                <img src="https://cdn-icons-png.flaticon.com/512/3917/3917267.png" alt="" class="w-8 h-8 lg:w-10 lg:h-10">
                <div class="justify-self-end">
-                <h1 class="text-xl font-bold text-center lg:text-start">${formattedDate}</h1>
+                <h1 class="text-xl font-bold text-center lg:text-start">${formatedDate}</h1>
                 <h1 class="text-xl font-bold text-center lg:text-start">${lastData.updatedAt}</h1>
                 </div>
               </div>
             </div>
-          <div id="liveData" class="flex flex-wrap justify-evenly gap-3 mt-3">
+          <div class="flex flex-wrap justify-evenly gap-3 mt-3">
             <div class="w-52 h-52 bg-blue-500 rounded-full grid place-items-center">
               <span class="text-6xl font-bold text-white">${lastData.topic1_VALUE}°C</span>
               <span class="text-xl mb-5 text-white">Water temp</span>
@@ -69,12 +55,11 @@
               <h1 class="text-xl text-white">Total dissolved solid</h1>
             </div>
           </div>
-        </div>
       `;
 
           document.getElementById("containerChart").innerHTML += `
         <!-- Chart -->
-        <p class="text-2xl font-bold text-center lg:text-start mt-12 underline">
+        <p class="text-2xl font-bold text-center lg:text-start mt-5 underline">
           Overall data by Chart
         </p>
         <div class="flex flex-wrap justify-evenly mt-3">
@@ -125,25 +110,17 @@
       }
 
       // Device information
-      const responseDeviceInfo = await fetch(
-        `/devices?state=info&key=<%= deviceKey %>`
-      );
+      const responseDeviceInfo = await fetch(`/devices?state=info&key=<%= deviceKey %>`);
       const datasDeviceInfo = await responseDeviceInfo.json();
       datasDeviceInfo.map((devInfo) => {
-<<<<<<< HEAD
-        document.getElementById(
-          "containerDeviceInfo"
-        ).innerHTML += ` <div class="bg-white p-4 mt-10 space-y-2 text-xl">
-=======
         const dateString = devInfo.createdAt;
-        const dateArray = dateString.split("T")[0].split("-");
-        const year = dateArray[0];
-        const month = dateArray[1];
-        const day = dateArray[2];
-        const formattedDate = `${day}/${month}/${year}`;
+        const arrDateString = dateString.split("T")[0].split("-");
+        const dd = arrDateString[2];
+        const mm = arrDateString[1];
+        const yyyy = arrDateString[0];
+        const formatedDate = `${dd}/${mm}/${yyyy}`;
 
         document.getElementById("containerDeviceInfo").innerHTML += ` 
->>>>>>> 05ed9701e5b7c88be10a2b7471f40e4453d3cba5
         <h1 class="text-2xl underline">Device specification</h1>
     <div class="flex justify-between pt-5">
       <div class="flex space-x-2">
@@ -183,14 +160,9 @@
         alt="deviceName"
         class="w-8 h-8"
       />
-<<<<<<< HEAD
-      <h1>Created at ${devInfo.updatedAt}</h1>
+      <h1>Created at ${formatedDate}</h1>
     </div>
-  </div>`;
-=======
-      <h1>Created at ${formattedDate}</h1>
-    </div>`;
->>>>>>> 05ed9701e5b7c88be10a2b7471f40e4453d3cba5
+  `;
       });
     } catch (e) {
       console.log(e);
