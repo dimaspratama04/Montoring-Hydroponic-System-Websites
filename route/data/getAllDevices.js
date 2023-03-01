@@ -89,7 +89,7 @@ const getAllDevices = (req, res) => {
         }
       });
     } else if (req.query.state === "devInfoDashboard") {
-      const queryGetDevicesDashboardInfo = `SELECT deviceName FROM devices LIMIT 10 `;
+      const queryGetDevicesDashboardInfo = `SELECT deviceKey, deviceName FROM devices LIMIT 10 `;
       db.query(queryGetDevicesDashboardInfo, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
