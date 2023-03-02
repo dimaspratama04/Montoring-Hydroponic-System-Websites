@@ -4,31 +4,37 @@
 
 <script>
   window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      // Get datas
-      const response = await fetch(
-        `/devices?state=detail&key=<%= deviceKey %>`
-      );
-      const datas = await response.json();
-      if (datas.statusText === "ERROR" || datas.length < 1) {
-        document.getElementById(
-          "containerLastData"
-        ).innerHTML += `<h1 class="bg-white text-red-500 text-xl">
+    const containerLastData = document.getElementById("containerLastData");
+    const containerChart = document.getElementById("containerChart");
+    const containerDeviceInfo = document.getElementById("containerDeviceInfo");
+    const chartSuhuAir = document.getElementById(`chartSuhuAir`);
+    const chartSuhuLingkungan = document.getElementById(`chartSuhuLingkungan`);
+    const chartTds = document.getElementById(`chartTds`);
+
+    setInterval(async () => {
+      try {
+        // Get datas
+        const response = await fetch(`/devices?state=detail&key=<%= deviceKey %>`);
+        const datas = await response.json();
+        if (datas.statusText === "ERROR" || datas.length < 1) {
+          containerLastData.innerHTML = `<h1 class="bg-white text-red-500 text-xl">
           Device is not have data !
         </h1>`;
-        document.getElementById("containerChart").remove();
-      } else {
-        let arr = datas.lastData;
-        let arrLastData = arr.slice(-1);
-        arrLastData.map((lastData) => {
-          const dateString = lastData.createdAt;
-          const arrDateString = dateString.split("T")[0].split("-");
-          const dd = arrDateString[2];
-          const mm = arrDateString[1];
-          const yyyy = arrDateString[0];
-          const formatedDate = `${dd}/${mm}/${yyyy}`;
+          containerChart.innerHTML = `<h1 class="bg-white text-red-500 text-xl">
+          Device is not have chart !
+        </h1>`;
+        } else {
+          let arr = datas.lastData;
+          let arrLastData = arr.slice(-1);
+          arrLastData.map((lastData) => {
+            const dateString = lastData.createdAt;
+            const arrDateString = dateString.split("T")[0].split("-");
+            const dd = arrDateString[2];
+            const mm = arrDateString[1];
+            const yyyy = arrDateString[0];
+            const formatedDate = `${dd}/${mm}/${yyyy}`;
 
-          document.getElementById("containerLastData").innerHTML += ` 
+            containerLastData.innerHTML = `
         <!-- Last Data -->
         <h1 class="text-2xl font-extrabold text-center">${lastData.deviceName}</h1>
         <div class="mt-5">
@@ -61,7 +67,7 @@
           </div>
       `;
 
-          document.getElementById("containerChart").innerHTML += `
+            containerChart.innerHTML = `
         <!-- Chart -->
         <p class="text-2xl font-bold text-center lg:text-start mt-5 underline">
           Overall data by Chart
@@ -87,46 +93,65 @@
           </div>
         </div>
      `;
-        });
-        setTimeout(() => {
-          // Canvas container
-          document.getElementById(`chartSuhuAir`);
-          document.getElementById(`chartSuhuLingkungan`);
-          document.getElementById(`chartTds`);
+          });
 
           // Chart Suhu air
           new Chart(`chartSuhuAir`, {
             type: "bar",
             data: datas.dataChartSuhuAir,
+            options: {
+              animation: {
+                duration: 0,
+              },
+              hover: {
+                animationDuration: 0,
+              },
+              responsiveAnimationDuration: 0,
+            },
           });
           // Chart Suhu Lingkungan
           new Chart(`chartSuhuLingkungan`, {
             type: "bar",
             data: datas.dataChartSuhuLingkungan,
+            options: {
+              animation: {
+                duration: 0,
+              },
+              hover: {
+                animationDuration: 0,
+              },
+              responsiveAnimationDuration: 0,
+            },
           });
 
           // Chart TDS
           new Chart(`chartTds`, {
             type: "bar",
             data: datas.dataChartTds,
+            options: {
+              animation: {
+                duration: 0,
+              },
+              hover: {
+                animationDuration: 0,
+              },
+              responsiveAnimationDuration: 0,
+            },
           });
-        }, 1000);
-      }
+        }
 
-      // Device information
-      const responseDeviceInfo = await fetch(
-        `/devices?state=info&key=<%= deviceKey %>`
-      );
-      const datasDeviceInfo = await responseDeviceInfo.json();
-      datasDeviceInfo.map((devInfo) => {
-        const dateString = devInfo.createdAt;
-        const arrDateString = dateString.split("T")[0].split("-");
-        const dd = arrDateString[2];
-        const mm = arrDateString[1];
-        const yyyy = arrDateString[0];
-        const formatedDate = `${dd}/${mm}/${yyyy}`;
+        // Device information
+        const responseDeviceInfo = await fetch(`/devices?state=info&key=<%= deviceKey %>`);
+        const datasDeviceInfo = await responseDeviceInfo.json();
+        datasDeviceInfo.map((devInfo) => {
+          const dateString = devInfo.createdAt;
+          const arrDateString = dateString.split("T")[0].split("-");
+          const dd = arrDateString[2];
+          const mm = arrDateString[1];
+          const yyyy = arrDateString[0];
+          const formatedDate = `${dd}/${mm}/${yyyy}`;
 
-        document.getElementById("containerDeviceInfo").innerHTML += ` 
+          containerDeviceInfo.innerHTML = `
         <h1 class="text-2xl underline">Device specification</h1>
         <div class="space-y-3">
           <div class="flex justify-between pt-5">
@@ -158,9 +183,10 @@
         </div>
     </div>
   `;
-      });
-    } catch (e) {
-      console.log(e);
-    }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }, 1000);
   });
 </script>

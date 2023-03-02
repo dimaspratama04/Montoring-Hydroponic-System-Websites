@@ -7,9 +7,6 @@
           <th scope="col" class="px-6 py-3">Device name</th>
           <th scope="col" class="px-6 py-3">Device Key</th>
           <th scope="col" class="px-6 py-3">Device Ip</th>
-          <th scope="col" class="px-6 py-3">Topic 1</th>
-          <th scope="col" class="px-6 py-3">Topic 2</th>
-          <th scope="col" class="px-6 py-3">Topic 3</th>
           <th scope="col" class="px-6 py-3 text-red-500">Delete</th>
         </tr>
       </thead>
@@ -20,9 +17,6 @@
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"><%= device.deviceName %></th>
           <td id="deviceKey" class="px-6 py-4"><%= device.deviceKey %></td>
           <td class="px-6 py-4"><%= device.deviceIp %></td>
-          <td class="px-6 py-4"><%= device.topic1 %></td>
-          <td class="px-6 py-4"><%= device.topic2 %></td>
-          <td class="px-6 py-4"><%= device.topic3 %></td>
           <td class="px-6 py-4">
             <button class="font-medium text-red-500 hover:underline" onclick="deleteDevices('<%= device.id %>', '<%= index %>')">Delete</button>
           </td>

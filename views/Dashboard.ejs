@@ -5,56 +5,57 @@
 </div>
 <script>
   window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const responseData = await fetch("/devices?state=dashboard");
-      const datas = await responseData.json();
+    const containerData = document.getElementById("containerData");
+    const containerDevInformation = document.getElementById("containerDevInformation");
+    setInterval(async () => {
+      try {
+        const responseData = await fetch("/devices?state=dashboard");
+        const datas = await responseData.json();
 
-      let arrSuhuAir = [];
-      let arrSuhuLingkungan = [];
-      let arrTds = [];
-      const today = new Date();
-      const dd = String(today.getDate()).padStart(2, "0");
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const yyyy = today.getFullYear();
+        let arrSuhuAir = [];
+        let arrSuhuLingkungan = [];
+        let arrTds = [];
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const yyyy = today.getFullYear();
 
-      const currentDate = dd + "/" + mm + "/" + yyyy;
-      datas.map((data) => {
-        if (data.topic1_VALUE === null) {
-          arrSuhuAir.push(0);
-        } else {
-          arrSuhuAir.push(data.topic1_VALUE);
-        }
+        const currentDate = dd + "/" + mm + "/" + yyyy;
+        datas.map((data) => {
+          if (data.topic1_VALUE === null) {
+            arrSuhuAir.push(0);
+          } else {
+            arrSuhuAir.push(data.topic1_VALUE);
+          }
 
-        if (data.topic2_VALUE === null) {
-          arrSuhuLingkungan.push(0);
-        } else {
-          arrSuhuLingkungan.push(data.topic2_VALUE);
-        }
+          if (data.topic2_VALUE === null) {
+            arrSuhuLingkungan.push(0);
+          } else {
+            arrSuhuLingkungan.push(data.topic2_VALUE);
+          }
 
-        if (data.topic3_VALUE === null) {
-          arrTds.push(0);
-        } else {
-          arrTds.push(data.topic3_VALUE);
-        }
-      });
+          if (data.topic3_VALUE === null) {
+            arrTds.push(0);
+          } else {
+            arrTds.push(data.topic3_VALUE);
+          }
+        });
 
-      const sum1 = arrSuhuAir.reduce((acc, cur) => {
-        return acc + Math.round(cur);
-      }, 0);
-      const sum2 = arrSuhuLingkungan.reduce((acc, cur) => {
-        return acc + Math.round(cur);
-      }, 0);
-      const sum3 = arrTds.reduce((acc, cur) => {
-        return acc + Math.round(cur);
-      }, 0);
+        const sum1 = arrSuhuAir.reduce((acc, cur) => {
+          return acc + Math.round(cur);
+        }, 0);
+        const sum2 = arrSuhuLingkungan.reduce((acc, cur) => {
+          return acc + Math.round(cur);
+        }, 0);
+        const sum3 = arrTds.reduce((acc, cur) => {
+          return acc + Math.round(cur);
+        }, 0);
 
-      const suhuAir = Math.round(sum1 / arrSuhuAir.length);
-      const suhuLingkungan = Math.round(sum2 / arrSuhuLingkungan.length);
-      const tds = Math.round(sum3 / arrTds.length);
+        const suhuAir = Math.round(sum1 / arrSuhuAir.length);
+        const suhuLingkungan = Math.round(sum2 / arrSuhuLingkungan.length);
+        const tds = Math.round(sum3 / arrTds.length);
 
-      document.getElementById(
-        "containerData"
-      ).innerHTML += ` <div class="flex justify-between">
+        containerData.innerHTML = ` <div class="flex justify-between">
       <h1 class="text-2xl text-center font-medium">Average all data</h1>
       <h1 class="text-2xl text-center font-medium">${currentDate}</h1>
     </div>
@@ -88,14 +89,14 @@
       </div>
     </div>`;
 
-      // Device information
-      let total = [];
-      const responseDevice = await fetch("/devices?state=devInfoDashboard");
-      const datasDevice = await responseDevice.json();
-      datasDevice.map((devices) => {
-        total.push(devices.deviceName);
-      });
-      document.getElementById("containerDevInformation").innerHTML += ` 
+        // Device information
+        let total = [];
+        const responseDevice = await fetch("/devices?state=devInfoDashboard");
+        const datasDevice = await responseDevice.json();
+        datasDevice.map((devices) => {
+          total.push(devices.deviceName);
+        });
+        containerDevInformation.innerHTML = `
       <h1 class="text-2xl text-center mt-5 ml-5 font-medium">Devce information</h1>
       <div class="lg:flex">
       <div id="imgWrapper" class="bg-white">
@@ -104,20 +105,19 @@
       <div class="lg:ml-5 lg:pt-8 text-center lg:text-start">
         <h1 class="text-2xl uppercase">Total device <span class="font-bold">${total.length}</span></h1>
         <h1 class="text-2xl uppercase">List Device</h1>
-        <ul id="deviceList" class="space-y-2"></ul>
+        <ul id="deviceList" class="space-y-2 pb-5"></ul>
       </div>
     </div>`;
 
-      total.map((dev) => {
-        document.getElementById(
-          "deviceList"
-        ).innerHTML += `<li class="flex justify-center lg:justify-start space-x-3">
-           <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="" class="w-8" />
+        total.map((dev) => {
+          document.getElementById("deviceList").innerHTML += `<li class="flex justify-center lg:justify-start space-x-3">
+           <img src="https://cdn-icons-png.flaticon.com/512/1698/1698293.png" alt="" class="w-8 h-8" />
            <h1 class="text-xl font-bold">${dev}</h1>
           </li>`;
-      });
-    } catch (e) {
-      console.log(e);
-    }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }, 2000);
   });
 </script>
