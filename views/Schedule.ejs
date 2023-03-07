@@ -29,34 +29,22 @@
         required />
 
       <!-- Schedule on input -->
-      <label for="on" class="text-lg font-bold">ON</label>
+      <label class="text-lg font-bold">ON</label>
       <input
         id="on"
-        type="text"
         name="on"
+        type="time"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        placeholder="example 7:15"
-        required
-        pattern="[0-9:]+"
-        title="example 7:15"
-        maxlength="5" />
+        required />
 
       <!-- Schedule off input -->
-      <label for="off" class="text-lg font-bold">OFF</label>
+      <label class="text-lg font-bold">OFF</label>
       <input
         id="off"
-        type="text"
         name="off"
+        type="time"
         class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-        placeholder="example 15:30"
-        required
-        pattern="[0-9:]+"
-        title="example 15:30"
-        maxlength="5" />
-
-      <div class="mt-5">
-        <h1 class="font-medium">The number that is input will be converted to units of hours and minute, all you have to do is input, in units of numbers, for example 7:15 and 15:30</h1>
-      </div>
+        required />
     </div>
 
     <!-- Submit button -->

@@ -9,14 +9,14 @@ const postSchedule = (req, res) => {
   db.query(queryCheckDeviceKey, (err, results) => {
     if (err) throw err;
     if (results.length > 0) {
-      let sendSchedule = [on, off];
+      let schedule = [on, off];
       const client = mqtt.connect("mqtt://broker.emqx.io:1883");
       client.on("connect", (err) => {
-        client.publish(`${topicSchedule}`, JSON.stringify(sendSchedule));
+        client.publish(`${topicSchedule}`, JSON.stringify(schedule));
         res.send("SUCCES : Success send schedule to devices !");
 
         // Insert to log db
-        sendSchedule.map((log) => {
+        schedule.map((log) => {
           db.query("INSERT INTO logschedule(`deviceKey`,`deviceName`,`log`) VALUE ( ?,?,? )", [deviceKey, deviceName, log], (err, results) => {
             if (err) throw err;
             console.log(results);
