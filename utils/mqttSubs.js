@@ -21,7 +21,7 @@ client.on("connect", function () {
   console.log("MQTT SUCCES CONNECT !");
 });
 
-let datas = [[], [], [], []];
+let datas = [[0], [0], [0], [0]];
 client.on("message", (topic, message) => {
   let msg = message.toString();
 
@@ -31,15 +31,33 @@ client.on("message", (topic, message) => {
       break;
 
     case "/suhuAir":
-      datas[1].push(msg);
+      if (msg === undefined || msg === null) {
+        datas[1].push(0);
+      } else if (msg < 0 || msg > 100) {
+        datas[1].push(0);
+      } else {
+        datas[1].push(msg);
+      }
       break;
 
     case "/suhuLingkungan":
-      datas[2].push(msg);
+      if (msg === undefined || msg === null) {
+        datas[2].push(0);
+      } else if (msg < 0 || msg > 100) {
+        datas[2].push(0);
+      } else {
+        datas[2].push(msg);
+      }
       break;
 
     case "/tds":
-      datas[3].push(msg);
+      if (msg === undefined || msg === null) {
+        datas[3].push(0);
+      } else if (msg < 0 || msg > 2000) {
+        datas[3].push(0);
+      } else {
+        datas[3].push(msg);
+      }
       break;
 
     default:
@@ -55,12 +73,8 @@ function insertDatas(datas) {
   let tds = datas[3].slice(-1)[0];
 
   const queryInsertData = `INSERT INTO datas (deviceKey, topic1_VALUE, topic2_VALUE, topic3_VALUE) VALUES (?, ?, ?, ?)`;
-  db.query(
-    queryInsertData,
-    [deviceKey, suhuAir, suhuLingkungan, tds],
-    (err, results) => {
-      if (err) throw err;
-      console.log(results);
-    }
-  );
+  db.query(queryInsertData, [deviceKey, suhuAir, suhuLingkungan, tds], (err, results) => {
+    if (err) throw err;
+    console.log(results);
+  });
 }
