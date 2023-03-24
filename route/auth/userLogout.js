@@ -1,9 +1,9 @@
 const userLogout = (req, res) => {
   if (req.session.loggedin) {
     delete req.session.loggedin;
-    res.json({ result: "SUCCESS" });
+    res.status(200).json({ result: "SUCCESS", message: "Logout succesfull !" });
   } else {
-    res.json({ result: "ERROR", message: "User is not logged in." });
+    res.status(304).json({ result: "ERROR", message: "User is not logged in." });
   }
 };
 

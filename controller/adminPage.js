@@ -1,4 +1,5 @@
 const Devices = require("../models/devicesModels");
+const Accounts = require("../models/accountsModels");
 
 const adminPageDashboard = async (req, res) => {
   const devices = await Devices.findAll();
@@ -49,6 +50,15 @@ const adminPageDeviceDetails = async (req, res) => {
   });
 };
 
+const adminPageAccountsList = async (req, res) => {
+  const accounts = await Accounts.findAll();
+  res.render("ListAccounts", {
+    title: "List Accounts",
+    layout: "layouts/mainHomeAdmin",
+    accounts: accounts,
+  });
+};
+
 module.exports = {
   adminPageDashboard: adminPageDashboard,
   adminPageDeviceList: adminPageDeviceList,
@@ -56,4 +66,5 @@ module.exports = {
   adminPageSchedulling: adminPageSchedulling,
   adminPageDeviceRegister: adminPageDeviceRegister,
   adminPageDeviceDetails: adminPageDeviceDetails,
+  adminPageAccountsList: adminPageAccountsList,
 };

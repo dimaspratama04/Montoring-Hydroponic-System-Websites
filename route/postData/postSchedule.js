@@ -11,9 +11,9 @@ const postSchedule = (req, res) => {
     if (results.length > 0) {
       let schedule = [on, off];
       const client = mqtt.connect("mqtt://broker.emqx.io:1883");
-      client.on("connect", (err) => {
+      client.on("connect", () => {
         client.publish(`${topicSchedule}`, JSON.stringify(schedule));
-        res.send("SUCCES : Success send schedule to devices !");
+        res.status(200).json({ statusText: "OK", message: "Schedule succese set !" });
 
         // Insert to log db
         schedule.map((log) => {
@@ -24,7 +24,7 @@ const postSchedule = (req, res) => {
         });
       });
     } else {
-      res.send("DEVICE KEY OR DEVICE NAME IS NOT VALID !");
+      res.status(400).json({ message: "DEVICE NOT FOUND !" });
     }
   });
 };

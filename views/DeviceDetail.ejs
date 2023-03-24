@@ -16,7 +16,7 @@
         // Get datas
         const response = await fetch(`/devices?state=detail&key=<%= deviceKey %>`);
         const datas = await response.json();
-        if (datas.statusText === "ERROR" || datas.length < 1) {
+        if (datas.statusText === "Not Found" || datas.length < 1) {
           containerLastData.innerHTML = `<h1 class="bg-white text-red-500 text-xl">
           Device is not have data !
         </h1>`;

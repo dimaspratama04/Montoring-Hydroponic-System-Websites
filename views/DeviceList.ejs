@@ -30,15 +30,16 @@
 <script>
   async function deleteDevices(deviceId, rowIndex) {
     try {
-      const response = await fetch("/deleteDevices?id=" + deviceId, {
+      const response = await fetch("/delete?state=device&id=" + deviceId, {
         method: "DELETE",
       });
-      const deviceRow = document.getElementById("device-row-" + rowIndex).remove();
+
       const data = await response.json();
-      if (data.success) {
+      if (data.message === "OK") {
         location.reload();
+        const deviceRow = document.getElementById("device-row-" + rowIndex).remove();
       } else {
-        console.log("err");
+        alert("ERROR !");
       }
     } catch (e) {
       console.log(e);

@@ -1,78 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Login</title>
-  </head>
-  <body class="bg-gradient-to-tr from-[#00B4DB] to-[#0083B0] grid place-items-center h-screen">
-    <div class="bg-white lg:w-[700px] rounded-md">
-      <h1 class="text-4xl font-bold mb-12 text-center pt-5">Login</h1>
-      <form action="/auth" method="post">
-        <!-- Email input -->
-        <div class="mb-6 mr-4 ml-4">
-          <label for="username" class="text-lg font-bold">Username</label>
-          <input
-            id="username"
-            type="text"
-            name="username"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            required />
-        </div>
+<!-- Modal -->
+<div id="modalMessage" class="-translate-y-40 duration-500 mx-auto w-3/4 md:w-2/4 lg:w-1/2 fixed inset-x-0 top-10">
+  <div id="modalBody" class="px-6 py-4 my-4 rounded-md text-lg flex items-center w-full">
+    <span id="msg" class="text-green-800"></span>
+  </div>
+</div>
 
-        <!-- Password input -->
-        <div class="mb-6 ml-4 mr-4">
-          <label for="password" class="text-lg font-bold">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            required />
-          <div class="mt-3 text-end">
-            <input type="checkbox" onclick="showPass()" />
-            <label for="checkbox">Show password</label>
-          </div>
-        </div>
-
-        <!-- Submit button -->
-        <div class="mx-auto grid justify-items-center space-y-3 mb-8">
-          <button
-            type="submit"
-            class="px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
-            Sign in
-          </button>
-          <!-- Go to register page -->
-          <a
-            href="/register"
-            class="px-7 py-3 bg-green-600 text-center text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
-            Register
-          </a>
-        </div>
-      </form>
+<!-- Form -->
+<div class="bg-white lg:w-[700px] rounded-md">
+  <h1 class="text-4xl font-bold mb-12 text-center pt-5">Login</h1>
+  <form>
+    <!-- Email input -->
+    <div class="mb-6 mr-4 ml-4">
+      <label for="username" class="text-lg font-bold">Username</label>
+      <input
+        id="username"
+        type="text"
+        name="username"
+        class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        required />
     </div>
-  </body>
-  <script>
-    const myPass = document.querySelector("#password");
-    function showPass() {
-      if (myPass.type === "password") {
-        myPass.type = "text";
-      } else {
-        myPass.type = "password";
-      }
-    }
 
-    // Store session login
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const username = document.getElementById("username");
-      const password = document.getElementById("password");
-      localStorage.setItem("username", username.value);
-      localStorage.setItem("password", password.value);
-      form.submit();
-    });
-  </script>
-</html>
+    <!-- Password input -->
+    <div class="mb-6 ml-4 mr-4">
+      <label for="password" class="text-lg font-bold">Password</label>
+      <input
+        id="password"
+        type="password"
+        name="password"
+        class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        required />
+      <div class="mt-3 text-end">
+        <input type="checkbox" onclick="showPass()" />
+        <label for="checkbox">Show password</label>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="mx-auto grid justify-items-center space-y-3 mb-8">
+      <button
+        type="submit"
+        class="px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
+        Sign in
+      </button>
+      <!-- Go to register page -->
+      <a
+        href="/register"
+        class="px-7 py-3 bg-green-600 text-center text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
+        Register
+      </a>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Module elements
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+  const modal = document.getElementById("modalMessage");
+
+  // Show Password
+  const myPass = document.querySelector("#password");
+  function showPass() {
+    if (myPass.type === "password") {
+      myPass.type = "text";
+    } else {
+      myPass.type = "password";
+    }
+  }
+
+  // Login auth
+  async function loginAuth() {
+    try {
+      const response = await fetch("/auth", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username.value,
+          password: password.value,
+        }),
+      });
+      const datas = await response.json();
+      if (datas.statusText === "OK") {
+        if (datas.message === "Admin") {
+          window.location.href = "/admin/dashboard";
+        } else {
+          window.location.href = "/home/dashboard";
+        }
+      } else {
+        document.getElementById("msg").innerHTML = datas.message;
+        document.getElementById("modalBody").classList.add("bg-red-200");
+        modal.classList.toggle("-translate-y-40");
+        setTimeout(() => {
+          modal.classList.toggle("-translate-y-40");
+        }, 2000);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Login submit
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    localStorage.setItem("username", username.value);
+    localStorage.setItem("password", password.value);
+    loginAuth();
+  });
+</script>

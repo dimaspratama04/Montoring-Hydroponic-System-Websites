@@ -52,14 +52,18 @@
           </button>
           <button class="font-bold hover:underline w-12 mr-8" onclick="logout()">Logout</button>
         </div>
+        <div id="modalMessage" class="-translate-y-40 duration-500 mx-auto w-3/4 md:w-2/4 lg:w-1/2 fixed inset-x-0 top-10">
+          <div id="modalBody" class="px-6 py-4 my-4 rounded-md text-lg flex items-center w-full">
+            <span id="msg" class="text-green-800"></span>
+          </div>
+        </div>
         <!-- Content -->
         <%- body %>
-        <!-- Footer -->
-        <%- include('footer') %>
       </div>
     </div>
 
     <script>
+      // Module elements
       const sidebarBtn = document.querySelector("#sidebarBtn");
       const dropdownBtn = document.querySelector("#btn-dropdown");
       const dropdownBtnMobile = document.querySelector("#btn-dropdown-mobile");
@@ -67,6 +71,9 @@
       const hamburger1 = document.getElementById("hamburger-1");
       const hamburger2 = document.getElementById("hamburger-2");
       const hamburger3 = document.getElementById("hamburger-3");
+
+      // Modal
+      const modal = document.getElementById("modalMessage");
 
       // User
       document.getElementById("userM").innerHTML = localStorage.username;
@@ -103,12 +110,17 @@
       async function logout() {
         try {
           const response = await fetch("/logout");
-          const data = await response.json();
-          if (data.result === "SUCCESS") {
-            alert("Logout success !");
+          const datas = await response.json();
+          if (datas.result === "SUCCESS") {
+            document.getElementById("msg").innerHTML = datas.message;
+            document.getElementById("modalBody").classList.remove("bg-red-200");
+            document.getElementById("modalBody").classList.add("bg-green-200");
+            modal.classList.toggle("-translate-y-40");
+            setTimeout(() => {
+              modal.classList.toggle("-translate-y-40");
+            }, 2000);
             window.location.href = "/";
           } else {
-            alert("Logout success !");
             window.location.href = "/";
           }
         } catch (e) {

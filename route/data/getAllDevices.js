@@ -3,7 +3,6 @@ const db = require("../../utils/databaseConfig");
 const getAllDevices = (req, res) => {
   try {
     const deviceKey = req.query.key;
-
     // Device Detail
     if (req.query.state === "detail") {
       const queryGetDevicesDetail = `SELECT * FROM devices INNER JOIN datas ON devices.deviceKey = datas.deviceKey WHERE devices.deviceKey = '${deviceKey}'`;
@@ -54,14 +53,14 @@ const getAllDevices = (req, res) => {
             chartTds.datasets[0].data.push(result.topic3_VALUE);
           });
 
-          res.json({
+          res.status(200).json({
             lastData: results,
             dataChartSuhuAir: chartSuhuAir,
             dataChartSuhuLingkungan: chartSuhuLingkungan,
             dataChartTds: chartTds,
           });
         } else {
-          res.json({ statusText: "ERROR", message: "Devices not found !" });
+          res.status(404).json({ statusText: "Not Found", message: "Devices not found !" });
         }
       });
 
@@ -71,9 +70,9 @@ const getAllDevices = (req, res) => {
       db.query(queryGetDevicesInfo, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
-          res.json(results);
+          res.status(200).json(results);
         } else {
-          res.json({ statusText: "ERROR", message: "Devices not found !" });
+          res.status(404).json({ statusText: "Not Found", message: "Devices not found !" });
         }
       });
 
@@ -83,24 +82,24 @@ const getAllDevices = (req, res) => {
       db.query(queryGetDeviceDashboardInfo, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
-          res.json(results);
+          res.status(200).json(results);
         } else {
-          res.json({ statusText: "ERROR", message: "Devices not found !" });
+          res.status(404).json({ statusText: "Not Found", message: "Devices not found !" });
         }
       });
-    } else if (req.query.state === "devInfoDashboard") {
+    } else if (req.query.state === "deviceList") {
       const queryGetDevicesDashboardInfo = `SELECT deviceKey, deviceName FROM devices LIMIT 10 `;
       db.query(queryGetDevicesDashboardInfo, (err, results) => {
         if (err) throw err;
         if (results.length > 0) {
-          res.json(results);
+          res.status(200).json(results);
         } else {
-          res.json({ statusText: "ERROR", message: "Devices not found !" });
+          res.status(404).json({ statusText: "Not Found", message: "Devices not found !" });
         }
       });
     }
   } catch (e) {
-    res.json({ statusText: "ERROR", message: "Something wrong !" });
+    res.stauts(500).json({ statusText: "Not Found", message: "Internal error !" });
   }
 };
 

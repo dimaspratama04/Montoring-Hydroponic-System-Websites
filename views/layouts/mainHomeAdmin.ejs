@@ -42,6 +42,7 @@
               </li>
             </ul>
           </div>
+          <a href="/admin/accounts" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> List Accounts </a>
         </nav>
       </div>
     </div>
@@ -80,6 +81,7 @@
               </li>
             </ul>
           </div>
+          <a href="/admin/accounts" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> List Accounts </a>
         </nav>
       </div>
 
@@ -94,14 +96,19 @@
           </button>
           <button class="font-bold hover:underline w-12 mr-8" onclick="logout()">Logout</button>
         </div>
+        <div id="modalMessage" class="-translate-y-40 duration-500 mx-auto w-3/4 md:w-2/4 lg:w-1/2 fixed inset-x-0 top-10">
+          <div id="modalBody" class="px-6 py-4 my-4 rounded-md text-lg flex items-center w-full">
+            <span id="msg" class="text-green-800"></span>
+          </div>
+        </div>
+
         <!-- Content -->
         <%- body %>
-        <!-- Footer -->
-        <%- include('footer') %>
       </div>
     </div>
 
     <script>
+      // Module elements
       const sidebarBtn = document.getElementById("sidebarBtn");
       const dropdownBtn = document.getElementById("btn-dropdown");
       const dropdownBtnMobile = document.getElementById("btn-dropdown-mobile");
@@ -110,11 +117,12 @@
       const hamburger2 = document.getElementById("hamburger-2");
       const hamburger3 = document.getElementById("hamburger-3");
 
+      // Modal
+      const modal = document.getElementById("modalMessage");
+
       // User
       document.getElementById("userM").innerHTML = localStorage.username;
       document.getElementById("userL").innerHTML = localStorage.username;
-
-      // console.log(localStorage);
 
       // Sidebar btn
       sidebarBtn.addEventListener("click", () => {
@@ -147,12 +155,17 @@
       async function logout() {
         try {
           const response = await fetch("/logout");
-          const data = await response.json();
-          if (data.result === "SUCCESS") {
-            alert("Admin logout success !");
+          const datas = await response.json();
+          if (datas.result === "SUCCESS") {
+            document.getElementById("msg").innerHTML = datas.message;
+            document.getElementById("modalBody").classList.remove("bg-red-200");
+            document.getElementById("modalBody").classList.add("bg-green-200");
+            modal.classList.toggle("-translate-y-40");
+            setTimeout(() => {
+              modal.classList.toggle("-translate-y-40");
+            }, 2000);
             window.location.href = "/";
           } else {
-            alert("Admin Logout succes !");
             window.location.href = "/";
           }
         } catch (e) {

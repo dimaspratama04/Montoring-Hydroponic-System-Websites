@@ -1,6 +1,7 @@
+<!-- Form -->
 <div class="lg:pl-20 bg-white rounded-md m-10">
-  <h1 class="text-2xl lg:text-4xl text-center lg:text-start font-bold mb-12 pt-5">Set schedulling for Device</h1>
-  <form action="/postSchedule" method="post">
+  <h1 class="text-xl lg:text-4xl text-center lg:text-start font-bold mb-12 pt-5">Set schedulling for Device</h1>
+  <form id="formPostSchedule" action="/postSchedule" method="post">
     <div class="mb-6 mr-4 ml-4">
       <!-- Device name input -->
       <label for="deviceName" class="text-lg font-bold">Device Name</label>
@@ -50,6 +51,7 @@
     <!-- Submit button -->
     <div class="mx-auto grid justify-items-center space-y-3 pb-8">
       <button
+        id="submitSchedule"
         type="submit"
         class="form-control px-7 py-3 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-3/4">
         Submit
@@ -57,3 +59,59 @@
     </div>
   </form>
 </div>
+
+<script>
+  // Module Elements
+  const deviceName = document.getElementById("deviceName");
+  const topicSchedule = document.getElementById("topicSchedule");
+  const deviceKey = document.getElementById("deviceKey");
+  const on = document.getElementById("on");
+  const off = document.getElementById("off");
+
+  async function postSchedule() {
+    try {
+      const response = await fetch("/postSchedule", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deviceName: deviceName.value,
+          topicSchedule: topicSchedule.value,
+          deviceKey: deviceKey.value,
+          on: on.value,
+          off: off.value,
+        }),
+      });
+      const datas = await response.json();
+      if (datas.statusText === "OK") {
+        document.getElementById("msg").innerHTML = datas.message;
+        document.getElementById("modalBody").classList.add("bg-green-200");
+        document.getElementById("modalBody").classList.remove("bg-red-200");
+        modal.classList.toggle("-translate-y-40");
+        setTimeout(() => {
+          modal.classList.toggle("-translate-y-40");
+        }, 2000);
+      } else {
+        document.getElementById("msg").innerHTML = datas.message;
+        document.getElementById("modalBody").classList.remove("bg-green-200");
+        document.getElementById("modalBody").classList.add("bg-red-200");
+        modal.classList.toggle("-translate-y-40");
+        setTimeout(() => {
+          modal.classList.toggle("-translate-y-40");
+        }, 2000);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Form
+  const form = document.getElementById("formPostSchedule");
+  console.log(form);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    postSchedule();
+  });
+</script>

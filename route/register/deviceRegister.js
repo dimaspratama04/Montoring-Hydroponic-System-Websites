@@ -8,21 +8,13 @@ const deviceRegister = (req, res) => {
   db.query(queryCheckDeviceName, (err, results) => {
     if (err) throw err;
     if (results.length > 0) {
-      res.send("Device already exist !");
+      res.status(302).json({ statusText: "ERR", message: "Device Already Exist !" });
     } else {
       const queryInsert = `INSERT INTO devices (deviceKey,deviceName,deviceIp) VALUES ( ?, ?, ?)`;
-      db.query(
-        queryInsert,
-        [deviceKey, deviceName, deviceIp],
-        (err, results) => {
-          if (err) {
-            res.send("Error");
-            res.redirect("/admin/deviceRegister");
-          } else {
-            res.redirect("/admin/deviceRegister");
-          }
-        }
-      );
+      db.query(queryInsert, [deviceKey, deviceName, deviceIp], (err, results) => {
+        if (err) throw err;
+        res.status(200).json({ statusText: "OK", message: "Device Succes Registred !" });
+      });
     }
   });
 };
