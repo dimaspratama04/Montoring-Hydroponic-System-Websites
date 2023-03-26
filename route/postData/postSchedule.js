@@ -16,11 +16,9 @@ const postSchedule = (req, res) => {
         res.status(200).json({ statusText: "OK", message: "Schedule succese set !" });
 
         // Insert to log db
-        schedule.map((log) => {
-          db.query("INSERT INTO logschedule(`deviceKey`,`deviceName`,`log`) VALUE ( ?,?,? )", [deviceKey, deviceName, log], (err, results) => {
-            if (err) throw err;
-            console.log(results);
-          });
+        db.query("INSERT INTO logschedule(`deviceKey`,`deviceName`,`on`, `off`) VALUE ( ?,?,?,? )", [deviceKey, deviceName, on, off], (err, results) => {
+          if (err) throw err;
+          console.log(results);
         });
       });
     } else {

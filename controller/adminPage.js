@@ -1,5 +1,6 @@
 const Devices = require("../models/devicesModels");
 const Accounts = require("../models/accountsModels");
+const Schedule = require("../models/logScheduleModels");
 
 const adminPageDashboard = async (req, res) => {
   const devices = await Devices.findAll();
@@ -59,6 +60,15 @@ const adminPageAccountsList = async (req, res) => {
   });
 };
 
+const adminPageLogSchedule = async (req, res) => {
+  const schedules = await Schedule.findAll();
+  res.render("LogSchedule", {
+    title: "Log Schedule",
+    layout: "layouts/mainHomeAdmin",
+    schedules: schedules,
+  });
+};
+
 module.exports = {
   adminPageDashboard: adminPageDashboard,
   adminPageDeviceList: adminPageDeviceList,
@@ -67,4 +77,5 @@ module.exports = {
   adminPageDeviceRegister: adminPageDeviceRegister,
   adminPageDeviceDetails: adminPageDeviceDetails,
   adminPageAccountsList: adminPageAccountsList,
+  adminPageLogSchedule: adminPageLogSchedule,
 };

@@ -11,8 +11,8 @@
   </head>
   <body>
     <!-- Sidebar Mobile -->
-    <div id="sidebar-mobile" class="absolute mobile-menu overflow-none w-full -translate-x-96 duration-500 lg:hidden">
-      <div class="h-screen w-64 bg-[#1f2937]">
+    <div id="sidebar-mobile" class="absolute mobile-menu overflow-hidden w-full -translate-x-96 duration-500 lg:hidden">
+      <div class="h-screen w-64 bg-[#1f2937] overflow-y-auto">
         <nav class="pt-32 space-y-3">
           <div id="profile" class="w-20 h-20 rounded-full mb-12 bg-white space-x-3 mx-auto justify-self-center" onclick="window.location.href = '/admin/dashboard'">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" alt="" />
@@ -43,16 +43,16 @@
             </ul>
           </div>
           <a href="/admin/accounts" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> List Accounts </a>
+          <a href="/admin/log" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Log Schedulling</a>
         </nav>
       </div>
     </div>
 
     <!-- Sidebar and Content -->
-    <div class="lg:flex md:flex w-full h-screen">
+    <div class="lg:flex md:flex w-full h-screen overflow-hidden">
       <!-- Sidebar -->
-      <div class="w-64 bg-[#1f2937] h-screen hidden md:block">
+      <div class="w-64 bg-[#1f2937] hidden overflow-y-auto md:block pb-12">
         <a href="/admin/dashboard" class="block text-4xl italic m-7 font-extrabold text-[#b3b3b3] hover:text-white">AMHBM</a>
-
         <nav class="pt-7 pl-3 space-y-3">
           <div id="profile" class="w-20 h-20 mb-12 rounded-full bg-white space-x-3 mx-auto justify-self-center" onclick="window.location.href = '/admin/dashboard'">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" alt="" />
@@ -82,11 +82,12 @@
             </ul>
           </div>
           <a href="/admin/accounts" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> List Accounts </a>
+          <a href="/admin/log" class="w-full hover:text-white hover:bg-[#0093A7] rounded-xl h-12 text-[#b3b3b3] text-xl font-medium block pt-2 pl-5 text-start"> Log Schedulling </a>
         </nav>
       </div>
 
       <!-- Header and Content -->
-      <div id="content" class="flex-auto h-screen overflow-hidden overflow-y-auto overflow-x-auto bg-slate-300">
+      <div id="content" class="flex-auto h-screen overflow-y-auto overflow-x-auto bg-slate-300">
         <!-- Header -->
         <div class="lg:w-full h-20 bg-[#00B4DB] flex sticky top-0 justify-between md:justify-end lg:justify-end">
           <button id="sidebarBtn" class="space-y-3 mt-2 ml-10 lg:hidden md:hidden">
