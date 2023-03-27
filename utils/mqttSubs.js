@@ -12,7 +12,7 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 });
 
-client.on("connect", function () {
+client.on("connect", () => {
   client.subscribe("/deviceKey");
   client.subscribe("/suhuAir");
   client.subscribe("/suhuLingkungan");
@@ -31,7 +31,7 @@ client.on("message", (topic, message) => {
       break;
 
     case "/suhuAir":
-      if (msg === undefined || msg === null || msg < 0 || msg > 100 || msg === "nan") {
+      if (msg < 0 || msg > 100 || isNaN(Number(msg))) {
         datas[1].push(0);
       } else {
         datas[1].push(msg);
@@ -39,7 +39,7 @@ client.on("message", (topic, message) => {
       break;
 
     case "/suhuLingkungan":
-      if (msg === undefined || msg === null || msg < 0 || msg > 100 || msg === "nan") {
+      if (msg < 0 || msg > 100 || isNaN(Number(msg))) {
         datas[2].push(0);
       } else {
         datas[2].push(msg);
@@ -47,7 +47,7 @@ client.on("message", (topic, message) => {
       break;
 
     case "/tds":
-      if (msg === undefined || msg === null || msg < 0 || msg > 2000 || msg === "nan") {
+      if (msg < 0 || msg > 2500 || isNaN(Number(msg))) {
         datas[3].push(0);
       } else {
         datas[3].push(msg);
