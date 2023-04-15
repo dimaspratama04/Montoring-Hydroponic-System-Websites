@@ -9,6 +9,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gradient-to-tr from-[#00B4DB] to-[#0083B0] grid place-items-center h-screen">
+    <div id="modalMessage" class="-translate-y-40 duration-500 mx-auto w-3/4 md:w-2/4 lg:w-1/2 fixed inset-x-0 top-10">
+      <div id="modalBody" class="px-6 py-4 my-4 rounded-md text-lg flex items-center w-full">
+        <span id="msg" class="text-green-800"></span>
+      </div>
+    </div>
     <%- body %>
   </body>
 </html>
