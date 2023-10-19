@@ -99,7 +99,7 @@ const getAllDevices = (req, res) => {
       });
     }
   } catch (e) {
-    res.stauts(500).json({ statusText: "Not Found", message: "Internal error !" });
+    res.status(500).json({ statusText: "Not Found", message: "Internal error !" });
   }
 };
 

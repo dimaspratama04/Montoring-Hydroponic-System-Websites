@@ -65,7 +65,7 @@ const adminPageLogSchedule = async (req, res) => {
   res.render("LogSchedule", {
     title: "Log Schedule",
     layout: "layouts/mainHomeAdmin",
-    schedules: schedules,
+    schedules: Schedule,
   });
 };
 

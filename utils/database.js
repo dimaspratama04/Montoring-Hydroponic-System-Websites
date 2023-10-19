@@ -1,7 +1,8 @@
 const sequelize = require("sequelize");
+var host = process.env.DB_HOST ? process.env.DB_HOST : 'localhost';
 
 const db = new sequelize("db_project", "root", "", {
-  host: "192.168.1.2",
+  host,
   dialect: "mysql",
 });
 
