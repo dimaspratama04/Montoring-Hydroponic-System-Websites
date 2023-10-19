@@ -1,7 +1,7 @@
 // Module
 const express = require("express");
 const app = express();
-const port = 3004;
+const port = 3000;
 const path = require("path");
 const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
