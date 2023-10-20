@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+
+# MySQL
+ mysql:
+  container_name: mysql
+  image: mysql:latest
+  deploy:
+   resources:
+    limits:
+     cpus: "0.25"
+     memory: 512M
+    reservations: 
+     cpus: "0.25"
+     memory: 128M
+  environment: 
+   - MYSQL_ROOT_USERNAME=root
+   - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  ports:
+  - "3306:3306"
+  networks:
+   monitoring_networks:
+    ipv4_address: 192.168.1.2
+  volumes:
+   - "mysql_volume:/var/lib/mysql"
+  healthcheck:
+    test: ["CMD-SHELL", "mysqladmin ping -uroot "]
+    timeout: 10s
+    retries: 3
+ 
+# Monitoring Web
+ monitoring_web:
+  container_name: monitoring_web
+  build:
+   context: ./apps
+   dockerfile: Dockerfile
+  image: dimaspratama04/node-app-monitoring
+  deploy:
+   resources:
+     limits:
+      cpus: "0.25"
+      memory: 512M
+     reservations:
+       cpus: "0.25"
+       memory: 128M
+  ports: 
+   - "80:80"
+   - "443:443"
+   - "3000:3000"
+  networks:
+   monitoring_networks:
+    ipv4_address: 192.168.1.3
+  depends_on:
+   mysql:
+    condition: service_healthy   
+
+# Volumes
+volumes:
+  mysql_volume:
+   name: mysql_volume
+
+# Networks
+networks:
+ monitoring_networks:
+  name: monitoring_networks
+  driver: bridge
+  ipam:
+   driver: default 
+   config:
+    - subnet: 192.168.1.0/29
